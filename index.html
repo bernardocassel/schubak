@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa Publicidade × Schüback Esquadrias — Proposta Comercial 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+:root{
+  --red:#b90000;--dark:#0f0f0f;--mid:#2a2a2a;--warm:#f7f5f2;
+  --gray:#8a8a8a;--border:#e0ddd9;--light:#fff;
+  --gold:#c9a84c;--gold-light:#f0e6c8;
+  --navy:#1a3a6b;--navy-light:#e8eef8;--blue:#185fa5;--blue-light:#e6f1fb;
+  --green:#3b6d11;--green-light:#eaf3de;
+}
+body{font-family:'Montserrat',sans-serif;background:var(--warm);color:var(--dark);min-height:100vh;overflow-x:hidden}
+
+/* ── PROGRESS ── */
+#prog{position:fixed;top:0;left:0;height:2px;background:var(--navy);z-index:9999;width:0%;transition:width .1s linear}
+
+/* ── NAV ── */
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(16px);height:58px;display:flex;align-items:center;justify-content:space-between;padding:0 56px}
+.nav-logo{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:16px;letter-spacing:1px;color:#000}
+.nav-logo span{color:var(--dark)}
+.nav-links{display:flex;gap:0}
+.nav-link{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:0 16px;cursor:pointer;border-right:1px solid var(--border);transition:color .2s;background:none;border-top:none;border-bottom:none;font-family:'Barlow Condensed',sans-serif}
+.nav-link:last-child{border-right:none}
+.nav-link:hover{color:var(--navy)}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-badge{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:4px 12px;border:1px solid var(--border);color:var(--gray)}
+.nav-badge.red{background:rgba(26,58,107,0.08);color:var(--navy);border-color:rgba(26,58,107,0.2)}
+
+/* ── HERO ── */
+.hero{min-height:100vh;background:#fff;border-bottom:1px solid var(--border);display:flex;flex-direction:column;justify-content:flex-end;padding:120px 56px 80px;position:relative;overflow:hidden}
+.hero-bg-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(26,58,107,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(26,58,107,0.04) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.hero-accent{position:absolute;top:-80px;right:-80px;width:420px;height:420px;border:1px solid rgba(26,58,107,0.08);border-radius:50%;pointer-events:none}
+.hero-accent2{position:absolute;top:-20px;right:60px;width:240px;height:240px;border:1px solid rgba(26,58,107,0.05);border-radius:50%;pointer-events:none}
+.hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:12px}
+.hero-tag::before{content:'';display:inline-block;width:24px;height:1px;background:var(--navy)}
+.hero-title{font-size:clamp(40px,6vw,88px);font-weight:900;color:var(--dark);line-height:.95;margin-bottom:24px;position:relative;z-index:1}
+.hero-title .red{color:var(--navy)}
+.hero-title .gold{color:var(--navy)}
+.hero-sub{font-size:15px;font-weight:300;color:var(--gray);max-width:600px;line-height:1.8;margin-bottom:48px;position:relative;z-index:1}
+.hero-pills{display:flex;gap:8px;flex-wrap:wrap;position:relative;z-index:1}
+.hero-pill{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:6px 14px;border:1px solid var(--border);color:var(--gray)}
+.hero-pill.active{border-color:var(--navy);color:var(--navy);background:rgba(26,58,107,0.06)}
+.hero-scroll{position:absolute;bottom:40px;right:56px;display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--gray);font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer}
+.hero-scroll-line{width:1px;height:48px;background:linear-gradient(var(--navy),transparent);animation:scrollPulse 2s ease infinite}
+@keyframes scrollPulse{0%,100%{opacity:.4}50%{opacity:1}}
+
+/* ── SECTIONS ── */
+.section{padding:80px 56px;border-bottom:1px solid var(--border);opacity:0;transform:translateY(24px);transition:opacity .7s ease,transform .7s ease}
+.section.visible{opacity:1;transform:translateY(0)}
+.section.dark{background:var(--dark);border-color:rgba(255,255,255,0.06)}
+.section.mid{background:var(--mid);border-color:rgba(255,255,255,0.06)}
+.section.gold-bg{background:var(--warm);border-color:var(--border)}
+.ey{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.ey::after{content:'';display:inline-block;width:24px;height:1px;background:var(--navy)}
+.ey.w{color:rgba(100,140,200,.8)}
+.ey.w::after{background:rgba(100,140,200,.6)}
+.st{font-size:clamp(22px,2.5vw,36px);font-weight:900;color:var(--dark);line-height:1.15;margin-bottom:10px}
+.st.w{color:#fff}
+.sd{font-size:13px;font-weight:300;color:var(--gray);line-height:1.8;max-width:620px;margin-bottom:32px}
+.sd.w{color:#666}
+
+/* ── GRID ── */
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
+
+/* ── KPI ── */
+.kpi{background:var(--light);padding:28px 24px;border-left:2px solid transparent;transition:border-color .2s}
+.kpi:hover{border-color:var(--navy)}
+.kpi.red{border-left-color:var(--navy)}
+.kpi.gold{border-left-color:var(--navy)}
+.kpi.dark-bg{background:#f0f3f8;border-left-color:var(--navy)}
+.kpi-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--gray);margin-bottom:10px}
+.kpi-lbl.w{color:#555}
+.kpi-val{font-size:30px;font-weight:900;color:var(--dark);line-height:1}
+.kpi-val.red{color:var(--navy)}
+.kpi-val.gold{color:var(--navy)}
+.kpi-val.w{color:#fff}
+.kpi-sub{font-size:11px;color:var(--gray);font-weight:300;margin-top:6px;line-height:1.5}
+.kpi-sub.w{color:#555}
+.badge{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;margin-top:8px}
+.b-red{background:rgba(26,58,107,0.1);color:var(--navy);border:1px solid rgba(26,58,107,0.2)}
+.b-gold{background:#eef1f8;color:#7a5c00;border:1px solid rgba(26,58,107,0.3)}
+.b-green{background:var(--green-light);color:var(--green);border:1px solid #c0dd97}
+.b-blue{background:rgba(26,58,107,0.08);color:var(--navy);border:1px solid rgba(26,58,107,0.2)}
+.b-gray{background:#f0ede9;color:#5a5a5a;border:1px solid var(--border)}
+
+/* ── CARDS ── */
+.card{background:var(--light);padding:28px}
+.card.dark-bg{background:#1a1a1a}
+.card.warm{background:var(--warm)}
+.card-ey{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px}
+.card-ey.gold{color:var(--navy)}
+.card-title{font-size:15px;font-weight:800;color:var(--dark);margin-bottom:8px;line-height:1.3}
+.card-title.w{color:#fff}
+.card-text{font-size:12px;font-weight:300;color:var(--gray);line-height:1.7}
+.card-text.w{color:#777}
+
+/* ── INSIGHT ── */
+.ins{padding:24px 28px;border-left:4px solid var(--navy);background:var(--light);margin-bottom:2px}
+.ins.gold{border-color:var(--navy);background:var(--warm)}
+.ins.dark{border-color:rgba(26,58,107,.5);background:#f0f3f8}
+.ins.warn{border-color:#e9a800;background:#f0f4f9}
+.ins-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px}
+.ins-lbl.gold{color:var(--navy)}
+.ins-lbl.w{color:var(--navy)}
+.ins-txt{font-size:12px;color:#5a5a5a;font-weight:300;line-height:1.7}
+.ins-txt.w{color:#888}
+.ins-txt strong{color:var(--dark);font-weight:600}
+.ins-txt.w strong{color:#fff}
+
+/* ── ENTREGAVEIS ── */
+.entrega{background:var(--light);padding:0;overflow:hidden;border-left:3px solid var(--navy);transition:transform .2s}
+.entrega:hover{transform:translateX(4px)}
+.entrega.gold{border-color:var(--navy)}
+.entrega-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
+.entrega-head.gold{background:var(--navy)}
+.entrega-head-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:700}
+.entrega-head-num{font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:900;color:rgba(255,255,255,.3)}
+.entrega-body{padding:20px}
+.entrega-item{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border)}
+.entrega-item:last-child{border-bottom:none}
+.entrega-dot{width:5px;height:5px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:5px}
+.entrega-dot.gold{background:var(--navy)}
+.entrega-text{font-size:12px;font-weight:300;color:var(--dark);line-height:1.5}
+
+/* ── MARCA CONCEPTS ── */
+.marca-card{background:#1c2b42;padding:32px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s}
+.marca-card:hover{transform:translateY(-4px)}
+.marca-card.recommended{outline:2px solid #a0b8d8;outline-offset:-2px}
+.marca-rec-badge{position:absolute;top:16px;right:16px;background:var(--navy);color:#fff;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px}
+.marca-num{font-family:'Barlow Condensed',sans-serif;font-size:72px;font-weight:900;color:rgba(255,255,255,.04);position:absolute;bottom:-10px;right:16px;line-height:1}
+.marca-icon{font-size:28px;margin-bottom:16px}
+.marca-name{font-size:22px;font-weight:900;color:#fff;margin-bottom:6px;letter-spacing:-0.5px}
+.marca-name .accent{color:#a0b8d8}
+.marca-concept{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#555;margin-bottom:14px}
+.marca-desc{font-size:12px;font-weight:300;color:#777;line-height:1.7;margin-bottom:16px}
+.marca-slogan{font-size:13px;font-style:italic;color:rgba(255,255,255,.6);border-top:1px solid rgba(255,255,255,.08);padding-top:14px;line-height:1.6}
+
+/* ── DOR CARDS ── */
+.dor-card{background:var(--light);padding:24px;border-top:2px solid var(--border);transition:border-color .2s}
+.dor-card:hover{border-color:var(--navy)}
+.dor-icon{font-size:22px;margin-bottom:12px}
+.dor-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px}
+.dor-text{font-size:12px;font-weight:300;color:var(--gray);line-height:1.6}
+
+/* ── CALCULATOR ── */
+.calc-wrap{background:var(--light);padding:40px}
+.calc-slider-wrap{margin-bottom:32px}
+.calc-label{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.calc-amount{font-size:28px;font-weight:900;color:var(--navy);margin-bottom:12px}
+input[type=range]{-webkit-appearance:none;width:100%;height:4px;background:var(--border);outline:none;border-radius:0}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;background:var(--navy);cursor:pointer;border-radius:0;border:2px solid #fff;box-shadow:0 0 0 1px var(--navy)}
+.calc-steps{display:flex;justify-content:space-between;margin-top:6px}
+.calc-step{font-family:'Barlow Condensed',sans-serif;font-size:10px;color:var(--gray);cursor:pointer;transition:color .2s}
+.calc-step:hover,.calc-step.active{color:var(--navy);font-weight:700}
+.calc-results{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px}
+.calc-result{background:var(--warm);padding:20px;text-align:center;transition:background .2s}
+.calc-result.highlight{background:var(--navy)}
+.calc-result-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
+.calc-result.highlight .calc-result-lbl{color:rgba(255,255,255,.6)}
+.calc-result-val{font-size:22px;font-weight:900;color:var(--dark)}
+.calc-result.highlight .calc-result-val{color:#fff}
+.calc-result-sub{font-size:10px;color:var(--gray);font-weight:300;margin-top:4px}
+.calc-result.highlight .calc-result-sub{color:rgba(255,255,255,.5)}
+.calc-note{font-size:11px;color:var(--gray);font-weight:300;margin-top:16px;line-height:1.6;padding-top:16px;border-top:1px solid var(--border)}
+
+/* ── PÚBLICO TABLE ── */
+.pub-row{display:grid;grid-template-columns:1fr 1fr 1fr;border-bottom:1px solid var(--border);transition:background .15s}
+.pub-row:hover{background:var(--warm)}
+.pub-row.head{background:var(--navy)}
+.pub-cell{padding:16px 20px;font-size:12px;font-weight:300;color:var(--dark)}
+.pub-row.head .pub-cell{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#888;font-weight:600}
+.pub-tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px}
+
+/* ── TIMELINE ── */
+.tl{position:relative;padding-left:32px}
+.tl::before{content:'';position:absolute;left:5px;top:8px;bottom:0;width:1px;background:var(--border)}
+.tl.w::before{background:rgba(255,255,255,.1)}
+.tl-item{position:relative;margin-bottom:28px}
+.tl-item::before{content:'';position:absolute;left:-32px;top:6px;width:10px;height:10px;border-radius:0;background:var(--border);transform:rotate(45deg)}
+.tl-item.act::before{background:var(--navy)}
+.tl-item.gold::before{background:var(--navy)}
+.tl-week{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
+.tl-week.gray{color:var(--gray)}
+.tl-week.gold{color:var(--navy)}
+.tl-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:3px}
+.tl-title.w{color:#fff}
+.tl-text{font-size:11px;font-weight:300;color:var(--gray);line-height:1.6}
+.tl-text.w{color:#666}
+
+/* ── QUOTE ── */
+.quote-block{background:var(--navy);padding:64px 56px;text-align:center}
+.quote-text{font-size:clamp(24px,3vw,42px);font-weight:900;color:#fff;line-height:1.2;max-width:700px;margin:0 auto 20px;letter-spacing:-.5px}
+.quote-author{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+/* ── MARKET BARS ── */
+.mkt-row{display:flex;align-items:center;gap:12px;margin-bottom:10px}
+.mkt-lbl{font-size:12px;font-weight:300;color:var(--dark);width:200px;flex-shrink:0}
+.mkt-track{flex:1;background:var(--border);height:8px}
+.mkt-fill{height:100%;background:var(--navy);transition:width .8s ease}
+.mkt-fill.gold{background:#4a7ab5}
+.mkt-val{font-size:11px;font-weight:700;color:var(--navy);width:40px;flex-shrink:0}
+.mkt-val.gold{color:#4a7ab5}
+
+/* ── FOOTER ── */
+footer{background:#fff;border-top:1px solid var(--border);padding:32px 56px;display:flex;align-items:center;justify-content:space-between}
+.foot-left{font-size:11px;color:var(--gray);font-weight:300}
+.foot-brand{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--dark)}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+@media(max-width:900px){
+  nav{padding:0 20px}
+  .nav-links{display:none}
+  .hero,.section{padding-left:24px;padding-right:24px}
+  .g2,.g3,.g4{grid-template-columns:1fr}
+  .calc-results{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">CASA <span>PUBLICIDADE</span></div>
+  <div class="nav-links">
+    <button class="nav-link" onclick="gs('diagnostico')">Diagnóstico</button>
+    <button class="nav-link" onclick="gs('entregas')">Entregas</button>
+    <button class="nav-link" onclick="gs('nova-marca')">Nova Marca</button>
+    <button class="nav-link" onclick="gs('publico')">Público</button>
+    <button class="nav-link" onclick="gs('mercado')">Mercado</button>
+    <button class="nav-link" onclick="gs('calculadora')">Calculadora</button>
+    <button class="nav-link" onclick="gs('plano')">Plano</button>
+  </div>
+  <div class="nav-right">
+    <div class="nav-badge">Proposta Confidencial</div>
+    <div class="nav-badge red">2026</div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-accent"></div>
+  <div class="hero-accent2"></div>
+  <div class="hero-tag">Casa Publicidade × Schüback Esquadrias · Proposta Comercial</div>
+  <h1 class="hero-title">
+    Duas marcas.<br>
+    Dois mercados.<br>
+    <span style="color:var(--navy)">Uma estratégia.</span>
+  </h1>
+  <p class="hero-sub">Fortalecimento da Schüback Esquadrias e lançamento de uma nova marca especializada em conforto acústico — construindo duas máquinas de crescimento independentes para ampliar mercado, alcance e faturamento.</p>
+  <div class="hero-pills">
+    <div class="hero-pill active">Schüback Esquadrias</div>
+    <div class="hero-pill active">Nova Marca Acústica</div>
+    <div class="hero-pill">Novo Site</div>
+    <div class="hero-pill">Conteúdo Mensal</div>
+    <div class="hero-pill">Tráfego Pago</div>
+    <div class="hero-pill">RS · SC</div>
+  </div>
+  <div class="hero-scroll" onclick="gs('diagnostico')">
+    <div class="hero-scroll-line"></div>
+    scroll
+  </div>
+</div>
+
+<!-- DIAGNÓSTICO -->
+<div class="section" id="diagnostico">
+  <div class="ey">01 — Diagnóstico</div>
+  <div class="st">Onde a Schüback está hoje</div>
+  <div class="sd">Análise do momento atual da marca, seus pontos fortes e as oportunidades de crescimento identificadas para 2026.</div>
+
+  <div class="g4" style="margin-bottom:2px">
+    <div class="kpi red">
+      <div class="kpi-lbl">Mercado de atuação</div>
+      <div class="kpi-val" style="font-size:20px;line-height:1.2">Vale dos Sinos · Serra · Litoral Norte</div>
+      <div class="kpi-sub">Porto Alegre + RS interior + SC</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Posição de mercado</div>
+      <div class="kpi-val" style="font-size:20px">Referência regional</div>
+      <div class="kpi-sub">Credibilidade e experiência consolidadas no setor de esquadrias</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Oportunidade identificada</div>
+      <div class="kpi-val" style="font-size:18px;line-height:1.2">Retrofit acústico</div>
+      <div class="kpi-sub">Mercado pouco explorado com demanda crescente e alta margem</div>
+      <span class="badge b-green">Oportunidade</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Estratégia</div>
+      <div class="kpi-val" style="font-size:18px;line-height:1.2">2 marcas independentes</div>
+      <div class="kpi-sub">Schüback (B2B/técnico) + Nova marca acústica (B2C/emocional)</div>
+    </div>
+  </div>
+
+  <div class="g3" style="margin-top:2px">
+    <div class="ins">
+      <div class="ins-lbl">Forças atuais</div>
+      <div class="ins-txt">A Schüback possui <strong>credibilidade construída</strong> ao longo de anos de atuação, reconhecimento regional sólido e capacidade técnica comprovada. Esses ativos são a base para qualquer estratégia de crescimento — e para sustentar uma segunda marca.</div>
+    </div>
+    <div class="ins">
+      <div class="ins-lbl">Oportunidade de mercado</div>
+      <div class="ins-txt">O retrofit acústico é um <strong>mercado praticamente virgem</strong> no Rio Grande do Sul. A demanda existe (moradias em avenidas, centros urbanos, próximo a rodovias), mas nenhuma marca está comunicando a solução de forma direta e emocional para o consumidor final.</div>
+    </div>
+    <div class="ins" style="border-color:var(--navy)">
+      <div class="ins-lbl">Oportunidade de reestruturação</div>
+      <div class="ins-txt">A Schüback já possui site, produz vídeos e tem presença online — o que é uma base sólida. A proposta é <strong>evoluir tudo isso a um novo patamar</strong>: novo site com foco em conversão, estratégia de conteúdo consistente, tráfego pago ativo e lançamento de uma segunda marca. Reestruturação, não construção do zero.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ENTREGAS SCHÜBACK -->
+<div class="section" id="entregas" style="background:#f0f3f8">
+  <div class="ey">02 — O que vamos entregar</div>
+  <div class="st">Schüback Esquadrias<br><span style="color:var(--navy)">Fortalecimento da marca principal</span></div>
+  <div class="sd">Estrutura completa de comunicação e marketing para consolidar a Schüback como referência digital e gerar leads qualificados de forma contínua.</div>
+
+  <div class="g3" style="margin-bottom:2px">
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">🌐 Novo Site</div>
+        <div class="entrega-head-num">01</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Site institucional novo — moderno, rápido e otimizado para SEO</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Portfólio de obras com galeria de projetos entregues</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Página dedicada para arquitetos e especificadores</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Captação de leads integrada (formulário + WhatsApp)</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Integração com Google Analytics e Meta Pixel</div></div>
+      </div>
+    </div>
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">🎬 Conteúdo Mensal</div>
+        <div class="entrega-head-num">02</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text"><strong>5 publicações por semana</strong> no Instagram — feed + reels</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text"><strong>Mínimo 2 Reels semanais</strong> — produto, obra e técnica</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text"><strong>2 diárias de gravação por mês</strong> — fábrica, obras e bastidores</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Atualização e redesign completo dos Destaques</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Stories semanais: bastidores, obras em andamento e curiosidades técnicas</div></div>
+      </div>
+    </div>
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">📣 Tráfego Pago</div>
+        <div class="entrega-head-num">03</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Meta Ads — Instagram e Facebook com segmentação por região e perfil</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Google Ads — campanhas de pesquisa e display</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Remarketing para quem visitou o site e não converteu</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">SEO técnico e de conteúdo no novo site</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Relatórios mensais de desempenho e otimização</div></div>
+      </div>
+    </div>
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">🎨 Materiais Gráficos</div>
+        <div class="entrega-head-num">04</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Material comercial para equipe de vendas (apresentação, catálogo, proposta)</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Brindes personalizados para clientes e parceiros</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Templates de orçamento e documentos profissionais</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Kit de boas-vindas para parceiros (arquitetos, construtoras)</div></div>
+      </div>
+    </div>
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">🤝 Rede de Parceiros</div>
+        <div class="entrega-head-num">05</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Estratégia de parceria com arquitetos e especificadores</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Abordagem para construtoras e incorporadoras</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Programa de indicação com corretores e imobiliárias</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Material específico para síndicos e administradoras</div></div>
+      </div>
+    </div>
+
+    <div class="entrega">
+      <div class="entrega-head">
+        <div class="entrega-head-title">📊 Google Meu Negócio</div>
+        <div class="entrega-head-num">06</div>
+      </div>
+      <div class="entrega-body">
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Otimização completa do perfil Google Meu Negócio</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Publicações regulares para melhorar ranking local</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Estratégia de avaliações e reputação online</div></div>
+        <div class="entrega-item"><div class="entrega-dot"></div><div class="entrega-text">Integração com campanhas de pesquisa local no Google</div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- QUOTE -->
+<div class="quote-block" style="background:var(--navy)">
+  <div class="quote-text">"Seu lar deveria ser o lugar mais silencioso do mundo."</div>
+  <div class="quote-author">Conceito da nova marca · Acoustic · 2026</div>
+</div>
+
+<!-- NOVA MARCA -->
+<div class="section gold-bg" id="nova-marca">
+  <div class="ey" style="color:var(--navy)">03 — Nova Marca</div>
+  <div class="st">A segunda frente de crescimento:<br>especialização acústica</div>
+  <div class="sd">Uma marca independente da Schüback, focada 100% em conforto acústico residencial via esquadrias de PVC. Comunicação emocional, público consumidor final, posicionamento de qualidade de vida.</div>
+
+  <!-- DORES -->
+  <div style="margin-bottom:32px">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px">As dores do cliente — o problema antes da solução</div>
+    <div class="g3" style="gap:2px;margin-bottom:0">
+      <div class="dor-card"><div class="dor-icon">😤</div><div class="dor-title">Dificuldade para dormir</div><div class="dor-text">Ruído externo invade o quarto à noite — trânsito, bares, vizinhos. O descanso que deveria ser garantido virou um problema diário.</div></div>
+      <div class="dor-card"><div class="dor-icon">💻</div><div class="dor-title">Home office prejudicado</div><div class="dor-text">Reuniões interrompidas, concentração impossível. O barulho da rua entrou na rotina de trabalho e compromete a produtividade.</div></div>
+      <div class="dor-card"><div class="dor-icon">🔇</div><div class="dor-title">Falta de privacidade</div><div class="dor-text">Sons da casa saem e sons externos entram. Conversas, vizinhos, movimento da rua — nada é particular dentro do próprio lar.</div></div>
+      <div class="dor-card"><div class="dor-icon">😣</div><div class="dor-title">Estresse constante</div><div class="dor-text">O ruído crônico eleva o nível de cortisol, aumenta a irritabilidade e cria um estado permanente de tensão — mesmo em casa.</div></div>
+      <div class="dor-card"><div class="dor-icon">📉</div><div class="dor-title">Desvalorização do imóvel</div><div class="dor-text">Imóveis em locais barulhentos com esquadrias simples perdem valor. O retrofit acústico é um investimento com retorno direto no preço de venda.</div></div>
+      <div class="dor-card"><div class="dor-icon">🏠</div><div class="dor-title">Sensação de desconforto</div><div class="dor-text">A casa que deveria ser refúgio virou extensão do caos externo. Prédios antigos, janelas antigas, esquadrias ineficientes — o problema tem solução.</div></div>
+    </div>
+  </div>
+
+  <!-- CONCEITOS DE MARCA -->
+  <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px">Conceitos de naming — opções em avaliação</div>
+  <div class="g3" style="gap:2px;margin-bottom:24px">
+
+    <div class="marca-card">
+      <div class="marca-icon">🔊</div>
+      <div class="marca-name">ACOUSTIC <span class="accent">PLACE</span></div>
+      <div class="marca-concept">Especialista em conforto acústico residencial</div>
+      <div class="marca-desc">Mais do que esquadrias, um lugar de conforto. A marca transmite a ideia de transformar ambientes barulhentos em espaços agradáveis, silenciosos e acolhedores.</div>
+      <div class="marca-slogan">
+        "Seu lugar longe do barulho."<br>
+        "Onde o silêncio faz parte do projeto."<br>
+        "Transformando casas em refúgios."
+      </div>
+      <div class="marca-num">AP</div>
+    </div>
+
+    <div class="marca-card recommended">
+      <div class="marca-rec-badge">⭐ Favorito</div>
+      <div class="marca-icon">🏠</div>
+      <div class="marca-name">SILENT <span class="accent">HAUS</span></div>
+      <div class="marca-concept">Soluções premium — engenharia + conforto</div>
+      <div class="marca-desc">A união entre engenharia, arquitetura e conforto. "Haus" remete à casa e à tradição construtiva europeia — muito associada ao PVC —, transmitindo sofisticação e confiabilidade técnica.</div>
+      <div class="marca-slogan">
+        "Sua casa. Seu silêncio."<br>
+        "Conforto sem ruídos."<br>
+        "O silêncio que transforma ambientes."
+      </div>
+      <div class="marca-num">SH</div>
+    </div>
+
+    <div class="marca-card">
+      <div class="marca-icon">🤫</div>
+      <div class="marca-name">SILENT <span class="accent">PLACE</span></div>
+      <div class="marca-concept">Um lugar onde o barulho fica do lado de fora</div>
+      <div class="marca-desc">Vende o benefício emocional, não a esquadria. A proposta é transformar residências em ambientes mais silenciosos e confortáveis — comunicação 100% focada no sentimento do cliente.</div>
+      <div class="marca-slogan">
+        "Deixe o mundo lá fora."<br>
+        "O silêncio mora aqui."<br>
+        "Conforto para ouvir apenas o que importa."
+      </div>
+      <div class="marca-num">SP</div>
+    </div>
+
+  </div>
+
+  <div class="ins gold">
+    <div class="ins-lbl gold">Por que Silent Haus como favorito</div>
+    <div class="ins-txt"><strong>"Haus"</strong> é instantaneamente associado à qualidade construtiva alemã — exatamente o posicionamento premium que queremos. Diferencia da concorrência, remete ao PVC (produto de origem europeia), é memorável, único no mercado gaúcho e permite uma identidade visual sofisticada com dupla paleta (branco + grafite ou preto + dourado). Mas a decisão final deve considerar disponibilidade de domínio e registro de marca.</div>
+  </div>
+
+  <!-- ENTREGAS NOVA MARCA -->
+  <div style="margin-top:32px">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px">O que vamos criar para a nova marca</div>
+    <div class="g4" style="gap:2px">
+      <div class="entrega gold">
+        <div class="entrega-head gold">
+          <div class="entrega-head-title">Identidade Visual</div>
+          <div class="entrega-head-num">01</div>
+        </div>
+        <div class="entrega-body">
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Naming finalizado e registrado</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Logotipo e identidade visual completa</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Manual de marca e guia de aplicação</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Paleta de cores e tipografia</div></div>
+        </div>
+      </div>
+      <div class="entrega gold">
+        <div class="entrega-head gold">
+          <div class="entrega-head-title">Site & Landing Pages</div>
+          <div class="entrega-head-num">02</div>
+        </div>
+        <div class="entrega-body">
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Site da nova marca — focado em conversão</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Landing pages por segmento (apartamentos, casas, condomínios)</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Calculadora de isolamento acústico</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Formulário de orçamento online</div></div>
+        </div>
+      </div>
+      <div class="entrega gold">
+        <div class="entrega-head gold">
+          <div class="entrega-head-title">Conteúdo & Social</div>
+          <div class="entrega-head-num">03</div>
+        </div>
+        <div class="entrega-body">
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Perfil Instagram dedicado com identidade nova</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Conteúdo educativo sobre acústica</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Vídeos "antes e depois" de instalações</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Demonstrações acústicas em Reels</div></div>
+        </div>
+      </div>
+      <div class="entrega gold">
+        <div class="entrega-head gold">
+          <div class="entrega-head-title">Tráfego Pago</div>
+          <div class="entrega-head-num">04</div>
+        </div>
+        <div class="entrega-body">
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Google Ads — foco em pesquisa com intenção de compra</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Meta Ads — segmentação por localização e dor</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Campanhas de performance com otimização de lead</div></div>
+          <div class="entrega-item"><div class="entrega-dot gold"></div><div class="entrega-text">Remarketing e audiências semelhantes</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PÚBLICO ALVO -->
+<div class="section" id="publico">
+  <div class="ey">04 — Público-Alvo</div>
+  <div class="st">Quem vamos alcançar — as duas marcas</div>
+  <div class="sd">Cada marca tem um público distinto, com linguagem, dores e canais diferentes. A estratégia separa completamente as abordagens para maximizar relevância.</div>
+
+  <div class="g2" style="margin-bottom:32px;align-items:start">
+    <div>
+      <div style="background:var(--navy);padding:16px 20px;margin-bottom:2px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff">Schüback Esquadrias — Público B2B/Técnico</span>
+        <span class="badge b-red">Meta + Google</span>
+      </div>
+      <div class="pub-row head"><div class="pub-cell">Perfil</div><div class="pub-cell">Dor principal</div><div class="pub-cell">Canal prioritário</div></div>
+      <div style="background:var(--light)">
+        <div class="pub-row"><div class="pub-cell"><strong>Arquitetos e designers de interiores</strong></div><div class="pub-cell">Precisam de fornecedor confiável com portfólio técnico e suporte</div><div class="pub-cell"><span class="pub-tag b-blue">Instagram</span> <span class="pub-tag b-green">Site</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Construtoras e incorporadoras</strong></div><div class="pub-cell">Volume, prazo e garantia de entrega para projetos maiores</div><div class="pub-cell"><span class="pub-tag b-blue">Google</span> <span class="pub-tag b-gray">Parceria direta</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Proprietários que constroem</strong></div><div class="pub-cell">Querem qualidade na obra e indicação de arquiteto ou engenheiro</div><div class="pub-cell"><span class="pub-tag b-blue">Meta Ads</span> <span class="pub-tag b-green">Remarketing</span></div></div>
+
+        <div class="pub-row"><div class="pub-cell"><strong>Imobiliárias e corretores</strong></div><div class="pub-cell">Valorização do imóvel para venda — argumento técnico e visual</div><div class="pub-cell"><span class="pub-tag b-gray">Parceria</span> <span class="pub-tag b-blue">Instagram</span></div></div>
+      </div>
+    </div>
+    <div>
+      <div style="background:var(--navy);padding:16px 20px;margin-bottom:2px;display:flex;align-items:center;justify-content:space-between">
+        <span style="font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#fff">Nova Marca Acústica — Público B2C/Emocional</span>
+        <span class="badge" style="background:rgba(255,255,255,.15);color:rgba(255,255,255,.8);border-color:rgba(255,255,255,.2)">Google + Meta</span>
+      </div>
+      <div class="pub-row head"><div class="pub-cell">Perfil</div><div class="pub-cell">Dor principal</div><div class="pub-cell">Canal prioritário</div></div>
+      <div style="background:var(--light)">
+        <div class="pub-row"><div class="pub-cell"><strong>Moradores de avenidas movimentadas</strong></div><div class="pub-cell">Ruído constante do trânsito — impossível dormir ou trabalhar em paz</div><div class="pub-cell"><span class="pub-tag b-blue">Google Search</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Apartamentos em centros urbanos</strong></div><div class="pub-cell">Janelas antigas, prédios velhos — barulho entra por todo lugar</div><div class="pub-cell"><span class="pub-tag b-blue">Meta Ads</span> <span class="pub-tag b-green">Remarketing</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Próximos a bares e restaurantes</strong></div><div class="pub-cell">Som da noite vaza para casa — fim de semana virou tormento</div><div class="pub-cell"><span class="pub-tag b-blue">Meta Ads</span> <span class="pub-tag b-blue">Google Maps</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Casas próximas a rodovias/faixas</strong></div><div class="pub-cell">Ruído contínuo 24h — estresse crônico e perda de qualidade de vida</div><div class="pub-cell"><span class="pub-tag b-blue">Google Search</span> <span class="pub-tag b-blue">YouTube</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Síndicos e condomínios urbanos</strong></div><div class="pub-cell">Substituição coletiva de esquadrias antigas — retrofit acústico para o prédio inteiro</div><div class="pub-cell"><span class="pub-tag b-blue">Google</span> <span class="pub-tag b-gray">WhatsApp</span></div></div>
+        <div class="pub-row"><div class="pub-cell"><strong>Home office com interferência</strong></div><div class="pub-cell">Reuniões comprometidas, produtividade destruída, constrangimento</div><div class="pub-cell"><span class="pub-tag b-blue">Meta Ads</span> <span class="pub-tag b-green">LinkedIn</span></div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="g3" style="gap:2px">
+    <div class="ins">
+      <div class="ins-lbl">Segmentação Meta Ads — Schüback</div>
+      <div class="ins-txt">
+        <strong>Interesses:</strong> Arquitetura, decoração de interiores, construção civil, design de interiores, imóveis.<br><br>
+        <strong>Comportamentos:</strong> Proprietários de imóveis, profissionais liberais, administradores de empresa.<br><br>
+        <strong>Cargos:</strong> Arquiteto, engenheiro civil, gerente de obras, corretor de imóveis.<br><br>
+        <strong>Localização:</strong> Vale dos Sinos, Serra Gaúcha, Litoral Norte RS, Santa Catarina (raio 80km de Porto Alegre).
+      </div>
+    </div>
+    <div class="ins">
+      <div class="ins-lbl">Segmentação Meta Ads — Nova Marca</div>
+      <div class="ins-txt">
+        <strong>Localização específica:</strong> Moradores de CEPs de avenidas movimentadas de POA, Novo Hamburgo, Caxias do Sul, Gramado, Florianópolis.<br><br>
+        <strong>Interesses:</strong> Bem-estar, qualidade de vida, home office, meditação, reforma residencial, imóveis.<br><br>
+        <strong>Comportamentos:</strong> Moradores de apartamentos, compradores recentes de imóveis, alto poder aquisitivo.<br><br>
+        <strong>Linguagem do anúncio:</strong> 100% emocional — silêncio, descanso, qualidade de vida.
+      </div>
+    </div>
+    <div class="ins" style="border-color:var(--blue)">
+      <div class="ins-lbl" style="color:var(--blue)">Segmentação Google Search — Nova Marca</div>
+      <div class="ins-txt">
+        <strong>Palavras-chave de intenção alta:</strong><br>
+        "janela acústica para apartamento", "isolamento acústico janela", "redução de ruído janela", "janela PVC acústica Porto Alegre", "retrofit acústico residencial".<br><br>
+        <strong>Palavras-chave de problema:</strong><br>
+        "barulho da rua entrando em casa", "como reduzir ruído janela", "apartamento barulhento solução".<br><br>
+        <strong>Landing page dedicada</strong> para cada grupo de anúncios.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MERCADO -->
+<div class="section" id="mercado" style="background:#fff">
+  <div class="ey">05 — Estudo de Mercado</div>
+  <div class="st">O mercado onde vamos crescer</div>
+  <div class="sd">Análise do contexto regional, oportunidades e dimensionamento do mercado endereçável para ambas as marcas no Sul do Brasil.</div>
+
+  <div class="g4" style="margin-bottom:2px">
+    <div class="kpi red">
+      <div class="kpi-lbl">Área de atuação</div>
+      <div class="kpi-val" style="font-size:18px;line-height:1.3">RS + SC</div>
+      <div class="kpi-sub">POA, Vale dos Sinos, Serra, Litoral Norte e Santa Catarina</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Crescimento PVC no Brasil</div>
+      <div class="kpi-val" style="color:var(--navy)">+18%</div>
+      <div class="kpi-sub">ao ano — mercado de esquadrias de PVC em expansão acelerada pós-pandemia</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Retrofit acústico</div>
+      <div class="kpi-val" style="color:var(--navy);font-size:22px">Subexplorado</div>
+      <div class="kpi-sub">Poucas empresas comunicam acústica de forma especializada no RS — ampla oportunidade</div>
+      <span class="badge b-blue">Oportunidade</span>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lbl">Ticket médio janela acústica</div>
+      <div class="kpi-val" style="color:var(--navy)">R$ 4–12k</div>
+      <div class="kpi-sub">por ambiente — retrofit de apartamento pode chegar a R$ 30k+</div>
+    </div>
+  </div>
+
+  <div class="g2" style="gap:32px;margin-top:32px;align-items:start">
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:20px">Cidades com maior potencial — Schüback</div>
+      <div class="mkt-row"><div class="mkt-lbl">Porto Alegre</div><div class="mkt-track"><div class="mkt-fill" style="width:95%"></div></div><div class="mkt-val">95%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Novo Hamburgo</div><div class="mkt-track"><div class="mkt-fill" style="width:85%"></div></div><div class="mkt-val">85%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Caxias do Sul</div><div class="mkt-track"><div class="mkt-fill" style="width:80%"></div></div><div class="mkt-val">80%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Gramado / Canela</div><div class="mkt-track"><div class="mkt-fill" style="width:70%"></div></div><div class="mkt-val">70%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Torres / Capão da Canoa</div><div class="mkt-track"><div class="mkt-fill" style="width:65%"></div></div><div class="mkt-val">65%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">São Leopoldo</div><div class="mkt-track"><div class="mkt-fill" style="width:60%"></div></div><div class="mkt-val">60%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Florianópolis (SC)</div><div class="mkt-track"><div class="mkt-fill" style="width:75%"></div></div><div class="mkt-val">75%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Blumenau / Joinville (SC)</div><div class="mkt-track"><div class="mkt-fill" style="width:55%"></div></div><div class="mkt-val">55%</div></div>
+    </div>
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#888;margin-bottom:20px">Potencial da nova marca acústica — por segmento</div>
+      <div class="mkt-row"><div class="mkt-lbl">Avenidas de POA</div><div class="mkt-track"><div class="mkt-fill gold" style="width:95%"></div></div><div class="mkt-val gold">95%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Apartamentos centrais</div><div class="mkt-track"><div class="mkt-fill gold" style="width:90%"></div></div><div class="mkt-val gold">90%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Prédios próx. a bares/shows</div><div class="mkt-track"><div class="mkt-fill gold" style="width:88%"></div></div><div class="mkt-val gold">88%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Home office em aptos</div><div class="mkt-track"><div class="mkt-fill gold" style="width:85%"></div></div><div class="mkt-val gold">85%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Casas próx. a rodovias</div><div class="mkt-track"><div class="mkt-fill gold" style="width:78%"></div></div><div class="mkt-val gold">78%</div></div>
+      <div class="mkt-row"><div class="mkt-lbl">Prédios antigos (retrofit)</div><div class="mkt-track"><div class="mkt-fill gold" style="width:80%"></div></div><div class="mkt-val gold">80%</div></div>
+
+    </div>
+  </div>
+
+  <div class="g2" style="gap:2px;margin-top:32px">
+    <div class="ins">
+      <div class="ins-lbl">Contexto de mercado — PVC no Sul</div>
+      <div class="ins-txt">O mercado de esquadrias de PVC cresceu aceleradamente após 2020. A pandemia aumentou a valorização do espaço doméstico e acelerou obras de reforma. No Sul do Brasil, a herança cultural europeia criou abertura natural para o PVC — visto como produto de qualidade alemã. Caxias do Sul e o Litoral Norte são mercados com <strong>altíssimo poder aquisitivo e demanda por produto premium.</strong></div>
+    </div>
+    <div class="ins">
+      <div class="ins-lbl">Tendência acústica — dado global</div>
+      <div class="ins-txt">O isolamento acústico residencial cresce em média <strong>22% ao ano</strong> nos países desenvolvidos. No Brasil, o mercado ainda está em estágio inicial — o que significa que quem estruturar presença digital agora vai capturar a demanda crescente pelos próximos 5 a 10 anos antes que a concorrência apareça. Primeiro a comunicar, primeiro a lucrar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- CALCULADORA -->
+<div class="section" id="calculadora">
+  <div class="ey">06 — Calculadora de Resultados</div>
+  <div class="st">Quanto você pode gerar com tráfego pago</div>
+  <div class="sd">Com base em um custo médio de R$ 12 por lead qualificado, simule o resultado esperado para diferentes investimentos mensais em mídia.</div>
+
+  <div class="calc-wrap" style="margin-bottom:2px">
+    <div class="calc-label">Investimento mensal em mídia</div>
+    <div class="calc-amount" id="calcAmount">R$ 1.000</div>
+    <input type="range" id="calcSlider" min="500" max="2000" step="500" value="1000" oninput="updateCalc(this.value)">
+    <div class="calc-steps">
+      <span class="calc-step" onclick="setCalc(500)">R$ 500</span>
+      <span class="calc-step active" onclick="setCalc(1000)">R$ 1.000</span>
+      <span class="calc-step" onclick="setCalc(1500)">R$ 1.500</span>
+      <span class="calc-step" onclick="setCalc(2000)">R$ 2.000</span>
+    </div>
+    <div class="calc-results" id="calcResults">
+      <div class="calc-result">
+        <div class="calc-result-lbl">Leads estimados</div>
+        <div class="calc-result-val" id="calcLeads">83</div>
+        <div class="calc-result-sub">leads/mês · R$ 12/lead</div>
+      </div>
+      <div class="calc-result highlight">
+        <div class="calc-result-lbl">Conversão em reunião</div>
+        <div class="calc-result-val" id="calcMeet">17</div>
+        <div class="calc-result-sub">estimativa 20% de conversão</div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-lbl">Propostas enviadas</div>
+        <div class="calc-result-val" id="calcProp">10</div>
+        <div class="calc-result-sub">60% das reuniões evoluem</div>
+      </div>
+      <div class="calc-result">
+        <div class="calc-result-lbl">Clientes fechados</div>
+        <div class="calc-result-val" id="calcClose">4</div>
+        <div class="calc-result-sub">15% de fechamento</div>
+      </div>
+    </div>
+    <div class="calc-note" id="calcNote">
+      Com R$ 1.000/mês em mídia, estimativa de <strong>83 leads qualificados</strong>, <strong>17 reuniões</strong> e <strong>4 clientes fechados</strong>. Com ticket médio de R$ 8.000, o retorno estimado é de <strong>R$ 32.000</strong> — ROI de <strong>32x</strong> sobre o investimento em mídia. Estimativas baseadas em dados de mercado; resultados reais dependem de otimização contínua.
+    </div>
+  </div>
+
+  <!-- Tabela comparativa -->
+  <div style="background:var(--light);margin-top:2px">
+    <div style="background:var(--dark);padding:16px 24px;display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;gap:8px">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555">Investimento</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;text-align:center">Leads/mês</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;text-align:center">Reuniões</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;text-align:center">Clientes</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;text-align:center">Receita est.</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555;text-align:center">ROI</div>
+    </div>
+    <div id="calcTable"></div>
+  </div>
+
+  <div class="ins" style="margin-top:2px">
+    <div class="ins-lbl">Sobre a calculadora</div>
+    <div class="ins-txt">Baseada em <strong>R$ 12 por lead qualificado</strong> (custo médio validado em campanhas do setor de esquadrias no Sul do Brasil). Taxa de conversão de 20% em reunião, 60% em proposta e 40% em fechamento — métricas conservadoras. <strong>Ticket médio considerado: R$ 8.000</strong> por cliente (janelas de um ambiente). A receita real pode ser significativamente maior considerando retrofit de vários ambientes e indicações geradas.</div>
+  </div>
+</div>
+
+<!-- PLANO DE LANÇAMENTO -->
+<div class="section" style="background:#f0f3f8" id="plano">
+  <div class="ey">07 — Plano de Ação</div>
+  <div class="st">Como vamos executar — as duas frentes</div>
+  <div class="sd">Plano de lançamento em fases para Schüback e para a nova marca acústica, com marcos claros e entregas sequenciais.</div>
+
+  <div class="g2" style="gap:32px;align-items:start">
+
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">Schüback Esquadrias — Fortalecimento</div>
+      <div class="tl">
+        <div class="tl-item act">
+          <div class="tl-week">Mês 1 — Imediato</div>
+          <div class="tl-title">Diagnóstico e Fundação</div>
+          <div class="tl-text">Briefing completo, definição de identidade de conteúdo, produção das primeiras 2 diárias de gravação, configuração de Meta Ads e Google, e início do desenvolvimento do novo site.</div>
+        </div>
+        <div class="tl-item act">
+          <div class="tl-week">Mês 1–2</div>
+          <div class="tl-title">Novo Site no Ar</div>
+          <div class="tl-text">Site institucional publicado com portfólio, página para arquitetos e captação de leads. Integração com Analytics, Pixel e Google Search Console. SEO on-page completo.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 2</div>
+          <div class="tl-title">Tráfego Pago Ativo</div>
+          <div class="tl-text">Meta Ads e Google Ads rodando — campanhas de reconhecimento, geração de leads e remarketing. Primeiros leads chegando ao CRM. Relatório de performance quinzenal.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 2–3</div>
+          <div class="tl-title">Rede de Parceiros</div>
+          <div class="tl-text">Kit de parceria desenvolvido e entregue para arquitetos, corretores e construtoras da região. Primeiras indicações chegando pelo programa.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 3+</div>
+          <div class="tl-title">Escala e Otimização</div>
+          <div class="tl-text">Com dados dos primeiros meses, otimizar verba, criativos e segmentações para escalar as campanhas de melhor performance. Meta: CPL abaixo de R$ 12.</div>
+        </div>
+      </div>
+    </div>
+
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">Nova Marca Acústica — Lançamento</div>
+      <div class="tl">
+        <div class="tl-item gold">
+          <div class="tl-week gold">Mês 1 — Naming e Marca</div>
+          <div class="tl-title">Definição e Identidade</div>
+          <div class="tl-text">Finalizar o naming (Silent Haus ou outra opção), registrar domínio e marca, desenvolver identidade visual completa — logo, paleta, tipografia, manual.</div>
+        </div>
+        <div class="tl-item gold">
+          <div class="tl-week gold">Mês 1–2</div>
+          <div class="tl-title">Posicionamento e Conteúdo</div>
+          <div class="tl-text">Produção dos primeiros conteúdos educativos sobre acústica, criação do perfil no Instagram, estratégia de SEO para o site da nova marca com foco em palavras-chave de intenção.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 2</div>
+          <div class="tl-title">Site e Landing Pages</div>
+          <div class="tl-text">Site da nova marca publicado com landing pages por segmento (apartamentos, casas próximas a rodovias, home office). Formulário de orçamento e integração com WhatsApp.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 2–3</div>
+          <div class="tl-title">Google Ads e Performance</div>
+          <div class="tl-text">Lançamento das campanhas de pesquisa no Google com palavras-chave de intenção de compra. Meta Ads com segmentação geográfica por avenidas e dor. Primeiros leads qualificados.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-week gray">Mês 3–4</div>
+          <div class="tl-title">Cases e Prova Social</div>
+          <div class="tl-text">Primeiros "antes e depois" publicados. Depoimentos em vídeo de clientes satisfeitos. Parcerias com síndicos e administradoras de condomínio. Escala das campanhas de melhor performance.</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FECHAMENTO -->
+
+<!-- PROPOSTA COMERCIAL -->
+<div class="section" id="proposta" style="background:#fff">
+  <div class="ey">09 — Proposta Comercial</div>
+  <div class="st">Investimento para construir as duas máquinas</div>
+  <div class="sd">Transparência total sobre o modelo comercial. Propomos um contrato de parceria com foco em crescimento real — sem percentual variável até a meta ser atingida.</div>
+
+  <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin-bottom:32px">
+    <div style="background:var(--warm);padding:32px 28px;border-left:2px solid var(--border)">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:14px">Schüback — Avulso</div>
+      <div style="font-size:36px;font-weight:900;color:var(--dark);line-height:1;margin-bottom:6px">R$ 2.500</div>
+      <div style="font-size:11px;color:var(--gray);font-weight:300;margin-bottom:16px">/mês · apenas Schüback Esquadrias</div>
+      <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.7">Site + Conteúdo + Tráfego pago + Material gráfico + Rede de parceiros + Relatórios mensais.</div>
+    </div>
+    <div style="background:var(--warm);padding:32px 28px;border-left:2px solid var(--border)">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:14px">Nova Marca — Avulso</div>
+      <div style="font-size:36px;font-weight:900;color:var(--dark);line-height:1;margin-bottom:6px">R$ 2.500</div>
+      <div style="font-size:11px;color:var(--gray);font-weight:300;margin-bottom:16px">/mês · apenas Silent Haus (nome provisório)</div>
+      <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.7">Identidade visual + Site + Conteúdo + Google Ads + Meta Ads + Relatórios mensais.</div>
+    </div>
+    <div style="background:var(--navy);padding:32px 28px;border-left:2px solid var(--navy);position:relative;overflow:hidden">
+      <div style="position:absolute;top:0;right:0;background:rgba(255,255,255,0.08);font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.6);padding:4px 12px">Nossa proposta</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.5);margin-bottom:14px;margin-top:16px">As duas marcas juntas</div>
+      <div style="font-size:36px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px">R$ 2.000</div>
+      <div style="text-decoration:line-through;font-size:12px;color:rgba(255,255,255,0.35);margin-bottom:6px">de R$ 5.000</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.6);font-weight:300;margin-bottom:16px">/mês · Schüback + Nova Marca</div>
+      <div style="font-size:11px;color:rgba(255,255,255,0.7);font-weight:300;line-height:1.7">Tudo incluso para as duas marcas. A proposta que maximiza o retorno para a Schüback e lança a nova marca com estrutura completa.</div>
+    </div>
+  </div>
+
+  <div style="background:var(--warm);padding:28px 32px;border-left:4px solid var(--navy);margin-bottom:2px">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Modelo de remuneração variável</div>
+    <div style="font-size:13px;color:var(--dark);font-weight:300;line-height:1.7;max-width:700px">Durante toda a fase de crescimento — até a Schüback atingir <strong style="font-weight:700">R$ 500.000 de faturamento</strong> gerado pelas ações de marketing — a mensalidade é fixa em <strong style="font-weight:700">R$ 2.000/mês</strong>, sem nenhum percentual variável. Após atingir a meta, entra um <strong style="font-weight:700">comissionamento a combinar</strong> sobre o excedente. Acreditamos no resultado da Schüback — e propomos crescer junto.</div>
+  </div>
+
+  <div style="background:var(--warm);padding:28px 32px;border-left:4px solid var(--border)">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:10px">O que está incluído nos R$ 2.000/mês</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:8px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px">Schüback Esquadrias</div>
+        <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.7">Novo site · 5 posts/semana · 2 diárias de gravação/mês · 2 Reels mínimos/semana · Destaques · Material gráfico · Meta Ads · Google Ads · Remarketing · Rede de parceiros · Relatórios</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px">Nova Marca Acústica</div>
+        <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.7">Naming + registro · Identidade visual completa · Site com landing pages · Perfil Instagram · Conteúdo educativo · Google Ads · Meta Ads segmentado por localização · Relatórios</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:6px">Gestão estratégica</div>
+        <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.7">Reunião de alinhamento quinzenal · Dashboard de métricas em tempo real · Otimização contínua de campanhas · Acompanhamento de leads e CRM · Estratégia de conteúdo mensal</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" id="fechamento" style="background:#fff">
+
+  <div class="ey">08 — Próximos passos</div>
+  <div class="st">Duas máquinas de crescimento.<br>Começamos agora.</div>
+  <div class="sd">A Schüback tem o produto, a credibilidade e a capacidade técnica. A Casa Publicidade tem a estratégia, a execução e a visão digital. Juntos, vamos construir as duas frentes de crescimento.</div>
+
+  <div class="g3" style="margin-bottom:32px">
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <div class="card-ey" style="color:var(--navy)">Passo 1 — Esta semana</div>
+      <div class="card-title">Reunião de kickoff</div>
+      <div class="card-text">Alinhamento de briefing completo, acesso às redes sociais e site atual, definição de orçamento de mídia, aprovação do naming da nova marca e assinatura de contrato.</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <div class="card-ey gold">Passo 2 — Semanas 1–2</div>
+      <div class="card-title">Produção em paralelo</div>
+      <div class="card-text">Início simultâneo das duas frentes: desenvolvimento do novo site Schüback + identidade visual da nova marca acústica. Primeiras diárias de gravação agendadas.</div>
+    </div>
+    <div class="card" style="border-left:3px solid var(--navy)">
+      <div class="card-ey" style="color:var(--navy)">Passo 3 — Mês 1</div>
+      <div class="card-title">Primeiros resultados</div>
+      <div class="card-text">Conteúdo rodando no Instagram da Schüback, tráfego pago ativo gerando leads, e a nova marca com identidade pronta para o lançamento digital no mês seguinte.</div>
+    </div>
+  </div>
+
+  <div class="ins" style="border-color:var(--navy);background:var(--navy)">
+    <div class="ins-lbl" style="color:rgba(200,220,255,.8)">O diferencial desta proposta</div>
+    <div class="ins-txt" style="color:rgba(255,255,255,0.85)">Não estamos propondo apenas um gerenciamento de redes sociais. Estamos propondo <strong style="color:#fff">construir duas máquinas de crescimento independentes</strong> — a Schüback para o mercado técnico B2B e a nova marca para o consumidor final B2C — que se complementam sem canibalizar uma à outra. O resultado é <strong style="color:#fff">ampliação de mercado, não redistribuição</strong> do que já existe. É a estratégia de crescimento que a Schüback precisa para o próximo nível.</div>
+  </div>
+</div>
+
+<footer>
+  <div class="foot-left">Casa Publicidade × Schüback Esquadrias · Proposta Comercial 2026 · Documento Confidencial</div>
+  <div class="foot-brand">Casa Publicidade</div>
+</footer>
+
+<script>
+// Progress bar
+window.addEventListener('scroll',()=>{
+  const h=document.documentElement;
+  const pct=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100;
+  document.getElementById('prog').style.width=pct+'%';
+});
+
+// Scroll reveal
+const obs=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')});
+},{threshold:0.06});
+document.querySelectorAll('.section').forEach(el=>obs.observe(el));
+
+// Scroll to
+function gs(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
+
+// Calculator
+const steps=[500,1000,1500,2000];
+const ticketMedio=8000;
+const cpl=12;
+
+function calcResults(v){
+  const leads=Math.round(v/cpl);
+  const meet=Math.round(leads*0.20);
+  const prop=Math.round(meet*0.60);
+  const close=Math.round(prop*0.15);
+  const receita=close*ticketMedio;
+  const roi=Math.round(receita/v);
+  return{leads,meet,prop,close,receita,roi};
+}
+
+function fmtBRL(v){return'R$ '+v.toLocaleString('pt-BR')}
+
+function updateCalc(v){
+  v=parseInt(v);
+  document.getElementById('calcAmount').textContent=fmtBRL(v);
+  const r=calcResults(v);
+  document.getElementById('calcLeads').textContent=r.leads;
+  document.getElementById('calcMeet').textContent=r.meet;
+  document.getElementById('calcProp').textContent=r.prop;
+  document.getElementById('calcClose').textContent=r.close;
+  document.getElementById('calcNote').innerHTML=`Com ${fmtBRL(v)}/mês em mídia, estimativa de <strong>${r.leads} leads qualificados</strong>, <strong>${r.meet} reuniões</strong> e <strong>${r.close} clientes fechados</strong>. Com ticket médio de R$ 8.000, o retorno estimado é de <strong>${fmtBRL(r.receita)}</strong> — ROI de <strong>${r.roi}x</strong> sobre o investimento em mídia. Estimativas conservadoras baseadas em dados de mercado.`;
+  document.querySelectorAll('.calc-step').forEach((el,i)=>{el.classList.toggle('active',steps[i]===v)});
+  buildTable();
+}
+
+function setCalc(v){
+  document.getElementById('calcSlider').value=v;
+  updateCalc(v);
+}
+
+function buildTable(){
+  const t=document.getElementById('calcTable');
+  t.innerHTML='';
+  steps.forEach(v=>{
+    const r=calcResults(v);
+    const isActive=parseInt(document.getElementById('calcSlider').value)===v;
+    const row=document.createElement('div');
+    row.style.cssText=`display:grid;grid-template-columns:1fr 1fr 1fr 1fr 1fr 1fr;border-bottom:1px solid var(--border);padding:14px 24px;gap:8px;background:${isActive?'rgba(185,0,0,0.04)':'transparent'};cursor:pointer;transition:background .15s`;
+    row.innerHTML=`
+      <div style="font-size:13px;font-weight:${isActive?'700':'300'};color:${isActive?'var(--navy)':'var(--dark)'}">${fmtBRL(v)}/mês</div>
+      <div style="font-size:13px;font-weight:${isActive?'700':'300'};color:var(--dark);text-align:center">${r.leads}</div>
+      <div style="font-size:13px;font-weight:300;color:var(--dark);text-align:center">${r.meet}</div>
+      <div style="font-size:13px;font-weight:300;color:var(--dark);text-align:center">${r.close}</div>
+      <div style="font-size:13px;font-weight:${isActive?'700':'300'};color:${isActive?'var(--navy)':'var(--dark)'};text-align:center">${fmtBRL(r.receita)}</div>
+      <div style="font-size:13px;font-weight:700;color:var(--green);text-align:center">${r.roi}x</div>
+    `;
+    row.onclick=()=>setCalc(v);
+    t.appendChild(row);
+  });
+}
+
+buildTable();
+updateCalc(1000);
+</script>
+</body>
+</html>

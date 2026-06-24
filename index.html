@@ -3,877 +3,1304 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schübak — Plano de Execução</title>
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<title>Schübak — Sistema de Marketing</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
 :root{
-  --navy:#1a3a6b;--navy2:#0f2347;--navy-light:#e8eef8;--navy-mid:#2d5299;
-  --dark:#0f0f0f;--warm:#f7f5f2;--gray:#8a8a8a;--border:#e0ddd9;--light:#fff;
-  --green:#2d7d46;--green-light:#eaf4ee;--amber:#c07c10;--amber-light:#fef3e2;
-  --red:#b90000;--red-light:#fdf0f0;
+  --navy:#1a3a6b;--navy2:#0f2347;--navy-l:#eef2f9;--navy-m:#2d5299;
+  --dark:#111;--mid:#2a2a2a;--warm:#f8f7f5;--gray:#8a8a8a;--gray2:#b0b0b0;
+  --border:#e8e4e0;--light:#fff;
+  --green:#2a7a42;--green-l:#edf7f1;
+  --amber:#b87010;--amber-l:#fdf4e6;
+  --red:#b02020;--red-l:#fdf0f0;
+  --purple:#6b3fa0;--purple-l:#f3eefa;
+  --sidebar:240px;
 }
-body{font-family:'Montserrat',sans-serif;background:var(--warm);color:var(--dark);overflow-x:hidden}
+body{font-family:'Inter',sans-serif;background:var(--warm);color:var(--dark);overflow-x:hidden;font-size:13px}
+a{color:var(--navy);text-decoration:none}
+a:hover{text-decoration:underline}
+.hidden{display:none!important}
+button{cursor:pointer;font-family:'Inter',sans-serif}
+input,textarea,select{font-family:'Inter',sans-serif}
 
-#prog{position:fixed;top:0;left:0;height:3px;background:var(--navy);z-index:9999;width:0%}
+/* ── SIDEBAR ── */
+.sidebar{position:fixed;top:0;left:0;bottom:0;width:var(--sidebar);background:var(--dark);z-index:200;display:flex;flex-direction:column;transition:transform .25s ease;transform:translateX(0)}
+.sidebar.closed{transform:translateX(calc(-1 * var(--sidebar)))}
+.sb-top{padding:20px 20px 16px;border-bottom:1px solid rgba(255,255,255,.06)}
+.sb-brand{font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#fff;margin-bottom:2px}
+.sb-sub{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.sb-live{display:flex;align-items:center;gap:5px;margin-top:10px}
+.live-dot{width:5px;height:5px;border-radius:50%;background:var(--green);animation:blink 2s ease infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.live-txt{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:.5px}
+.sb-nav{padding:12px 0;flex:1;overflow-y:auto}
+.sb-section-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:12px 20px 6px}
+.sb-item{display:flex;align-items:center;gap:10px;padding:9px 20px;cursor:pointer;transition:background .15s;border-left:2px solid transparent;color:rgba(255,255,255,.5);font-size:12px;font-weight:400;background:none;border-right:none;border-top:none;border-bottom:none;width:100%;text-align:left}
+.sb-item:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.8)}
+.sb-item.on{background:rgba(26,58,107,.25);border-left-color:var(--navy-m);color:#fff;font-weight:500}
+.sb-item svg{opacity:.5;flex-shrink:0}
+.sb-item.on svg{opacity:1}
+.sb-bottom{padding:16px 20px;border-top:1px solid rgba(255,255,255,.06)}
+.sb-toggle{background:rgba(255,255,255,.06);border:none;width:100%;padding:8px;color:rgba(255,255,255,.4);font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.sb-toggle:hover{background:rgba(255,255,255,.1);color:#fff}
 
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 52px}
-.nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;color:var(--dark)}
-.nav-links{display:flex}
-.nl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:0 14px;cursor:pointer;border-right:1px solid var(--border);background:none;border-top:none;border-bottom:none;transition:color .2s}
-.nl:last-child{border-right:none}
-.nl:hover,.nl.on{color:var(--navy);font-weight:700}
-.nav-right{display:flex;align-items:center;gap:8px}
-.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.live-txt{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green)}
+/* ── TOGGLE BTN (fixed when closed) ── */
+/* Rail strip when sidebar closed */
+.sidebar-rail{position:fixed;top:0;left:0;bottom:0;width:44px;background:var(--dark);z-index:190;display:flex;flex-direction:column;align-items:center;padding-top:14px;gap:16px;transform:translateX(-44px);transition:transform .25s ease}
+.sidebar-rail.visible{transform:translateX(0)}
+.toggle-btn{position:fixed;top:12px;left:4px;z-index:300;background:transparent;border:none;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:left .25s ease;border-radius:4px}
+.toggle-btn:hover{background:rgba(255,255,255,.08)}
+.toggle-btn.sidebar-open{left:calc(var(--sidebar) + 4px);background:rgba(255,255,255,.05)}
 
-/* HERO */
-.hero{min-height:100vh;padding-top:56px;display:grid;grid-template-columns:1fr 1fr;background:#fff;position:relative;overflow:hidden}
-.hero::after{content:'';position:absolute;right:0;top:0;bottom:0;width:50%;background:var(--navy);z-index:0}
-.hero-left{padding:80px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
-.hero-right{padding:80px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
-.hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:10px}
-.hero-tag::before{content:'';width:20px;height:1px;background:var(--navy);display:inline-block}
-.hero-title{font-size:clamp(36px,4.5vw,68px);font-weight:900;color:var(--dark);line-height:.95;margin-bottom:24px}
-.hero-title span{color:var(--navy)}
-.hero-sub{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;max-width:440px;margin-bottom:36px}
-.hero-btn{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:14px 24px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:background .2s}
-.hero-btn:hover{background:var(--navy2)}
-.hero-stat{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
-.hero-stat:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
-.hero-stat-num{font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
-.hero-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4)}
-.hero-stat-sub{font-size:11px;color:rgba(255,255,255,.35);font-weight:300;margin-top:3px}
+/* ── MAIN ── */
+.main{margin-left:var(--sidebar);min-height:100vh;transition:margin-left .25s ease}
+.main.sidebar-closed{margin-left:44px}
+.view{display:none}
+.view.on{display:block}
 
-/* SECTIONS */
-.sec{padding:80px 52px;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
-.sec.vis{opacity:1;transform:none}
-.sec.white{background:#fff}
-.ey{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:10px}
-.ey::after{content:'';width:20px;height:1px;background:var(--navy);display:inline-block}
-.st{font-size:clamp(22px,2.8vw,38px);font-weight:900;color:var(--dark);line-height:1.1;margin-bottom:10px}
-.sd{font-size:13px;font-weight:300;color:var(--gray);line-height:1.8;max-width:600px;margin-bottom:32px}
+/* ── HOME ── */
+.home-hero{min-height:100vh;background:var(--dark);display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+.hh-left{padding:80px 56px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.hh-right{position:relative;background:linear-gradient(135deg,#1a3a6b 0%,#0f2347 100%);display:flex;flex-direction:column;justify-content:center;padding:56px}
+.hh-right::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:40px 40px}
+.hh-eyebrow{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.hh-eyebrow::before{content:'';width:16px;height:1px;background:var(--navy-m);display:inline-block}
+.hh-title{font-size:clamp(28px,3.5vw,52px);font-weight:700;color:#fff;line-height:1.1;margin-bottom:16px;letter-spacing:-1px}
+.hh-title .accent{color:var(--navy-m)}
+.hh-sub{font-size:14px;font-weight:300;color:rgba(255,255,255,.4);line-height:1.8;max-width:420px;margin-bottom:40px}
+.hh-cta{display:inline-flex;align-items:center;gap:8px;background:var(--navy-m);color:#fff;padding:11px 22px;font-size:12px;font-weight:500;border:none;cursor:pointer;transition:background .2s;letter-spacing:.3px}
+.hh-cta:hover{background:var(--navy)}
+.home-stat{margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid rgba(255,255,255,.07)}
+.home-stat:last-child{margin-bottom:0;padding-bottom:0;border-bottom:none}
+.home-stat-num{font-size:36px;font-weight:700;color:#fff;line-height:1;letter-spacing:-1px;margin-bottom:4px}
+.home-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:rgba(255,255,255,.3)}
+.home-stat-sub{font-size:11px;color:rgba(255,255,255,.2);font-weight:300;margin-top:3px}
 
-/* GRIDS */
-.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
-.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
-.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
+/* ── DASHBOARD ── */
+.dash-wrap{padding:32px}
+.dash-header{margin-bottom:28px}
+.page-title{font-size:20px;font-weight:600;color:var(--dark);letter-spacing:-.5px;margin-bottom:4px}
+.page-sub{font-size:12px;color:var(--gray);font-weight:300}
+.dash-kpi-row{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-bottom:24px}
+.kpi-card{background:#fff;border:1px solid var(--border);padding:18px 20px}
+.kpi-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.kpi-icon{width:32px;height:32px;border-radius:6px;display:flex;align-items:center;justify-content:center}
+.kpi-val{font-size:26px;font-weight:600;color:var(--dark);letter-spacing:-1px;line-height:1;margin-bottom:3px}
+.kpi-lbl{font-size:11px;color:var(--gray);font-weight:400}
+.kpi-trend{font-size:10px;color:var(--green);font-weight:500}
 
-/* FILTER BAR */
-.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px}
-.fb{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer;transition:all .15s}
+.dash-row{display:grid;grid-template-columns:2fr 1fr;gap:16px;margin-bottom:16px}
+.dash-card{background:#fff;border:1px solid var(--border);padding:20px}
+.dc-title{font-size:13px;font-weight:600;color:var(--dark);margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.dc-title span{font-size:11px;font-weight:400;color:var(--gray)}
+
+/* project rows */
+.proj-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);cursor:pointer;transition:background .1s}
+.proj-row:last-child{border-bottom:none}
+.proj-row:hover{background:var(--warm);margin:0 -20px;padding-left:20px;padding-right:20px}
+.proj-row-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.proj-row-name{flex:1;font-size:12px;font-weight:500;color:var(--dark)}
+.proj-row-pct{font-size:11px;color:var(--gray);font-weight:400;min-width:36px;text-align:right}
+.proj-bar-mini{flex:1;max-width:80px;height:3px;background:var(--border)}
+.proj-bar-mini-fill{height:100%;background:var(--navy);transition:width .4s}
+
+/* activity */
+.act-item{display:flex;gap:10px;padding:9px 0;border-bottom:1px solid var(--border)}
+.act-item:last-child{border-bottom:none}
+.act-dot{width:6px;height:6px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:4px}
+.act-content{flex:1}
+.act-txt{font-size:12px;color:var(--dark);font-weight:400;line-height:1.4}
+.act-time{font-size:10px;color:var(--gray);margin-top:2px}
+
+/* cat breakdown */
+.cat-row{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--border)}
+.cat-row:last-child{border-bottom:none}
+.cat-name{font-size:11px;color:var(--dark);width:120px;flex-shrink:0}
+.cat-bar{flex:1;height:4px;background:var(--border)}
+.cat-bar-fill{height:100%;background:var(--navy)}
+.cat-count{font-size:11px;color:var(--gray);width:32px;text-align:right}
+
+/* ── KANBAN ── */
+.kanban-wrap{height:calc(100vh - 0px);display:flex;flex-direction:column}
+.kanban-top{padding:20px 28px;background:#fff;border-bottom:1px solid var(--border);flex-shrink:0}
+.kanban-top-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.filters-row{display:flex;gap:4px;flex-wrap:wrap}
+.fb{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 10px;border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer;transition:all .15s}
 .fb:hover{border-color:var(--navy);color:var(--navy)}
 .fb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-
-/* STATS BAR */
-.stats-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin-bottom:28px}
-.sbar{background:#fff;padding:18px 20px;border-left:2px solid transparent}
-.sbar.navy{border-left-color:var(--navy)}
-.sbar-val{font-size:26px;font-weight:900;color:var(--dark);line-height:1}
-.sbar-val.c-navy{color:var(--navy)}
-.sbar-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:4px}
-
-/* BOARD */
-.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.col-wrap{background:var(--warm);padding:16px;min-height:200px}
-.col-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
-.col-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dark);font-weight:700}
-.col-count{font-family:'Barlow Condensed',sans-serif;font-size:10px;padding:2px 8px;border-radius:0;font-weight:700;margin-left:auto}
+.btn-primary{background:var(--navy);color:#fff;border:none;padding:7px 14px;font-size:11px;font-weight:500;cursor:pointer;display:flex;align-items:center;gap:5px;transition:background .2s}
+.btn-primary:hover{background:var(--navy2)}
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--border);flex:1;overflow:hidden}
+.col-wrap{background:var(--warm);padding:12px;overflow-y:auto}
+.col-head{display:flex;align-items:center;gap:8px;margin-bottom:10px;padding:0 2px}
+.col-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dark);font-weight:600}
+.col-cnt{font-family:'Barlow Condensed',sans-serif;font-size:9px;padding:1px 6px;margin-left:auto;font-weight:700}
 .cnt-todo{background:var(--border);color:var(--gray)}
-.cnt-doing{background:var(--amber-light);color:var(--amber)}
-.cnt-done{background:var(--green-light);color:var(--green)}
+.cnt-doing{background:var(--amber-l);color:var(--amber)}
+.cnt-done{background:var(--green-l);color:var(--green)}
 
-/* TASK CARDS */
-.task{background:#fff;border-left:3px solid var(--border);padding:16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s,transform .15s;position:relative}
-.task:hover{border-color:var(--navy);transform:translateX(2px)}
-.task.expanded .task-body{display:block}
-.task.p-high{border-left-color:var(--red)}
-.task.p-mid{border-left-color:var(--amber)}
-.task.p-low{border-left-color:var(--green)}
-.task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
-.task-title{font-size:12px;font-weight:700;color:var(--dark);line-height:1.4}
-.task-arrow{font-size:14px;color:var(--gray);flex-shrink:0;transition:transform .2s;margin-top:1px}
-.task.expanded .task-arrow{transform:rotate(180deg)}
-.task-body{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
-.task-detail{font-size:11px;color:var(--gray);font-weight:300;line-height:1.7;margin-bottom:12px}
-.task-footer{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.ttag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid}
-.ttag-sch{background:var(--navy-light);color:var(--navy);border-color:rgba(26,58,107,.2)}
-.ttag-son{background:var(--green-light);color:var(--green);border-color:rgba(45,125,70,.2)}
-.ttag-both{background:var(--amber-light);color:var(--amber);border-color:rgba(192,124,16,.2)}
-.ttag-urgent{background:var(--red-light);color:var(--red);border-color:rgba(185,0,0,.2)}
-.move-btn{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--navy);color:var(--navy);background:none;cursor:pointer;transition:all .15s;margin-top:6px}
+/* task card */
+.tc{background:#fff;border:1px solid var(--border);border-left:3px solid var(--border);padding:12px;margin-bottom:6px;cursor:pointer;transition:all .15s;position:relative}
+.tc:hover{border-color:var(--navy);box-shadow:0 1px 6px rgba(0,0,0,.06)}
+.tc.ph{border-left-color:var(--red)}
+.tc.pm{border-left-color:var(--amber)}
+.tc.pl{border-left-color:var(--green)}
+.tc.pdone{border-left-color:var(--green);opacity:.65}
+.tc-title{font-size:12px;font-weight:500;color:var(--dark);line-height:1.4;margin-bottom:7px}
+.tc-tags{display:flex;gap:3px;flex-wrap:wrap}
+.ttag{font-size:9px;letter-spacing:.5px;padding:2px 6px;border-radius:3px}
+.ttag-sch{background:var(--navy-l);color:var(--navy)}
+.ttag-son{background:var(--green-l);color:var(--green)}
+.ttag-both{background:var(--amber-l);color:var(--amber)}
+.ttag-urg{background:var(--red-l);color:var(--red)}
+.ttag-cat{background:var(--warm);color:var(--gray);border:1px solid var(--border)}
+.ttag-done{background:var(--green-l);color:var(--green)}
+.add-btn{width:100%;padding:8px;border:1px dashed var(--border);background:none;font-size:11px;color:var(--gray);cursor:pointer;margin-top:4px;transition:all .15s}
+.add-btn:hover{border-color:var(--navy);color:var(--navy)}
+
+/* ── TASK POPUP ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:500;display:none;align-items:flex-start;justify-content:center;padding-top:60px;overflow-y:auto}
+.overlay.on{display:flex}
+.popup{background:#fff;width:92%;max-width:680px;position:relative;margin-bottom:40px}
+.popup-head{background:var(--dark);padding:20px 24px;display:flex;gap:12px;align-items:flex-start}
+.popup-title{font-size:15px;font-weight:600;color:#fff;flex:1;line-height:1.4;letter-spacing:-.3px}
+.popup-close{background:none;border:none;color:rgba(255,255,255,.4);font-size:18px;cursor:pointer;flex-shrink:0;line-height:1}
+.popup-close:hover{color:#fff}
+.popup-body{padding:0}
+.popup-tabs{display:flex;border-bottom:1px solid var(--border)}
+.ptab{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:11px 18px;border:none;background:none;color:var(--gray);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.ptab:hover{color:var(--dark)}
+.ptab.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:600}
+.ptab-content{display:none;padding:20px 24px}
+.ptab-content.on{display:block}
+.popup-field{margin-bottom:16px}
+.popup-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:6px}
+.popup-txt{font-size:12px;font-weight:300;color:var(--dark);line-height:1.7}
+.popup-input{width:100%;border:1px solid var(--border);padding:7px 10px;font-size:12px;outline:none;transition:border-color .15s}
+.popup-input:focus{border-color:var(--navy)}
+.popup-textarea{width:100%;border:1px solid var(--border);padding:7px 10px;font-size:12px;outline:none;resize:vertical;transition:border-color .15s;min-height:70px}
+.popup-textarea:focus{border-color:var(--navy)}
+.popup-select{width:100%;border:1px solid var(--border);padding:7px 10px;font-size:12px;background:#fff;outline:none}
+.move-btns{display:flex;gap:6px;margin-top:8px}
+.move-btn{font-size:11px;font-weight:500;padding:6px 14px;border:1px solid var(--navy);color:var(--navy);background:none;cursor:pointer;transition:all .15s}
 .move-btn:hover{background:var(--navy);color:#fff}
-.move-back{border-color:var(--border);color:var(--gray)}
-.move-back:hover{background:var(--border);color:var(--dark)}
+.move-btn.back{border-color:var(--border);color:var(--gray)}
+.move-btn.back:hover{background:var(--border);color:var(--dark)}
+/* history */
+.hist-item{padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+.hist-item:last-child{border-bottom:none}
+.hist-dot{width:6px;height:6px;border-radius:50%;background:var(--navy-m);flex-shrink:0;margin-top:4px}
+.hist-txt{font-size:12px;color:var(--dark);font-weight:400;line-height:1.5}
+.hist-time{font-size:10px;color:var(--gray);margin-top:2px}
+/* comments */
+.comment-item{background:var(--warm);padding:10px 12px;margin-bottom:6px;border-left:3px solid var(--navy-l)}
+.comment-meta{font-size:10px;color:var(--gray);margin-bottom:3px}
+.comment-text{font-size:12px;color:var(--dark);line-height:1.5}
+.comment-form{display:flex;gap:8px;margin-top:10px}
+.comment-input{flex:1;border:1px solid var(--border);padding:7px 10px;font-size:12px;font-family:'Inter',sans-serif;outline:none;resize:none}
+.comment-input:focus{border-color:var(--navy)}
+.comment-submit{background:var(--navy);color:#fff;border:none;padding:7px 14px;font-size:11px;font-weight:500;cursor:pointer}
+/* links */
+.link-item{display:flex;align-items:center;gap:6px;padding:6px 0;border-bottom:1px solid var(--border);font-size:12px}
+.link-item:last-child{border-bottom:none}
+.link-item a{flex:1;color:var(--navy);word-break:break-all}
+.link-del{background:none;border:none;color:var(--gray);font-size:14px;cursor:pointer;padding:0 4px}
+.link-del:hover{color:var(--red)}
+.link-form{display:flex;gap:6px;margin-top:10px}
+.link-input{flex:1;border:1px solid var(--border);padding:7px 10px;font-size:12px;font-family:'Inter',sans-serif;outline:none}
+.link-input:focus{border-color:var(--navy)}
+.link-add-btn{background:var(--navy);color:#fff;border:none;padding:7px 14px;font-size:11px;font-weight:500;cursor:pointer}
 
-/* CHECKLIST SECTION */
-.check-group{margin-bottom:32px}
-.check-group-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
-.check-group-prog{flex:1;height:3px;background:var(--border);max-width:120px}
-.check-group-fill{height:100%;background:var(--navy);transition:width .4s ease}
-.check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--warm);cursor:pointer;transition:background .15s}
-.check-item:last-child{border-bottom:none}
-.check-item:hover{background:var(--warm);margin:0 -16px;padding-left:16px;padding-right:16px}
-.check-box{width:18px;height:18px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
-.check-box.checked{background:var(--navy);border-color:var(--navy)}
-.check-box.checked::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
-.check-text{flex:1}
-.check-title{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:2px;transition:color .2s}
-.check-item.done .check-title{color:var(--gray);text-decoration:line-through}
-.check-sub{font-size:11px;color:var(--gray);font-weight:300;line-height:1.5}
-.check-tag{font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:1px 7px;border:1px solid}
+/* ── BANCO DE DADOS ── */
+.db-wrap{padding:28px 32px}
+.db-section{background:#fff;border:1px solid var(--border);margin-bottom:16px}
+.db-section-head{padding:14px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;cursor:pointer;background:#fff;transition:background .15s}
+.db-section-head:hover{background:var(--warm)}
+.db-section-title{font-size:13px;font-weight:600;color:var(--dark);display:flex;align-items:center;gap:8px}
+.db-section-arr{font-size:12px;color:var(--gray);transition:transform .2s}
+.db-section.open .db-section-arr{transform:rotate(180deg)}
+.db-section-body{display:none;padding:16px 20px}
+.db-section.open .db-section-body{display:block}
+.db-table{width:100%;border-collapse:collapse}
+.db-table th{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:6px 10px;text-align:left;border-bottom:1px solid var(--border);font-weight:600}
+.db-table td{padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;font-weight:300;color:var(--dark);vertical-align:top}
+.db-table tr:last-child td{border-bottom:none}
+.db-table tr:hover td{background:var(--warm)}
+.db-pw{font-family:monospace;background:var(--warm);padding:2px 6px;letter-spacing:1px;font-size:11px;cursor:pointer;border:1px solid var(--border);color:var(--gray)}
+.db-pw.revealed{color:var(--dark);background:#fff3e0}
+.db-pw-toggle{font-size:10px;color:var(--navy);cursor:pointer;margin-left:6px}
+.db-add-row{display:flex;gap:6px;margin-top:12px}
+.db-input{border:1px solid var(--border);padding:6px 10px;font-size:12px;font-family:'Inter',sans-serif;outline:none;flex:1}
+.db-input:focus{border-color:var(--navy)}
+.db-add-btn{background:var(--navy);color:#fff;border:none;padding:6px 14px;font-size:11px;font-weight:500;cursor:pointer}
+.db-tag{font-size:9px;padding:2px 6px;background:var(--navy-l);color:var(--navy);border-radius:3px}
 
-/* PRAZO TABLE */
-.ptable{background:#fff;overflow:hidden}
-.ptable-head{display:grid;grid-template-columns:100px 1fr 1fr 140px;background:var(--dark);padding:12px 20px;gap:16px}
-.ptable-hcell{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555}
-.ptable-note{padding:8px 20px;background:#f0f4f9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:11px;color:var(--gray);font-weight:300}
-.ptable-note strong{color:var(--dark);font-weight:600}
-.ptable-row{display:grid;grid-template-columns:100px 1fr 1fr 140px;padding:13px 20px;border-bottom:1px solid var(--border);gap:16px;transition:background .15s;cursor:default}
-.ptable-row:last-child{border-bottom:none}
-.ptable-row:hover{background:var(--warm)}
-.ptable-cell{font-size:12px;font-weight:300;color:var(--dark)}
-.ptable-prazo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:var(--navy)}
+/* ── CRIATIVOS & PUBLICO ── */
+.gen-wrap{padding:28px 32px}
+.cria-tabs{display:flex;gap:0;margin-bottom:20px;border-bottom:1px solid var(--border)}
+.ctab{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:9px 18px;border:none;background:none;color:var(--gray);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .15s}
+.ctab:hover{color:var(--dark)}
+.ctab.on{color:var(--navy);border-bottom-color:var(--navy);font-weight:700}
+.cria-card{background:#fff;border:1px solid var(--border);display:grid;grid-template-columns:160px 1fr;margin-bottom:10px;overflow:hidden}
+.cria-side{padding:20px;display:flex;flex-direction:column;justify-content:space-between}
+.cria-body{padding:20px 24px;border-left:1px solid var(--border)}
+.cria-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.cc-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:6px}
+.cc-txt{font-size:12px;font-weight:300;color:var(--gray);line-height:1.7}
+.cc-txt strong{color:var(--dark);font-weight:500}
 
-/* PRIORITY LEGEND */
-.legend{display:flex;align-items:center;gap:20px;margin-bottom:20px;font-size:11px;color:var(--gray)}
-.leg-item{display:flex;align-items:center;gap:6px}
-.leg-dot{width:8px;height:8px;flex-shrink:0}
+/* modal new task / project */
+.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:600;display:none;align-items:center;justify-content:center}
+.modal-ov.on{display:flex}
+.modal{background:#fff;width:92%;max-width:520px;max-height:85vh;overflow-y:auto}
+.modal-head{background:var(--navy);padding:18px 22px;display:flex;align-items:center;justify-content:space-between}
+.modal-title-txt{font-size:14px;font-weight:600;color:#fff;letter-spacing:-.3px}
+.modal-x{background:none;border:none;color:rgba(255,255,255,.5);font-size:18px;cursor:pointer}
+.modal-x:hover{color:#fff}
+.modal-body{padding:22px}
+.mf-label{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:5px;display:block;margin-top:14px}
+.mf-label:first-child{margin-top:0}
+.mf-input{width:100%;border:1px solid var(--border);padding:7px 10px;font-size:12px;font-family:'Inter',sans-serif;outline:none}
+.mf-input:focus{border-color:var(--navy)}
+.mf-select{width:100%;border:1px solid var(--border);padding:7px 10px;font-size:12px;font-family:'Inter',sans-serif;background:#fff;outline:none}
+.mf-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.mf-btns{display:flex;gap:8px;margin-top:20px}
+.mf-save{flex:1;background:var(--navy);color:#fff;border:none;padding:9px;font-size:12px;font-weight:500;cursor:pointer}
+.mf-cancel{background:none;border:1px solid var(--border);color:var(--gray);padding:9px 18px;font-size:12px;cursor:pointer}
 
-/* FOOTER */
-footer{background:#fff;border-top:1px solid var(--border);padding:28px 52px;display:flex;align-items:center;justify-content:space-between}
-.foot-l{font-size:11px;color:var(--gray);font-weight:300}
-.foot-r{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--dark)}
+/* ── SUBTASKS ── */
+.sub-list{margin-top:10px;display:flex;flex-direction:column;gap:4px}
+.sub-item{display:flex;align-items:center;gap:8px;padding:6px 8px;background:var(--warm);border:1px solid var(--border);font-size:11px;font-weight:400;color:var(--dark);cursor:pointer;transition:background .1s}
+.sub-item:hover{background:#f0eee8}
+.sub-cb{width:14px;height:14px;flex-shrink:0;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700;transition:all .2s}
+.sub-cb.done{background:var(--green);border-color:var(--green);color:#fff}
+.sub-txt{flex:1;transition:color .2s}
+.sub-item.sdone .sub-txt{text-decoration:line-through;color:var(--gray)}
+.sub-del{background:none;border:none;color:var(--gray);font-size:13px;cursor:pointer;padding:0 2px;line-height:1}
+.sub-del:hover{color:var(--red)}
+.sub-add-row{display:flex;gap:6px;margin-top:6px}
+.sub-add-input{flex:1;border:1px solid var(--border);padding:5px 8px;font-size:11px;font-family:'Inter',sans-serif;outline:none}
+.sub-add-input:focus{border-color:var(--navy)}
+.sub-add-btn{background:var(--navy);color:#fff;border:none;padding:5px 10px;font-size:10px;font-weight:500;cursor:pointer}
+.sub-progress{display:flex;align-items:center;gap:8px;margin-top:8px}
+.sub-prog-bar{flex:1;height:3px;background:var(--border)}
+.sub-prog-fill{height:100%;background:var(--green);transition:width .3s ease}
+.sub-prog-txt{font-size:10px;color:var(--gray);white-space:nowrap}
+
+/* ── POPUP EDIT ── */
+.popup-edit-row{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.popup-edit-lbl{font-size:11px;color:var(--gray);width:80px;flex-shrink:0}
+.popup-edit-input{border:1px solid var(--border);padding:5px 8px;font-size:12px;font-family:'Inter',sans-serif;outline:none;flex:1}
+.popup-edit-input:focus{border-color:var(--navy)}
+.popup-edit-select{border:1px solid var(--border);padding:5px 8px;font-size:12px;font-family:'Inter',sans-serif;background:#fff;outline:none;flex:1}
+.save-edit-btn{background:var(--navy);color:#fff;border:none;padding:7px 16px;font-size:11px;font-weight:500;cursor:pointer;width:100%;margin-top:8px}
+.save-edit-btn:hover{background:var(--navy2)}
+
+/* ── CALENDAR VIEW ── */
+.cal-wrap{padding:24px 28px}
+.cal-header{display:flex;align-items:center;gap:16px;margin-bottom:20px}
+.cal-nav-btn{background:none;border:1px solid var(--border);width:30px;height:30px;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center;color:var(--dark);transition:all .15s}
+.cal-nav-btn:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+.cal-month-title{font-size:16px;font-weight:600;color:var(--dark);letter-spacing:-.3px;min-width:160px}
+.cal-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:1px;background:var(--border);border:1px solid var(--border)}
+.cal-day-header{background:var(--dark);padding:8px;text-align:center;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.cal-day{background:#fff;min-height:90px;padding:6px;cursor:pointer;transition:background .1s;position:relative;vertical-align:top}
+.cal-day:hover{background:#fafaf8}
+.cal-day.today{background:#f0f4ff}
+.cal-day.other-month{background:var(--warm)}
+.cal-day-num{font-size:11px;font-weight:600;color:var(--dark);margin-bottom:4px}
+.cal-day.today .cal-day-num{background:var(--navy);color:#fff;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px}
+.cal-day.other-month .cal-day-num{color:var(--gray2)}
+.cal-event{font-size:9px;padding:2px 5px;margin-bottom:2px;border-radius:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer;font-weight:500}
+.cal-event.type-task{background:var(--navy-l);color:var(--navy)}
+.cal-event.type-post{background:var(--green-l);color:var(--green)}
+.cal-event.type-meeting{background:var(--amber-l);color:var(--amber)}
+.cal-event.type-urgent{background:var(--red-l);color:var(--red)}
+.cal-add-event{position:fixed;bottom:24px;right:24px;background:var(--navy);color:#fff;border:none;width:44px;height:44px;border-radius:50%;font-size:22px;cursor:pointer;box-shadow:0 4px 12px rgba(26,58,107,.3);z-index:100;display:flex;align-items:center;justify-content:center;transition:background .2s}
+.cal-add-event:hover{background:var(--navy2)}
+.cal-legend{display:flex;gap:16px;margin-bottom:16px;font-size:11px;flex-wrap:wrap}
+.cal-leg-item{display:flex;align-items:center;gap:5px;color:var(--gray)}
+.cal-leg-dot{width:8px;height:8px;border-radius:2px;flex-shrink:0}
+
+/* proj modal */
+.pj-modal{/* proj modal */
+.pj-modal{background:#fff;width:92%;max-width:560px;max-height:85vh;overflow-y:auto}
+.pj-head{background:var(--dark);padding:20px 24px;display:flex;gap:12px;align-items:flex-start}
+.pj-title{font-size:15px;font-weight:600;color:#fff;flex:1;letter-spacing:-.3px}
+.pj-task-item{display:flex;align-items:center;gap:10px;padding:8px 10px;border-bottom:1px solid var(--border);font-size:12px;color:var(--dark)}
+.pj-task-item:last-child{border-bottom:none}
+.pj-check{width:14px;height:14px;flex-shrink:0;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:700}
+.pj-check.ok{background:var(--green);border-color:var(--green);color:#fff}
+
+/* misc */
+.badge{display:inline-block;font-size:9px;padding:2px 7px;border-radius:3px;font-weight:500}
+.badge-blue{background:var(--navy-l);color:var(--navy)}
+.badge-green{background:var(--green-l);color:var(--green)}
+.badge-amber{background:var(--amber-l);color:var(--amber)}
+.badge-red{background:var(--red-l);color:var(--red)}
+.badge-gray{background:var(--warm);color:var(--gray);border:1px solid var(--border)}
+
+.divider{height:1px;background:var(--border);margin:20px 0}
 
 @media(max-width:900px){
-  .hero{grid-template-columns:1fr}
-  .hero::after{display:none}
-  .hero-right{background:var(--navy);padding:40px 24px}
-  .g2,.g3,.g4,.board{grid-template-columns:1fr}
-  nav{padding:0 20px}
-  .nav-links{display:none}
-  .sec,.hero-left{padding-left:24px;padding-right:24px}
-  .stats-bar{grid-template-columns:repeat(2,1fr)}
-  .ptable-head,.ptable-row{grid-template-columns:80px 1fr 120px}
-  .ptable-hcell:nth-child(3),.ptable-cell:nth-child(3){display:none}
+  .sidebar{width:220px}
+  .main{margin-left:220px}
+  :root{--sidebar:220px}
+  .home-hero{grid-template-columns:1fr}
+  .hh-right{display:none}
+  .dash-kpi-row{grid-template-columns:repeat(2,1fr)}
+  .dash-row{grid-template-columns:1fr}
+  .board{grid-template-columns:1fr}
+  .cria-card{grid-template-columns:1fr}
+  .cria-grid{grid-template-columns:1fr}
 }
 </style>
 </head>
 <body>
 
-<div id="prog"></div>
-
-<nav>
-  <div class="nav-brand">CASA PUBLICIDADE × SCHÜBAK</div>
-  <div class="nav-links">
-    <button class="nl" onclick="gs('setup')">Configuração</button>
-    <button class="nl" onclick="gs('kanban')">Kanban</button>
-    <button class="nl" onclick="gs('checklist')">Checklist</button>
-    <button class="nl" onclick="gs('prazos')">Prazos</button>
-    <button class="nl" onclick="gs('criativos')">Criativos</button>
-    <button class="nl" onclick="gs('publico')">Público-alvo</button>
+<!-- SIDEBAR RAIL (visible when closed) -->
+<div class="sidebar-rail" id="sidebar-rail">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.3)" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</div>
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
+  <div class="sb-top">
+    <div class="sb-brand">Schübak × Casa</div>
+    <div class="sb-sub">Sistema de Marketing</div>
+    <div class="sb-live"><div class="live-dot"></div><div class="live-txt">Em execução — 2026</div></div>
   </div>
-  <div class="nav-right">
-    <div class="live-dot"></div>
-    <div class="live-txt">Em execução</div>
-  </div>
-</nav>
-
-<!-- HERO -->
-<div class="hero">
-  <div class="hero-left">
-    <div class="hero-tag">Plano de execução operacional · 2026</div>
-    <h1 class="hero-title">Conectar.<br>Configurar.<br><span>Vender.</span></h1>
-    <p class="hero-sub">Cada conta, sistema e campanha que precisa ser ligado para as duas máquinas de crescimento funcionarem. Do acesso às contas até os primeiros anúncios no ar.</p>
-    <button class="hero-btn" onclick="gs('setup')">
-      Ver tarefas
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+  <nav class="sb-nav">
+    <div class="sb-section-label">Principal</div>
+    <button class="sb-item on" onclick="nav('home',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </button>
+    <button class="sb-item" onclick="nav('dashboard',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </button>
+    <button class="sb-item" onclick="nav('kanban',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="5" height="18"/><rect x="10" y="3" width="5" height="11"/><rect x="17" y="3" width="5" height="14"/></svg>
+      Kanban
+    </button>
+    <div class="sb-section-label" style="margin-top:8px">Conteúdo</div>
+    <button class="sb-item" onclick="nav('criativos',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      Criativos
+    </button>
+    <button class="sb-item" onclick="nav('publico',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+      Público-alvo
+    </button>
+    <div class="sb-section-label" style="margin-top:8px">Dados</div>
+    <button class="sb-item" onclick="nav('banco',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+      Banco de Dados
+    </button>
+    <button class="sb-item" onclick="nav('calendario',this)">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Calendário
+    </button>
+  </nav>
+  <div class="sb-bottom">
+    <button class="sb-toggle" onclick="toggleSidebar()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 18l-6-6 6-6"/></svg>
+      Recolher menu
     </button>
   </div>
-  <div class="hero-right">
-    <div class="hero-stat">
-      <div class="hero-stat-num" id="h-total">12</div>
-      <div class="hero-stat-lbl">Tarefas no plano</div>
-      <div class="hero-stat-sub">Schübak + Sonare Esquadrias</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" id="h-urgent">6</div>
-      <div class="hero-stat-lbl">Urgentes — semana 1</div>
-      <div class="hero-stat-sub">Contas · CRM · imagens · anúncios</div>
-    </div>
-    <div class="hero-stat">
-      <div class="hero-stat-num" id="h-done">0</div>
-      <div class="hero-stat-lbl">Concluídas</div>
-      <div class="hero-stat-sub">Atualize conforme avança</div>
-    </div>
-  </div>
 </div>
 
-<!-- CONFIGURAÇÃO INICIAL -->
-<div class="sec white" id="setup">
-  <div class="ey">01 — Configuração inicial</div>
-  <div class="st">O que precisa ser conectado primeiro</div>
-  <div class="sd">Antes de qualquer anúncio ou campanha, estas são as contas, ferramentas e acessos que precisam estar configurados. Prioridade máxima na semana 1.</div>
+<!-- TOGGLE BTN -->
+<button class="toggle-btn sidebar-open" id="toggle-btn" onclick="toggleSidebar()">
+  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+</button>
 
-  <div class="g2" style="gap:24px;align-items:start">
+<!-- MAIN -->
+<div class="main" id="main">
 
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Contas & Acessos</div>
-
-      <div style="display:flex;flex-direction:column;gap:2px">
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Instagram Schübak</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Acessar o perfil e conectar ao Meta Business Suite. Verificar permissões de anúncio e pixel. Confirmar a página do Facebook vinculada.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Semana 1</span>
-        </div>
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Facebook — Chadi ou conta nova</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Avaliar se a conta do Chadi tem restrições de anúncio. Se sim, criar nova conta Business no Facebook e vincular ao Gerenciador de Negócios da Casa Publicidade.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Semana 1 · Urgente</span>
-        </div>
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--green)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Instagram Sonare Esquadrias</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Criar perfil @sonareesquadrias (ou variação disponível). Conectar ao Meta Business Suite. Configurar bio provisória, foto de perfil e link do WhatsApp comercial.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--green-light);color:var(--green);border:1px solid rgba(45,125,70,.2)">Sonare · Semana 1</span>
-        </div>
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--navy)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Imagens e vídeos existentes</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Solicitar todo material disponível — obras, produtos, instalações, fábrica. Organizar em pasta compartilhada (Google Drive ou similar). Selecionar os melhores para os primeiros criativos dos anúncios.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Semana 1</span>
-        </div>
-      </div>
+<!-- ═══ HOME ═══ -->
+<div class="view on" id="view-home">
+  <div class="home-hero">
+    <div class="hh-left">
+      <div class="hh-eyebrow">Casa Publicidade × Schübak Esquadrias</div>
+      <h1 class="hh-title">Sistema de<br>Marketing <span class="accent">em execução.</span></h1>
+      <p class="hh-sub">Acompanhe em tempo real projetos, tarefas, criativos, público-alvo e todos os acessos da operação Schübak + Sonare Esquadrias.</p>
+      <button class="hh-cta" onclick="nav('dashboard',document.querySelector('.sb-item:nth-child(4)'))">
+        Ver dashboard
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
     </div>
-
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Ferramentas & Sistemas</div>
-
-      <div style="display:flex;flex-direction:column;gap:2px">
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">HubSpot CRM ou Meta Business Suite</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Avaliar e definir plataforma de CRM. HubSpot para pipeline comercial completo; Meta Business Suite para gestão direta dos leads de formulário. Integrar com WhatsApp e formulários de anúncio.</div>
-          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Urgente · 15 dias</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Ambas as marcas</span>
-          </div>
-        </div>
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">SMBot — automação de mensagens</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Assinar plano SMBot para automação de respostas no Instagram e WhatsApp. Configurar fluxos automáticos para leads que interagirem com os anúncios das duas marcas.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Semana 2</span>
-        </div>
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--navy)">
-          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Agendar captação de imagens</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Levantar obras e cases disponíveis para filmagem. Identificar 2–3 obras com resultado visual forte. Definir data da captação com o time Schübak para produzir material original de alta qualidade.</div>
-          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Mês 1</span>
-        </div>
-      </div>
-    </div>
-
-  </div>
-</div>
-
-<!-- KANBAN -->
-<div class="sec" id="kanban">
-  <div class="ey">02 — Kanban de tarefas</div>
-  <div class="st">Gestão visual do plano de execução</div>
-  <div class="sd">Clique em qualquer tarefa para ver o detalhe e mover entre colunas. Filtre por marca ou prioridade.</div>
-
-  <div class="filter-bar">
-    <button class="fb on" onclick="setFilter('all',this)">Todas</button>
-    <button class="fb" onclick="setFilter('schubak',this)">Schübak</button>
-    <button class="fb" onclick="setFilter('sonare',this)">Sonare</button>
-    <button class="fb" onclick="setFilter('ambas',this)">Ambas</button>
-    <button class="fb" onclick="setFilter('urgent',this)">Urgentes</button>
-  </div>
-
-  <div class="legend">
-    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Alta prioridade</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>Média prioridade</div>
-    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Baixa prioridade</div>
-  </div>
-
-  <div class="stats-bar" id="statsbar">
-    <div class="sbar navy"><div class="sbar-val c-navy" id="sv-total">0</div><div class="sbar-lbl">Total</div></div>
-    <div class="sbar"><div class="sbar-val" id="sv-todo">0</div><div class="sbar-lbl">A fazer</div></div>
-    <div class="sbar"><div class="sbar-val" id="sv-doing">0</div><div class="sbar-lbl">Em andamento</div></div>
-    <div class="sbar"><div class="sbar-val" id="sv-done">0</div><div class="sbar-lbl">Concluídas</div></div>
-  </div>
-
-  <div class="board">
-    <div class="col-wrap">
-      <div class="col-head">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
-        <span class="col-title">A fazer</span>
-        <span class="col-count cnt-todo" id="cnt-todo">0</span>
-      </div>
-      <div id="col-todo"></div>
-    </div>
-    <div class="col-wrap">
-      <div class="col-head">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
-        <span class="col-title">Em andamento</span>
-        <span class="col-count cnt-doing" id="cnt-doing">0</span>
-      </div>
-      <div id="col-doing"></div>
-    </div>
-    <div class="col-wrap">
-      <div class="col-head">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-        <span class="col-title">Concluído</span>
-        <span class="col-count cnt-done" id="cnt-done">0</span>
-      </div>
-      <div id="col-done"></div>
+    <div class="hh-right">
+      <div id="home-stats-right"></div>
     </div>
   </div>
-</div>
-
-<!-- CHECKLIST -->
-<div class="sec white" id="checklist">
-  <div class="ey">03 — Checklist de execução</div>
-  <div class="st">Marque conforme avança</div>
-  <div class="sd">Visão linear de todas as tarefas organizadas por categoria. Clique para marcar como concluída.</div>
-
-  <div id="checklist-body"></div>
-</div>
-
-<!-- PRAZOS -->
-<div class="sec" id="prazos">
-  <div class="ey">04 — Prazos e entregas</div>
-  <div class="st">Cronograma operacional</div>
-  <div class="sd">Datas previstas para cada entrega. Sujeitas a ajustes conforme alinhamento entre as partes.</div>
-
-  <div class="ptable">
-    <div class="ptable-head">
-      <div class="ptable-hcell">Prazo</div>
-      <div class="ptable-hcell">Entrega</div>
-      <div class="ptable-hcell">Detalhe</div>
-      <div class="ptable-hcell">Marca</div>
-    </div>
-    <div class="ptable-note">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      Datas <strong>prévias</strong> — sujeitas a ajustes conforme alinhamento entre as partes.
-    </div>
-    <div id="prazos-body"></div>
-  </div>
-</div>
-
-<!-- CRIATIVOS -->
-<div class="sec white" id="criativos">
-  <div class="ey">05 — Roteiro de Criativos</div>
-  <div class="st">Descrição dos anúncios em foto e vídeo</div>
-  <div class="sd">Roteiro e direcionamento criativo para os primeiros anúncios patrocinados da Schübak no Meta Ads. Cada criativo tem objetivo, formato, roteiro e copy sugerida.</div>
-
-  <!-- TABS CRIATIVOS -->
-  <div style="display:flex;gap:0;margin-bottom:24px">
-    <button class="fb on" id="ctab-video" onclick="switchCTab('video',this)" style="border-right:none">Vídeo</button>
-    <button class="fb" id="ctab-foto" onclick="switchCTab('foto',this)">Foto / Estático</button>
-  </div>
-
-  <!-- VIDEO CRIATIVOS -->
-  <div id="criativos-video">
-    <div style="display:flex;flex-direction:column;gap:2px">
-
-      <div style="background:#fff;border-left:3px solid var(--navy);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
-        <div style="background:var(--navy);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
-          <div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 01</div>
-            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Institucional — Obra entregue</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">15–30 segundos</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
-          </div>
-        </div>
-        <div style="padding:28px 32px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Mostrar o produto aplicado em obra real. Gerar desejo e prova social. Público: arquitetos e proprietários que estão construindo ou reformando.</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
-                <strong style="color:var(--dark);font-weight:600">0–3s:</strong> Close no perfil da esquadria instalada — detalhe do vidro, da borracha, do acabamento. Sem texto.<br><br>
-                <strong style="color:var(--dark);font-weight:600">3–10s:</strong> Câmera abre revelando o ambiente completo — sala com luz entrando pela janela, porta de correr aberta para o jardim.<br><br>
-                <strong style="color:var(--dark);font-weight:600">10–20s:</strong> Plano externo da fachada. Mão abrindo e fechando a janela com leveza. Detalhe do trilho deslizando.<br><br>
-                <strong style="color:var(--dark);font-weight:600">20–30s:</strong> Texto na tela: "Schübak Esquadrias — qualidade que você vê e sente." CTA: botão WhatsApp.
-              </div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Cada detalhe de uma obra de qualidade começa na escolha certa. Veja como as esquadrias Schübak transformam um projeto em obra-prima. 👉 Solicite seu orçamento."</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Sem narração. Trilha instrumental elegante (piano ou ambient). Luz natural. Gimbal — movimento suave. Cortes lentos. Nunca câmera tremida. Texto discreto em Montserrat branca sobre imagem escurecida nos últimos 5s.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:#fff;border-left:3px solid var(--navy-mid);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
-        <div style="background:var(--navy-mid);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
-          <div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 02</div>
-            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Bastidores — Fábrica e processo</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">20–30 segundos</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
-          </div>
-        </div>
-        <div style="padding:28px 32px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Gerar credibilidade mostrando a estrutura da empresa. Público: arquitetos e construtoras que precisam de fornecedor confiável com capacidade de entrega.</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
-                <strong style="color:var(--dark);font-weight:600">0–5s:</strong> Plano do estoque — perfis alinhados, escala da operação. Texto: "Estoque disponível. Entrega garantida."<br><br>
-                <strong style="color:var(--dark);font-weight:600">5–15s:</strong> Processo de corte e montagem dos perfis. Detalhe das máquinas e da precisão do acabamento.<br><br>
-                <strong style="color:var(--dark);font-weight:600">15–25s:</strong> Time de engenharia — equipe em reunião ou revisando projeto. Transmite suporte técnico.<br><br>
-                <strong style="color:var(--dark);font-weight:600">25–30s:</strong> Logo Schübak + "Há mais de 15 anos construindo qualidade." CTA: WhatsApp ou site.
-              </div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Por trás de cada janela Schübak, tem estrutura, tecnologia e um time que entende do que você precisa. Conheça a fábrica que equipa as melhores obras do RS."</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Luz de fábrica — pode ser mais crua que o criativo 01. Edição mais ritmada, cortes mais rápidos (a cada 3–4s). Texto branco com fundo semi-transparente. Pode ter narração breve ou apenas música.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:#fff;border-left:3px solid var(--green);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
-        <div style="background:var(--green);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
-          <div>
-            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 03</div>
-            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Depoimento — Cliente ou parceiro</div>
-          </div>
-          <div style="display:flex;flex-direction:column;gap:6px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">30–45 segundos</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--green-light);color:var(--green);border:1px solid rgba(45,125,70,.2)">Prioridade 3</span>
-          </div>
-        </div>
-        <div style="padding:28px 32px">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Prova social com arquiteto, construtor ou proprietário falando sobre a experiência. Gera confiança para quem ainda está avaliando fornecedores.</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
-                <strong style="color:var(--dark);font-weight:600">0–5s:</strong> Gancho visual — imagem da obra + texto: "O que esse arquiteto/construtor achou da Schübak?"<br><br>
-                <strong style="color:var(--dark);font-weight:600">5–35s:</strong> Depoimento espontâneo em frente à obra. Perguntas-guia: Qual foi o diferencial? Como foi o atendimento? Recomendaria?<br><br>
-                <strong style="color:var(--dark);font-weight:600">35–45s:</strong> B-roll da obra + nome/cargo da pessoa na tela. CTA final: "Faça seu orçamento."
-              </div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Quando a qualidade fala por si mesma. Ouça quem já usou Schübak nas suas obras e entende por que faz diferença escolher o fornecedor certo."</div>
-            </div>
-            <div>
-              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
-              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Entrevista em ambiente da obra ou escritório do arquiteto. Luz natural ou softbox suave. Nome e cargo em legenda no início. Subtitulado (a maioria assiste sem som). Edição limpa.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- FOTO CRIATIVOS -->
-  <div id="criativos-foto" style="display:none">
-    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px">
-
-      <div style="background:#fff;padding:0;overflow:hidden">
-        <div style="background:var(--navy);padding:16px 20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 01</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">Produto em destaque</div>
-        </div>
-        <div style="padding:20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Foto de uma janela ou porta de correr instalada em ambiente de alto padrão — sala ampla, luz natural abundante. Foco no produto, não na mobília.</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Quando o projeto é de alto padrão, cada detalhe importa. Esquadrias Schübak para quem não abre mão do melhor. Solicite seu orçamento."</div>
-          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Feed 1:1</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Stories 9:16</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:#fff;padding:0;overflow:hidden">
-        <div style="background:var(--navy-mid);padding:16px 20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 02</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">Carrossel de obra</div>
-        </div>
-        <div style="padding:20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Carrossel de 6–8 fotos de uma obra entregue. Slide 1: fachada. Slides 2–6: detalhes das esquadrias — perfil, vidro, fechamento, trilho. Slide final: logo + CTA.</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Mais uma obra entregue com excelência. Deslize para ver os detalhes que fazem a diferença em cada projeto. 👉 [Cidade, RS]"</div>
-          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Carrossel 1:1</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Alta conversão</span>
-          </div>
-        </div>
-      </div>
-
-      <div style="background:#fff;padding:0;overflow:hidden">
-        <div style="background:var(--dark);padding:16px 20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 03</div>
-          <div style="font-size:14px;font-weight:800;color:#fff">Criativo gráfico — direto ao ponto</div>
-        </div>
-        <div style="padding:20px">
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Fundo escuro ou navy com texto grande em destaque e foto menor do produto no canto. Design minimalista. Ideal para teste A/B contra os criativos com foto de obra.</div>
-          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Sua obra merece o melhor acabamento. Esquadrias de PVC e alumínio para projetos residenciais e comerciais em todo o RS."</div>
-          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Feed 1:1</span>
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Teste A/B</span>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-</div>
-
-<!-- PÚBLICO ALVO -->
-<div class="sec" id="publico">
-  <div class="ey">06 — Público-Alvo</div>
-  <div class="st">Segmentação de anúncios Schübak</div>
-  <div class="sd">Regiões, perfis e interesses para configurar as campanhas no Meta Ads. Segmentação construída para alcançar quem realmente toma a decisão de compra de esquadrias de qualidade.</div>
-
-  <div class="g2" style="gap:24px;align-items:start;margin-bottom:28px">
-
-    <!-- REGIÕES -->
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Localização — Cidades-alvo</div>
-      <div style="background:#fff;padding:24px;margin-bottom:2px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Região Metropolitana de POA</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy);color:#fff">Porto Alegre</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Novo Hamburgo</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Canoas</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">São Leopoldo</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Guaíba</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Eldorado do Sul</span>
-        </div>
-      </div>
-      <div style="background:#fff;padding:24px;margin-bottom:2px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Litoral Norte RS</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Tramandaí</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Capão da Canoa</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Xangri-lá</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Torres</span>
-        </div>
-      </div>
-      <div style="background:#fff;padding:24px">
-        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Serra Gaúcha</div>
-        <div style="display:flex;flex-wrap:wrap;gap:6px">
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Gramado</span>
-          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Canela</span>
-        </div>
-      </div>
-      <div style="background:var(--warm);padding:16px 20px;border-left:3px solid var(--navy);margin-top:2px">
-        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.6">No Meta Ads, adicione cada cidade individualmente em "Localização" → "Adicionar localização" → buscar pelo nome. Selecionar <strong style="color:var(--dark)">"Pessoas que vivem aqui"</strong> — não turistas. Ative raio de +15km em Tramandaí, Capão e Torres para pegar cidades próximas.</div>
-      </div>
-    </div>
-
-    <!-- PERFIS -->
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Perfis de público</div>
-
-      <div style="display:flex;flex-direction:column;gap:2px">
-
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
-            <div style="font-size:13px;font-weight:700;color:var(--dark)">Construtoras e Construtores</div>
-          </div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Donos e sócios de construtoras, mestres de obras e engenheiros civis autônomos. Tomam decisão de compra de esquadrias em bloco para múltiplos projetos.</div>
-          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Cargos:</strong> Proprietário, Sócio, Engenheiro Civil, Mestre de Obras, Gerente de Obras<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Construção civil, Materiais de construção, Engenharia civil, Obras residenciais<br><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Proprietário de pequena empresa, Empregadores: Construção civil</div>
-        </div>
-
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
-            <div style="font-size:13px;font-weight:700;color:var(--dark)">Arquitetos e Designers de Interiores</div>
-          </div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Especificam o produto nos projetos. Uma parceria com arquitetos é multiplicador — cada um pode indicar a Schübak para dezenas de obras por ano.</div>
-          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Cargos:</strong> Arquiteto, Designer de interiores, Arquiteto e Urbanista<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Arquitetura, Design de interiores, Projeto residencial, Decoração<br><strong style="color:var(--dark);font-weight:600">Campo de estudo:</strong> Arquitetura e Urbanismo</div>
-        </div>
-
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
-            <div style="font-size:13px;font-weight:700;color:var(--dark)">Pais com filhos de 6 a 18 anos — saindo do apto</div>
-          </div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Família em crescimento, apartamento ficou pequeno, está buscando casa em condomínio horizontal de alto padrão no Litoral Norte ou Serra. Alta disposição de investimento em qualidade de vida.</div>
-          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Dados demográficos:</strong> Casados, filhos de 6 a 18 anos, renda acima da média<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Condomínios fechados, Casas, Imóveis de alto padrão, Reforma residencial<br><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Compradores recentes de imóveis, Prestes a se mudar</div>
-        </div>
-
-        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
-          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
-            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
-            <div style="font-size:13px;font-weight:700;color:var(--dark)">Viajantes internacionais frequentes</div>
-          </div>
-          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Quem viaja para Europa e EUA tem referência de qualidade construtiva superior. Ao voltar, quer o mesmo padrão de janela e porta que viu lá fora. Público de altíssimo ticket.</div>
-          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Viajante frequente ao exterior, Viajantes internacionais, Usuário de linha aérea internacional<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Viagens internacionais, Arquitetura europeia, Imóveis de luxo<br><strong style="color:var(--dark);font-weight:600">Renda:</strong> 10% superiores (Meta Ads)</div>
-        </div>
-
-      </div>
-    </div>
-  </div>
-
-  <!-- SEGMENTAÇÃO TÉCNICA -->
-  <div style="background:#fff;padding:28px 32px;border-left:3px solid var(--navy);margin-top:2px">
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px">Configuração técnica no Meta Ads</div>
-    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+  <!-- Sobre o projeto -->
+  <div style="background:#fff;padding:48px 56px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:40px;max-width:900px">
       <div>
-        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Idade e gênero</div>
-        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">28 a 65 anos. Todos os gêneros. Não excluir mulheres — arquitetas e donas de construtora são público relevante.</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:12px">Schübak Esquadrias</div>
+        <div style="font-size:13px;font-weight:400;color:var(--dark);margin-bottom:8px;line-height:1.5">Fortalecimento da marca principal — site, conteúdo, anúncios e rede de parceiros em todo o RS e SC.</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">POA · NH · Canoas · São Leopoldo · Guaíba · Eldorado · Torres · Capão · Xangri-lá · Tramandaí · Gramado · Canela</div>
       </div>
       <div>
-        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Advantage+ e Otimização</div>
-        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">Desativar Advantage+ de localização. Ativar otimização por conversa (WhatsApp) ou lead. Orçamento: R$ 1.000/mês no conjunto principal.</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--green);margin-bottom:12px">Sonare Esquadrias</div>
+        <div style="font-size:13px;font-weight:400;color:var(--dark);margin-bottom:8px;line-height:1.5">Nova marca especializada em isolamento acústico residencial — retrofit para locais barulhentos.</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">"Onde o silêncio tem nome." — lançamento digital completo em andamento.</div>
       </div>
       <div>
-        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Lookalike — mailing</div>
-        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">Importar lista de e-mails de construtoras RS como audiência personalizada. Criar lookalike 1% e 2% a partir dela. Testar em conjunto separado com mesmo orçamento.</div>
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Investimento em mídia</div>
+        <div style="font-size:13px;font-weight:400;color:var(--dark);margin-bottom:8px;line-height:1.5">R$ 1.000/mês em anúncios patrocinados — Meta Ads + Google Ads — com escala progressiva.</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">CPL estimado: R$ 12/lead qualificado. ROI projetado: 12–20× sobre o investimento em mídia.</div>
       </div>
     </div>
   </div>
-
 </div>
 
-<footer>
-  <div class="foot-l">Casa Publicidade × Schübak Esquadrias · Plano de Execução 2026</div>
-  <div class="foot-r">Documento de trabalho</div>
-</footer>
+<!-- ═══ DASHBOARD ═══ -->
+<div class="view" id="view-dashboard">
+  <div class="dash-wrap">
+    <div class="dash-header">
+      <div class="page-title">Dashboard</div>
+      <div class="page-sub">Visão geral da operação — atualizado em tempo real</div>
+    </div>
+    <div class="dash-kpi-row" id="kpi-row"></div>
+    <div class="dash-row">
+      <div class="dash-card">
+        <div class="dc-title">Projetos em andamento <span id="proj-count"></span></div>
+        <div id="dash-projects"></div>
+      </div>
+      <div class="dash-card">
+        <div class="dc-title">Atividade recente</div>
+        <div id="dash-activity"></div>
+      </div>
+    </div>
+    <div class="dash-row" style="grid-template-columns:1fr 1fr">
+      <div class="dash-card">
+        <div class="dc-title">Tarefas por categoria</div>
+        <div id="dash-cats"></div>
+      </div>
+      <div class="dash-card">
+        <div class="dc-title">Distribuição por marca</div>
+        <div id="dash-marcas"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ KANBAN ═══ -->
+<div class="view" id="view-kanban">
+  <div class="kanban-wrap">
+    <div class="kanban-top">
+      <div class="kanban-top-row">
+        <div style="font-size:16px;font-weight:600;color:var(--dark);letter-spacing:-.3px">Kanban de Tarefas</div>
+        <button class="btn-primary" onclick="openNewTask()">+ Nova tarefa</button>
+      </div>
+      <div class="filters-row" id="filter-row"></div>
+    </div>
+    <div class="board" id="board"></div>
+  </div>
+</div>
+
+<!-- ═══ CRIATIVOS ═══ -->
+<div class="view" id="view-criativos">
+  <div class="gen-wrap">
+    <div style="margin-bottom:20px"><div class="page-title">Roteiro de Criativos</div><div class="page-sub">Descrição e roteiro dos anúncios patrocinados em foto e vídeo</div></div>
+    <div class="cria-tabs" id="cria-tabs">
+      <button class="ctab on" onclick="switchCTab('video',this)">Vídeo</button>
+      <button class="ctab" onclick="switchCTab('foto',this)">Foto / Estático</button>
+    </div>
+    <div id="cria-video"></div>
+    <div id="cria-foto" style="display:none"></div>
+  </div>
+</div>
+
+<!-- ═══ PÚBLICO ═══ -->
+<div class="view" id="view-publico">
+  <div class="gen-wrap">
+    <div style="margin-bottom:20px"><div class="page-title">Público-Alvo</div><div class="page-sub">Segmentação para Meta Ads — cidades e perfis de audiência</div></div>
+    <div id="publico-content"></div>
+  </div>
+</div>
+
+<!-- ═══ BANCO DE DADOS ═══ -->
+<div class="view" id="view-banco">
+  <div class="db-wrap">
+    <div style="margin-bottom:24px">
+      <div class="page-title">Banco de Dados</div>
+      <div class="page-sub">Links, acessos, senhas e informações centralizadas — clique no valor para revelar senha</div>
+    </div>
+    <div id="banco-content"></div>
+  </div>
+</div>
+
+
+<!-- ═══ CALENDÁRIO ═══ -->
+<div class="view" id="view-calendario">
+  <div class="cal-wrap">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px">
+      <div><div class="page-title">Calendário</div><div class="page-sub">Publicações, tarefas e reuniões agendadas</div></div>
+      <button class="btn-primary" onclick="openNewEvent()">+ Novo evento</button>
+    </div>
+    <div class="cal-legend">
+      <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--navy)"></div>Tarefa</div>
+      <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--green)"></div>Post / Publicação</div>
+      <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--amber)"></div>Reunião</div>
+      <div class="cal-leg-item"><div class="cal-leg-dot" style="background:var(--red)"></div>Urgente</div>
+    </div>
+    <div class="cal-header">
+      <button class="cal-nav-btn" onclick="calNav(-1)">‹</button>
+      <div class="cal-month-title" id="cal-month-title"></div>
+      <button class="cal-nav-btn" onclick="calNav(1)">›</button>
+      <button class="cal-nav-btn" onclick="calGoToday()" style="width:auto;padding:0 10px;font-size:11px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px">Hoje</button>
+    </div>
+    <div class="cal-grid" id="cal-grid"></div>
+  </div>
+</div>
+
+</div><!-- /main -->
+
+<!-- TASK POPUP -->
+<div class="overlay" id="task-overlay" onclick="closeTaskPopup(event)">
+  <div class="popup" id="task-popup">
+    <div class="popup-head">
+      <div class="popup-title" id="popup-title"></div>
+      <button class="popup-close" onclick="closeTaskPopupBtn()">✕</button>
+    </div>
+    <div class="popup-tabs">
+      <button class="ptab on" onclick="switchPTab('detalhes',this)">Detalhes</button>
+      <button class="ptab" onclick="switchPTab('historico',this)">Histórico</button>
+      <button class="ptab" onclick="switchPTab('comentarios',this)">Comentários</button>
+      <button class="ptab" onclick="switchPTab('links',this)">Links / Arquivos</button>
+      <button class="ptab" onclick="switchPTab('editar',this)">Editar</button>
+    </div>
+    <div class="ptab-content on" id="ptab-detalhes"></div>
+    <div class="ptab-content" id="ptab-historico"></div>
+    <div class="ptab-content" id="ptab-comentarios"></div>
+    <div class="ptab-content" id="ptab-links"></div>
+    <div class="ptab-content" id="ptab-editar"></div>
+  </div>
+</div>
+
+<!-- NEW TASK MODAL -->
+<div class="modal-ov" id="new-task-ov">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title-txt">Nova tarefa</div><button class="modal-x" onclick="closeNewTask()">✕</button></div>
+    <div class="modal-body">
+      <label class="mf-label">Título *</label>
+      <input class="mf-input" id="nt-title" placeholder="Nome da tarefa...">
+      <label class="mf-label">Descrição</label>
+      <textarea class="mf-input" id="nt-desc" rows="3" style="resize:vertical" placeholder="Detalhes e contexto..."></textarea>
+      <div class="mf-row" style="margin-top:4px">
+        <div><label class="mf-label">Marca</label><select class="mf-select" id="nt-marca"><option value="schubak">Schübak</option><option value="sonare">Sonare</option><option value="ambas">Ambas</option></select></div>
+        <div><label class="mf-label">Prioridade</label><select class="mf-select" id="nt-priority"><option value="high">Alta</option><option value="mid">Média</option><option value="low">Baixa</option></select></div>
+        <div><label class="mf-label">Status</label><select class="mf-select" id="nt-status"><option value="todo">A fazer</option><option value="doing">Em andamento</option><option value="done">Concluído</option></select></div>
+      </div>
+      <label class="mf-label" style="margin-top:12px">Categoria</label>
+      <select class="mf-select" id="nt-cat"><option value="Redes Sociais">Redes Sociais</option><option value="Anúncios">Anúncios</option><option value="Site">Site</option><option value="Impressos">Impressos</option><option value="Captação de Imagens">Captação de Imagens</option><option value="Comercial">Comercial</option><option value="Ferramentas & CRM">Ferramentas & CRM</option></select>
+      <label class="mf-label" style="margin-top:12px">Projeto</label>
+      <select class="mf-select" id="nt-proj"><option value="">Sem projeto</option></select>
+      <label class="mf-label" style="margin-top:12px">Link (Google Drive, etc.)</label>
+      <input class="mf-input" id="nt-link" placeholder="https://...">
+      <div class="mf-btns"><button class="mf-save" onclick="saveNewTask()">Adicionar tarefa</button><button class="mf-cancel" onclick="closeNewTask()">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- NEW EVENT MODAL -->
+<div class="modal-ov" id="new-event-ov">
+  <div class="modal">
+    <div class="modal-head"><div class="modal-title-txt">Novo evento / publicação</div><button class="modal-x" onclick="closeNewEvent()">✕</button></div>
+    <div class="modal-body">
+      <label class="mf-label">Título *</label>
+      <input class="mf-input" id="ne-title" placeholder="Nome do evento...">
+      <label class="mf-label">Data *</label>
+      <input class="mf-input" id="ne-date" type="date">
+      <label class="mf-label">Tipo</label>
+      <select class="mf-select" id="ne-type">
+        <option value="post">Post / Publicação</option>
+        <option value="task">Tarefa</option>
+        <option value="meeting">Reunião</option>
+        <option value="urgent">Urgente</option>
+      </select>
+      <label class="mf-label">Descrição</label>
+      <input class="mf-input" id="ne-desc" placeholder="Detalhes...">
+      <div class="mf-btns"><button class="mf-save" onclick="saveNewEvent()">Adicionar</button><button class="mf-cancel" onclick="closeNewEvent()">Cancelar</button></div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECT MODAL -->
+<div class="modal-ov" id="proj-modal-ov">
+  <div class="pj-modal">
+    <div class="pj-head"><div class="pj-title" id="pj-title"></div><button class="popup-close" onclick="closeProjModal()">✕</button></div>
+    <div style="padding:20px 24px">
+      <div style="font-size:12px;font-weight:300;color:var(--gray);margin-bottom:16px" id="pj-desc"></div>
+      <div style="height:4px;background:var(--warm);margin-bottom:8px"><div id="pj-bar" style="height:100%;background:var(--navy);transition:width .4s"></div></div>
+      <div style="font-size:11px;color:var(--gray);margin-bottom:16px" id="pj-pct"></div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Tarefas</div>
+      <div id="pj-tasks"></div>
+    </div>
+  </div>
+</div>
 
 <script>
-window.addEventListener('scroll',()=>{
-  const h=document.documentElement;
-  document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';
-});
-new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.05}).observe&&
-document.querySelectorAll('.sec').forEach(el=>new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.05}).observe(el));
-function switchCTab(id,btn){
-  document.getElementById('criativos-video').style.display=id==='video'?'block':'none';
-  document.getElementById('criativos-foto').style.display=id==='foto'?'block':'none';
-  document.querySelectorAll('#ctab-video,#ctab-foto').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-}
+// ────────────────────────────────────────────
+// STATE
+// ────────────────────────────────────────────
+const CATS=['Redes Sociais','Anúncios','Site','Impressos','Captação de Imagens','Comercial','Ferramentas & CRM'];
 
-function gs(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
-
-// DATA
-const tasks=[
-  {id:1,title:'Conectar Instagram Schübak',detail:'Acessar o perfil e conectar ao Meta Business Suite. Verificar permissões de anúncio e pixel. Confirmar a página do Facebook vinculada.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Contas & Acessos'},
-  {id:2,title:'Facebook — Chadi ou criar conta nova',detail:'Avaliar se a conta do Chadi tem restrições. Se sim, criar nova conta Business no Facebook e vincular ao Gerenciador de Negócios da Casa Publicidade.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Contas & Acessos'},
-  {id:3,title:'Criar perfil Instagram Sonare Esquadrias',detail:'Criar @sonareesquadrias (ou variação disponível). Conectar ao Meta Business Suite. Configurar bio provisória, foto de perfil e link do WhatsApp.',status:'todo',marca:'sonare',priority:'high',urgent:true,cat:'Contas & Acessos'},
-  {id:4,title:'Acessar e organizar imagens existentes',detail:'Solicitar todo material de imagem e vídeo disponível — obras, produtos, instalações, fábrica. Organizar em pasta compartilhada para uso nos criativos dos anúncios.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Conteúdo & Captação'},
-  {id:5,title:'Agendar captação de imagens — obras',detail:'Levantar obras e cases disponíveis para filmagem. Identificar 2–3 obras com resultado visual forte. Definir data de captação com o time Schübak.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Conteúdo & Captação'},
-  {id:6,title:'Assinar SMBot',detail:'Contratar plano SMBot para automação de respostas no Instagram e WhatsApp. Configurar fluxos automáticos para leads que interagirem com os anúncios.',status:'todo',marca:'ambas',priority:'mid',urgent:false,cat:'Ferramentas & CRM'},
-  {id:7,title:'Definir e integrar CRM — HubSpot ou Meta',detail:'Avaliar HubSpot vs Meta Business Suite. HubSpot para pipeline completo; Meta para gestão direta dos leads. Configurar integração com WhatsApp e formulários de anúncio.',status:'todo',marca:'ambas',priority:'high',urgent:true,cat:'Ferramentas & CRM'},
-  {id:8,title:'Campanha lookalike — mailing construtoras RS',detail:'Importar mailing de construtoras RS como audiência personalizada no Meta Ads. Criar lookalike a partir dessa base. Campanha de topo de funil com criativos institucionais.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
-  {id:9,title:'Campanha público frio — segmentação cargo e interesse',detail:'Meta Ads para público frio: cargo de arquiteto, engenheiro, proprietário de construtora. Interesses: construção civil, materiais, arquitetura. Geo: Vale dos Sinos, Serra, Litoral Norte RS e SC.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
-  {id:10,title:'Disparo de e-mail — base Schübak',detail:'Criar sequência de e-mail marketing para a base de contatos existente. Conteúdo: novo posicionamento, portfólio de obras e CTA para orçamento.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
-  {id:11,title:'Agendar visitas construtoras — Litoral Norte e Serra',detail:'Montar lista de construtoras-alvo no Litoral Norte RS e Serra Gaúcha. Preparar material de apresentação e agendar visitas comerciais.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Visitas & Parcerias'},
-  {id:12,title:'Agendar visitas corretores — Litoral Norte',detail:'Mapear imobiliárias e corretores do Litoral Norte RS. Criar roteiro de visitas com kit de parceria: folder, tabela de indicação e contato comercial.',status:'todo',marca:'schubak',priority:'low',urgent:false,cat:'Visitas & Parcerias'},
+const PROJECTS=[
+  {id:'sonare-brand',title:'Nova Marca — Sonare Esquadrias',desc:'Criação e lançamento completo da marca Sonare Esquadrias, especializada em isolamento acústico.',taskIds:[3,4,5,101,102,103,104,105,106,704]},
+  {id:'site-schubak',title:'Novo Site Schübak',desc:'Desenvolvimento do novo site institucional com portfólio, página para arquitetos e captação de leads.',taskIds:[201,202,203,204,703,801,802,803]},
+  {id:'anuncios',title:'Campanhas de Anúncios',desc:'Configuração e execução de campanhas no Meta Ads e Google Ads para geração de leads qualificados.',taskIds:[8,9,10,301,302,804,805]},
+  {id:'catalogo',title:'Catálogo, Impressos & Kit',desc:'Novo catálogo de produtos, cartão de visita, folder e materiais gráficos.',taskIds:[401,402,403,404]},
+  {id:'comercial',title:'Expansão Comercial — Parcerias',desc:'Visitas e parcerias com construtoras, corretores e arquitetos nas regiões-alvo.',taskIds:[11,12,501,502]},
+  {id:'crm-sistema',title:'CRM & Sistema de Atendimento',desc:'Implantação do CRM, SMBot e sistema de atendimento integrado ao WhatsApp.',taskIds:[6,7,601,602]},
 ];
 
-const prazos=[
-  {prazo:'Semana 1',entrega:'Conectar contas Instagram e Facebook',detalhe:'Schübak + Sonare Esquadrias no Meta Business Suite',marca:'Ambas',urgent:true},
-  {prazo:'Semana 1',entrega:'Acessar imagens existentes',detalhe:'Organizar material em pasta compartilhada para criativos',marca:'Schübak',urgent:true},
-  {prazo:'Semana 2',entrega:'Campanhas de anúncio ativas',detalhe:'Meta Ads + Google Ads · R$ 1.000/mês em mídia ativado',marca:'Schübak',urgent:true},
-  {prazo:'Semana 2',entrega:'Assinar SMBot',detalhe:'Automação de mensagens Instagram e WhatsApp configurada',marca:'Ambas',urgent:false},
-  {prazo:'15 dias',entrega:'CRM definido e integrado',detalhe:'HubSpot ou Meta Business Suite · fluxo de atendimento ativo',marca:'Ambas',urgent:true},
-  {prazo:'15 dias',entrega:'Naming Sonare aprovado',detalhe:'Registro de domínio e início da identidade visual',marca:'Sonare',urgent:false},
-  {prazo:'20 dias',entrega:'Identidade visual Sonare criada',detalhe:'Logo · paleta · tipografia · manual de marca',marca:'Sonare',urgent:false},
-  {prazo:'30 dias',entrega:'Novo site Schübak',detalhe:'Portfólio · página arquitetos · captação de leads · SEO',marca:'Schübak',urgent:false},
-  {prazo:'30 dias',entrega:'Campanha lookalike no ar',detalhe:'Mailing construtoras RS importado + audiência lookalike criada',marca:'Schübak',urgent:false},
-  {prazo:'45 dias',entrega:'Material impresso pronto',detalhe:'Folder · material comercial · kit de parceria',marca:'Schübak',urgent:false},
-  {prazo:'45 dias',entrega:'Site Sonare Esquadrias',detalhe:'Landing pages por segmento · formulário e WhatsApp integrados',marca:'Sonare',urgent:false},
-  {prazo:'45 dias',entrega:'Disparo de e-mail realizado',detalhe:'Sequência para base de contatos existente da Schübak',marca:'Schübak',urgent:false},
-  {prazo:'60 dias',entrega:'Visitas construtoras e corretores',detalhe:'Litoral Norte RS + Serra Gaúcha · materiais em mãos',marca:'Schübak',urgent:false},
-  {prazo:'60 dias',entrega:'Google Ads Sonare no ar',detalhe:'Palavras-chave de intenção alta: janela acústica, isolamento PVC',marca:'Sonare',urgent:false},
+const now=()=>{const d=new Date();return d.toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'})};
+
+let TASKS=[
+  {id:1,title:'Ajustar Google — Schübak Esquadrias',desc:'Otimização completa do perfil Google Meu Negócio da Schübak.',status:'done',subtasks:[{id:'s1a',text:'Foto de perfil adicionada',done:true},{id:'s1b',text:'Dados e categorias atualizados',done:true},{id:'s1c',text:'Endereço e horário conferidos',done:true},{id:'s1d',text:'Fotos do ambiente (internas)',done:false},{id:'s1e',text:'Foto da fachada',done:false},{id:'s1f',text:'Posts regulares configurados',done:false}],marca:'schubak',priority:'high',urgent:true,cat:'Redes Sociais',proj:'sonare-brand',comments:[{text:'Concluído. Perfil atualizado com fotos, horários e categorias corretas.',time:now()}],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Concluído',time:now()}]},
+  {id:2,title:'Conectar Instagram Schübak',desc:'Acesso ao perfil e conexão ao Meta Business Suite. Pixel e permissões de anúncio configurados.',status:'done',marca:'schubak',priority:'high',urgent:true,cat:'Redes Sociais',proj:'anuncios',comments:[{text:'Conta conectada com sucesso ao Meta Business Suite.',time:now()}],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Concluído',time:now()}]},
+  {id:3,title:'Criar e-mail Sonare Esquadrias',desc:'Criação do e-mail profissional para a nova marca.',status:'done',marca:'sonare',priority:'high',urgent:true,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Concluído',time:now()}]},
+  {id:4,title:'Criar Instagram Sonare Esquadrias',desc:'Perfil @sonareesquadrias criado e conectado ao Meta Business Suite.',status:'done',marca:'sonare',priority:'high',urgent:true,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Concluído',time:now()}]},
+  {id:5,title:'Página de orçamento',desc:'Página de orçamento online criada e funcional para captação de leads.',status:'done',marca:'schubak',priority:'high',urgent:false,cat:'Site',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Concluído',time:now()}]},
+  {id:6,title:'Assinar SMBot',desc:'Contratar plano SMBot para automação de respostas no Instagram e WhatsApp.',status:'doing',marca:'ambas',priority:'mid',urgent:false,cat:'Ferramentas & CRM',proj:'crm-sistema',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Em andamento',time:now()}]},
+  {id:7,title:'CRM — HubSpot ou Meta Business Suite',desc:'Avaliar e definir plataforma de CRM. Integrar com WhatsApp e formulários de anúncio.',status:'doing',marca:'ambas',priority:'high',urgent:true,cat:'Ferramentas & CRM',proj:'crm-sistema',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Em andamento',time:now()}]},
+  {id:8,title:'Campanha lookalike — mailing construtoras RS',desc:'Importar mailing de construtoras RS e criar audiência lookalike no Meta Ads.',status:'doing',marca:'schubak',priority:'mid',urgent:false,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()},{action:'Movida para Em andamento',time:now()}]},
+  {id:9,title:'Campanha público frio — cargos e interesses',desc:'Meta Ads público frio: arquitetos, engenheiros, construtores nas regiões-alvo.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:10,title:'Disparo de e-mail — base Schübak',desc:'Sequência de e-mail marketing para a base existente de contatos.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:11,title:'Visitas construtoras — Litoral e Serra',desc:'Agendar e realizar visitas comerciais nas regiões-alvo com material de apresentação.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Comercial',proj:'comercial',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:12,title:'Visitas corretores — Litoral Norte',desc:'Mapear imobiliárias e agendar visitas com kit de parceria.',status:'todo',marca:'schubak',priority:'low',urgent:false,cat:'Comercial',proj:'comercial',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:101,title:'Identidade visual — Sonare Esquadrias',desc:'Criar logo, paleta, tipografia e manual de marca completo para a Sonare.',status:'todo',marca:'sonare',priority:'high',urgent:true,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:102,title:'Criar Facebook — Sonare Esquadrias',desc:'Criar página no Facebook e conectar ao Meta Business Suite.',status:'todo',marca:'sonare',priority:'high',urgent:false,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:103,title:'Criar LinkedIn — Sonare Esquadrias',desc:'Perfil profissional no LinkedIn para alcançar arquitetos e construtoras.',status:'todo',marca:'sonare',priority:'mid',urgent:false,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:104,title:'Google Business — Sonare Esquadrias',desc:'Criar e otimizar perfil no Google Meu Negócio da Sonare.',status:'todo',marca:'sonare',priority:'mid',urgent:false,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:105,title:'Site Sonare Esquadrias',desc:'Desenvolver site focado em conversão com landing pages por segmento acústico.',status:'todo',marca:'sonare',priority:'high',urgent:false,cat:'Site',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:106,title:'Apresentação comercial — Sonare',desc:'Criar apresentação comercial da Sonare para clientes e parceiros.',status:'todo',marca:'sonare',priority:'mid',urgent:false,cat:'Comercial',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:201,title:'Wireframe e design — site Schübak',desc:'Definir estrutura, páginas e design do novo site com foco em conversão.',status:'todo',marca:'schubak',priority:'high',urgent:false,cat:'Site',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:202,title:'Desenvolvimento — novo site Schübak',desc:'Desenvolvimento técnico completo do site com portfólio e SEO on-page.',status:'todo',marca:'schubak',priority:'high',urgent:false,cat:'Site',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:203,title:'Portfólio de obras — levantamento',desc:'Reunir fotos e informações das principais obras entregues para o site.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Captação de Imagens',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:204,title:'SEO e Google Search Console',desc:'Configurar Search Console, sitemap e otimização on-page do novo site.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Site',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:301,title:'Google Ads — Schübak',desc:'Campanhas de pesquisa para capturar intenção ativa: esquadrias PVC RS, janelas alumínio POA.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:302,title:'Google Ads — Sonare Esquadrias',desc:'Campanhas para palavras-chave de isolamento acústico: janela acústica, redução de ruído RS.',status:'todo',marca:'sonare',priority:'mid',urgent:false,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:401,title:'Cartão de visita',desc:'Design e produção do novo cartão de visita da Schübak com QR Code para o site.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Impressos',proj:'catalogo',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:402,title:'Kit marketing / apresentação',desc:'Folder, apresentação comercial e materiais para visitas a construtoras e arquitetos.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Impressos',proj:'catalogo',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:403,title:'Novo catálogo de produtos',desc:'Catálogo completo com linhas, acabamentos, cores e especificações técnicas.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Impressos',proj:'catalogo',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:404,title:'Folder institucional',desc:'Folder de apresentação premium com portfólio de obras para arquitetos e construtoras.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Impressos',proj:'catalogo',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:501,title:'Kit de parceria — corretores e arquitetos',desc:'Tabela de comissão, folder e contato comercial para distribuir nas visitas.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Comercial',proj:'comercial',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:502,title:'Programa de indicação — estruturar regras',desc:'Definir percentual, forma de pagamento e rastreamento das indicações via CRM.',status:'todo',marca:'schubak',priority:'low',urgent:false,cat:'Comercial',proj:'comercial',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:601,title:'WhatsApp Business — número exclusivo comercial',desc:'Criar número exclusivo para o comercial e integrar ao CRM escolhido.',status:'todo',marca:'ambas',priority:'high',urgent:true,cat:'Ferramentas & CRM',proj:'crm-sistema',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:602,title:'Fluxos de atendimento — SMBot',desc:'Configurar fluxos automáticos: boas-vindas, qualificação e encaminhamento comercial.',status:'todo',marca:'ambas',priority:'mid',urgent:false,cat:'Ferramentas & CRM',proj:'crm-sistema',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:703,title:'Captação de imagens — obras',desc:'Agendar diária de captação em 2–3 obras com forte resultado visual.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Captação de Imagens',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:704,title:'Posts — Sonare Esquadrias',desc:'Calendário e primeiros posts educativos sobre isolamento acústico para o Instagram.',status:'todo',marca:'sonare',priority:'mid',urgent:false,cat:'Redes Sociais',proj:'sonare-brand',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:801,title:'Google Schübak — fotos internas',desc:'Adicionar fotos internas da empresa no Google Meu Negócio: recepção, showroom, equipe, produtos.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Redes Sociais',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:802,title:'Google Schübak — foto da fachada',desc:'Fotografar e adicionar a fachada da empresa no Google Meu Negócio. Boa iluminação e visibilidade do nome.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Captação de Imagens',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:803,title:'Google Schübak — posts regulares',desc:'Criar rotina de posts no Google Meu Negócio: obras, produtos, novidades. Frequência sugerida: 2x por semana.',status:'todo',marca:'schubak',priority:'low',urgent:false,cat:'Redes Sociais',proj:'site-schubak',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:804,title:'Gravar criativos — Vídeo 1 e Vídeo 2',desc:'Agendar e gravar os criativos de vídeo para os anúncios. Roteiro completo disponível na aba Criativos.',status:'todo',subtasks:[{id:'s804a',text:'Definir data e local de gravação',done:false},{id:'s804b',text:'Selecionar obra disponível para Vídeo 1',done:false},{id:'s804c',text:'Gravar Vídeo 1 — obra entregue',done:false},{id:'s804d',text:'Gravar Vídeo 2 — bastidores da fábrica',done:false},{id:'s804e',text:'Editar e finalizar os vídeos',done:false},{id:'s804f',text:'Aprovar criativos com o cliente',done:false}],marca:'schubak',priority:'high',urgent:true,cat:'Captação de Imagens',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
+  {id:805,title:'Enviar boleto Meta Ads (Facebook)',desc:'Gerar e pagar o boleto de crédito no Meta Ads. Sem pagamento os anúncios não rodam.',status:'todo',subtasks:[{id:'s805a',text:'Acessar conta Meta Ads',done:false},{id:'s805b',text:'Verificar forma de pagamento cadastrada',done:false},{id:'s805c',text:'Gerar boleto de crédito',done:false},{id:'s805d',text:'Efetuar pagamento',done:false},{id:'s805e',text:'Confirmar crédito na conta',done:false}],marca:'schubak',priority:'high',urgent:true,cat:'Anúncios',proj:'anuncios',comments:[],links:[],history:[{action:'Tarefa criada',time:now()}]},
 ];
 
-// States
-let states={};
-tasks.forEach(t=>states[t.id]=t.status);
-let checkStates={};
-tasks.forEach(t=>checkStates[t.id]=false);
-let filter='all';
+let BANCO={
+  contas:[
+    {id:1,nome:'Instagram Schübak',usuario:'@schubak_esquadrias_premium',senha:'2026EsquadriaS!',link:'https://instagram.com/schubak_esquadrias_premium',tipo:'Social'},
+    {id:2,nome:'Instagram Sonare',usuario:'@sonareesquadrias',senha:'#Sonare2026',link:'https://instagram.com/sonareesquadrias',tipo:'Social'},
+    {id:3,nome:'Google — Sonare',usuario:'sonareesquadrias@gmail.com',senha:'#Sonare2026',link:'https://gmail.com',tipo:'Google'},
+    {id:4,nome:'Meta Business Suite',usuario:'',senha:'',link:'https://business.facebook.com',tipo:'Ads'},
+    {id:5,nome:'Google Ads',usuario:'',senha:'',link:'https://ads.google.com',tipo:'Ads'},
+    {id:6,nome:'Google Meu Negócio — Schübak',usuario:'',senha:'',link:'https://business.google.com',tipo:'Google'},
+  ],
+  links:[
+    {id:1,nome:'Acervo de Imagens — Schübak',url:'https://drive.google.com/drive/u/1/folders/1uxGXBi11ssYAZgCEgWNLV5EyO3OWD8Kj',desc:'Pasta principal com todas as imagens e materiais'},
+    {id:2,nome:'Mensal Influup — Planilha',url:'https://docs.google.com/spreadsheets/d/1Ic2U9_yZoBdQg6G9Y8zLlJNsmmaGArOSQTYu3NcHgLM/edit?gid=1599380098#gid=1599380098',desc:'Controle mensal Influup'},
+    {id:3,nome:'Donadussi — Hospital do Coração',url:'https://u.pcloud.link/publink/show?code=kZMqzA5ZedacagnGtqfVtcCwUUmnGJJCJAKk',desc:'Pasta pCloud — Donadussi'},
+    {id:4,nome:'Drive Influup — Pasta principal',url:'https://drive.google.com/drive/u/0/folders/1IdiwM9Dq1-ozMW5Ip1S7Vp4Mjn3qESzg?pli=1',desc:'Pasta no Drive Influup'},
+    {id:5,nome:'Planilha de leads',url:'',desc:'Controle de leads e follow-up'},
+  ],
+  info:[
+    {id:1,campo:'CNPJ Schübak',valor:''},
+    {id:2,campo:'Telefone comercial',valor:''},
+    {id:3,campo:'E-mail Schübak',valor:''},
+    {id:4,campo:'E-mail Sonare',valor:'sonareesquadrias@gmail.com'},
+    {id:5,campo:'Instagram Schübak',valor:'@schubak_esquadrias_premium'},
+    {id:6,campo:'Instagram Sonare',valor:'@sonareesquadrias'},
+    {id:7,campo:'Responsável — Chadi',valor:''},
+    {id:8,campo:'Responsável — Casa Publicidade',valor:''},
+  ],
+};
 
-function setFilter(f,btn){
-  filter=f;
-  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
-  btn.classList.add('on');
-  renderKanban();
+let CALENDAR_EVENTS=[];
+let calYear=new Date().getFullYear();
+let calMonth=new Date().getMonth();
+let filterActive='Todas';
+let nextId=900;
+let currentTaskId=null;
+
+// ────────────────────────────────────────────
+// SIDEBAR
+// ────────────────────────────────────────────
+function toggleSidebar(){
+  const sb=document.getElementById('sidebar');
+  const main=document.getElementById('main');
+  const btn=document.getElementById('toggle-btn');
+  const rail=document.getElementById('sidebar-rail');
+  sb.classList.toggle('closed');
+  main.classList.toggle('sidebar-closed');
+  btn.classList.toggle('sidebar-open');
+  rail.classList.toggle('visible');
 }
 
-function toggleTask(id){
-  const el=document.getElementById('task-'+id);
-  if(el)el.classList.toggle('expanded');
+// ────────────────────────────────────────────
+// NAVIGATION
+// ────────────────────────────────────────────
+function nav(id,btn){
+  document.querySelectorAll('.view').forEach(v=>v.classList.remove('on'));
+  document.querySelectorAll('.sb-item').forEach(b=>b.classList.remove('on'));
+  document.getElementById('view-'+id).classList.add('on');
+  if(btn)btn.classList.add('on');
+  const renders={dashboard:renderDash,kanban:renderKanban,criativos:renderCriativos,publico:renderPublico,banco:renderBanco,home:renderHome,calendario:renderCalendario};
+  if(renders[id])renders[id]();
 }
 
-function moveTask(id,status){
-  states[id]=status;
-  renderKanban();
-  updateHero();
+// ────────────────────────────────────────────
+// HOME
+// ────────────────────────────────────────────
+function renderHome(){
+  const done=TASKS.filter(t=>t.status==='done').length;
+  const urgent=TASKS.filter(t=>t.urgent&&t.status!=='done').length;
+  document.getElementById('home-stats-right').innerHTML=`
+    <div class="home-stat"><div class="home-stat-num">${TASKS.length}</div><div class="home-stat-lbl">Tarefas no sistema</div><div class="home-stat-sub">Schübak + Sonare Esquadrias</div></div>
+    <div class="home-stat"><div class="home-stat-num">${done}</div><div class="home-stat-lbl">Concluídas</div><div class="home-stat-sub">${Math.round(done/TASKS.length*100)}% do total</div></div>
+    <div class="home-stat"><div class="home-stat-num">${urgent}</div><div class="home-stat-lbl">Urgentes pendentes</div><div class="home-stat-sub">Prioridade máxima</div></div>
+    <div class="home-stat"><div class="home-stat-num">${PROJECTS.length}</div><div class="home-stat-lbl">Projetos ativos</div><div class="home-stat-sub">Acompanhe no Dashboard</div></div>
+  `;
 }
 
-function getPriorityClass(p){return p==='high'?'p-high':p==='mid'?'p-mid':'p-low'}
+// ────────────────────────────────────────────
+// DASHBOARD
+// ────────────────────────────────────────────
+function pTasks(p){return TASKS.filter(t=>p.taskIds.includes(t.id))}
+function pDone(p){return pTasks(p).filter(t=>t.status==='done').length}
+function pPct(p){const a=pTasks(p).length;return a===0?0:Math.round(pDone(p)/a*100)}
 
-function getTagHTML(marca){
-  if(marca==='schubak')return'<span class="ttag ttag-sch">Schübak</span>';
-  if(marca==='sonare')return'<span class="ttag ttag-son">Sonare</span>';
-  return'<span class="ttag ttag-both">Ambas</span>';
+function renderDash(){
+  const total=TASKS.length,done=TASKS.filter(t=>t.status==='done').length,
+    doing=TASKS.filter(t=>t.status==='doing').length,todo=TASKS.filter(t=>t.status==='todo').length,
+    urg=TASKS.filter(t=>t.urgent&&t.status!=='done').length;
+  const pct=Math.round(done/total*100);
+
+  document.getElementById('kpi-row').innerHTML=[
+    {label:'Total de tarefas',val:total,color:'var(--navy)',icon:'📋'},
+    {label:'A fazer',val:todo,color:'var(--dark)',icon:'⭕'},
+    {label:'Em andamento',val:doing,color:'var(--amber)',icon:'🔄'},
+    {label:'Concluídas',val:done,color:'var(--green)',icon:'✅'},
+    {label:'Urgentes',val:urg,color:'var(--red)',icon:'🔴'},
+  ].map(k=>`
+    <div class="kpi-card">
+      <div class="kpi-top"><span style="font-size:20px">${k.icon}</span><span style="font-size:10px;color:var(--gray)">${pct}%</span></div>
+      <div class="kpi-val" style="color:${k.color}">${k.val}</div>
+      <div class="kpi-lbl">${k.label}</div>
+    </div>
+  `).join('');
+
+  document.getElementById('proj-count').textContent=`${PROJECTS.length} projetos`;
+  document.getElementById('dash-projects').innerHTML=PROJECTS.map(p=>`
+    <div class="proj-row" onclick="openProjModal('${p.id}')">
+      <div class="proj-row-dot" style="background:${pPct(p)===100?'var(--green)':'var(--navy)'}"></div>
+      <div class="proj-row-name">${p.title}</div>
+      <div class="proj-bar-mini"><div class="proj-bar-mini-fill" style="width:${pPct(p)}%"></div></div>
+      <div class="proj-row-pct">${pPct(p)}%</div>
+    </div>
+  `).join('');
+
+  const recent=TASKS.filter(t=>t.status==='done').slice(-5).reverse();
+  document.getElementById('dash-activity').innerHTML=recent.length?recent.map(t=>`
+    <div class="act-item">
+      <div class="act-dot"></div>
+      <div class="act-content">
+        <div class="act-txt"><strong>${t.title}</strong> — concluída</div>
+        <div class="act-time">${t.history&&t.history.length?t.history[t.history.length-1].time:'recente'}</div>
+      </div>
+    </div>
+  `).join(''):'<div style="font-size:12px;color:var(--gray);padding:8px 0">Nenhuma tarefa concluída ainda.</div>';
+
+  const catCounts={};
+  CATS.forEach(c=>{catCounts[c]=TASKS.filter(t=>t.cat===c).length});
+  const maxCat=Math.max(...Object.values(catCounts));
+  document.getElementById('dash-cats').innerHTML=CATS.map(c=>`
+    <div class="cat-row">
+      <div class="cat-name">${c}</div>
+      <div class="cat-bar"><div class="cat-bar-fill" style="width:${maxCat?catCounts[c]/maxCat*100:0}%"></div></div>
+      <div class="cat-count">${catCounts[c]}</div>
+    </div>
+  `).join('');
+
+  const sch=TASKS.filter(t=>t.marca==='schubak').length;
+  const son=TASKS.filter(t=>t.marca==='sonare').length;
+  const amb=TASKS.filter(t=>t.marca==='ambas').length;
+  document.getElementById('dash-marcas').innerHTML=`
+    <div style="display:flex;flex-direction:column;gap:16px;padding-top:4px">
+      ${[{label:'Schübak',val:sch,color:'var(--navy)'},{label:'Sonare Esquadrias',val:son,color:'var(--green)'},{label:'Ambas as marcas',val:amb,color:'var(--amber)'}].map(m=>`
+        <div>
+          <div style="display:flex;justify-content:space-between;margin-bottom:5px">
+            <span style="font-size:12px;font-weight:500;color:var(--dark)">${m.label}</span>
+            <span style="font-size:12px;color:var(--gray)">${m.val} tarefas</span>
+          </div>
+          <div style="height:6px;background:var(--border)"><div style="height:100%;background:${m.color};width:${total?m.val/total*100:0}%;transition:width .5s"></div></div>
+        </div>
+      `).join('')}
+    </div>
+  `;
 }
+
+// ────────────────────────────────────────────
+// PROJECT MODAL
+// ────────────────────────────────────────────
+function openProjModal(id){
+  const p=PROJECTS.find(x=>x.id===id);
+  const pt=pTasks(p);const pct=pPct(p);
+  document.getElementById('pj-title').textContent=p.title;
+  document.getElementById('pj-desc').textContent=p.desc;
+  document.getElementById('pj-bar').style.width=pct+'%';
+  document.getElementById('pj-pct').textContent=`${pct}% concluído — ${pDone(p)} de ${pt.length} tarefas`;
+  document.getElementById('pj-tasks').innerHTML=pt.map(t=>`
+    <div class="pj-task-item">
+      <div class="pj-check ${t.status==='done'?'ok':''}">${t.status==='done'?'✓':''}</div>
+      <div style="flex:1;font-size:12px;${t.status==='done'?'color:var(--gray);text-decoration:line-through':''}">${t.title}</div>
+      <span class="badge badge-${t.marca==='schubak'?'blue':t.marca==='sonare'?'green':'amber'}">${t.marca==='schubak'?'Sch':'Son'}</span>
+    </div>
+  `).join('');
+  document.getElementById('proj-modal-ov').classList.add('on');
+}
+function closeProjModal(){document.getElementById('proj-modal-ov').classList.remove('on')}
+document.getElementById('proj-modal-ov').addEventListener('click',function(e){if(e.target===this)closeProjModal()});
+
+// ────────────────────────────────────────────
+// KANBAN
+// ────────────────────────────────────────────
+const ALL_FILTERS=['Todas',...CATS,'Schübak','Sonare','Urgentes'];
 
 function renderKanban(){
+  document.getElementById('filter-row').innerHTML=ALL_FILTERS.map(f=>`
+    <button class="fb ${filterActive===f?'on':''}" onclick="setF('${f}',this)">${f}</button>
+  `).join('');
+
   const cols={todo:[],doing:[],done:[]};
-  tasks.forEach(t=>{
-    if(filter==='urgent'&&!t.urgent)return;
-    if(filter!=='all'&&filter!=='urgent'&&filter!==t.marca)return;
-    cols[states[t.id]].push(t);
+  TASKS.forEach(t=>{
+    if(filterActive==='Todas'){}
+    else if(filterActive==='Urgentes'&&!t.urgent)return;
+    else if(filterActive==='Schübak'&&t.marca!=='schubak')return;
+    else if(filterActive==='Sonare'&&t.marca!=='sonare')return;
+    else if(CATS.includes(filterActive)&&t.cat!==filterActive)return;
+    cols[t.status].push(t);
   });
 
-  ['todo','doing','done'].forEach(s=>{
-    const el=document.getElementById('col-'+s);
-    const cnt=document.getElementById('cnt-'+s);
-    cnt.textContent=cols[s].length;
-    el.innerHTML=cols[s].map(t=>{
-      const nextBtn=states[t.id]==='todo'
-        ?`<button class="move-btn" onclick="event.stopPropagation();moveTask(${t.id},'doing')">Iniciar →</button>`
-        :states[t.id]==='doing'
-        ?`<button class="move-btn" onclick="event.stopPropagation();moveTask(${t.id},'done')">Concluir →</button><button class="move-btn move-back" onclick="event.stopPropagation();moveTask(${t.id},'todo')">← Voltar</button>`
-        :`<button class="move-btn move-back" onclick="event.stopPropagation();moveTask(${t.id},'todo')">← Reabrir</button>`;
-      return`<div class="task ${getPriorityClass(t.priority)}" id="task-${t.id}" onclick="toggleTask(${t.id})">
-        <div class="task-top">
-          <div class="task-title">${t.title}</div>
-          <span class="task-arrow">▾</span>
-        </div>
-        <div class="task-footer">${getTagHTML(t.marca)}${t.urgent?'<span class="ttag ttag-urgent">Urgente</span>':''}</div>
-        <div class="task-body">
-          <div class="task-detail">${t.detail}</div>
-          <div style="display:flex;gap:6px;flex-wrap:wrap">${nextBtn}</div>
-        </div>
-      </div>`;
-    }).join('');
-  });
-
-  const vis=tasks.filter(t=>{
-    if(filter==='urgent')return t.urgent;
-    if(filter!=='all')return t.marca===filter;
-    return true;
-  });
-  document.getElementById('sv-total').textContent=vis.length;
-  document.getElementById('sv-todo').textContent=vis.filter(t=>states[t.id]==='todo').length;
-  document.getElementById('sv-doing').textContent=vis.filter(t=>states[t.id]==='doing').length;
-  document.getElementById('sv-done').textContent=vis.filter(t=>states[t.id]==='done').length;
-}
-
-function toggleCheck(id){
-  checkStates[id]=!checkStates[id];
-  const item=document.getElementById('ci-'+id);
-  const box=document.getElementById('cb-'+id);
-  if(checkStates[id]){item.classList.add('done');box.classList.add('checked')}
-  else{item.classList.remove('done');box.classList.remove('checked')}
-  updateGroupProgress();
-  updateHero();
-}
-
-function updateGroupProgress(){
-  const groups={};
-  tasks.forEach(t=>{
-    if(!groups[t.cat])groups[t.cat]=[];
-    groups[t.cat].push(t.id);
-  });
-  Object.keys(groups).forEach(cat=>{
-    const ids=groups[cat];
-    const done=ids.filter(id=>checkStates[id]).length;
-    const pct=Math.round((done/ids.length)*100);
-    const fillEl=document.getElementById('gfill-'+cat.replace(/\W/g,''));
-    if(fillEl)fillEl.style.width=pct+'%';
-    const progTxt=document.getElementById('gprog-'+cat.replace(/\W/g,''));
-    if(progTxt)progTxt.textContent=pct+'%';
-  });
-}
-
-function renderChecklist(){
-  const groups={};
-  const order=['Contas & Acessos','Ferramentas & CRM','Conteúdo & Captação','Campanhas & Anúncios','Visitas & Parcerias'];
-  tasks.forEach(t=>{if(!groups[t.cat])groups[t.cat]=[];groups[t.cat].push(t)});
-  const body=document.getElementById('checklist-body');
-  body.innerHTML=order.map(cat=>{
-    const items=groups[cat]||[];
-    const key=cat.replace(/\W/g,'');
-    return`<div class="check-group">
-      <div class="check-group-title">
-        ${cat}
-        <div class="check-group-prog"><div class="check-group-fill" id="gfill-${key}" style="width:0%"></div></div>
-        <span style="font-size:10px;color:var(--gray);font-weight:300" id="gprog-${key}">0%</span>
+  document.getElementById('board').innerHTML=[
+    {key:'todo',label:'A fazer',cc:'cnt-todo'},
+    {key:'doing',label:'Em andamento',cc:'cnt-doing'},
+    {key:'done',label:'Concluído',cc:'cnt-done'},
+  ].map(col=>`
+    <div class="col-wrap">
+      <div class="col-head">
+        <span class="col-title">${col.label}</span>
+        <span class="col-cnt ${col.cc}">${cols[col.key].length}</span>
       </div>
-      ${items.map(t=>`<div class="check-item" id="ci-${t.id}" onclick="toggleCheck(${t.id})">
-        <div class="check-box" id="cb-${t.id}"></div>
-        <div class="check-text">
-          <div class="check-title">${t.title}</div>
-          <div class="check-sub">${t.detail}</div>
-        </div>
-        <div style="flex-shrink:0;margin-top:2px">${getTagHTML(t.marca)}</div>
-      </div>`).join('')}
-    </div>`;
-  }).join('');
-}
-
-function renderPrazos(){
-  const marcaTag=(m,u)=>{
-    const bg=m==='Sonare'?'var(--green-light)':m==='Ambas'?'var(--amber-light)':'var(--navy-light)';
-    const co=m==='Sonare'?'var(--green)':m==='Ambas'?'var(--amber)':'var(--navy)';
-    const bo=m==='Sonare'?'rgba(45,125,70,.2)':m==='Ambas'?'rgba(192,124,16,.2)':'rgba(26,58,107,.2)';
-    return`<span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid ${bo};background:${bg};color:${co}">${m}</span>
-    ${u?'<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(185,0,0,.2);background:var(--red-light);color:var(--red)">Urgente</span>':''}`;
-  };
-  document.getElementById('prazos-body').innerHTML=prazos.map((p,i)=>`
-    <div class="ptable-row" style="background:${i%2===0?'#fff':'#fafafa'}">
-      <div class="ptable-prazo">${p.prazo}</div>
-      <div class="ptable-cell" style="font-weight:600">${p.entrega}</div>
-      <div class="ptable-cell">${p.detalhe}</div>
-      <div class="ptable-cell" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">${marcaTag(p.marca,p.urgent)}</div>
+      ${cols[col.key].map(t=>taskCard(t)).join('')}
+      <button class="add-btn" onclick="openNewTask('${col.key}')">+ Adicionar tarefa</button>
     </div>
   `).join('');
 }
 
-function updateHero(){
-  const done=tasks.filter(t=>states[t.id]==='done'||checkStates[t.id]).length;
-  document.getElementById('h-done').textContent=done;
+function taskCard(t){
+  const pc=t.priority==='high'?'ph':t.priority==='mid'?'pm':'pl';
+  return`<div class="tc ${pc}${t.status==='done'?' pdone':''}" onclick="openTaskPopup(${t.id})">
+    <div class="tc-title">${t.title}</div>
+    <div class="tc-tags">
+      <span class="ttag ttag-${t.marca}">${t.marca==='schubak'?'Schübak':t.marca==='sonare'?'Sonare':'Ambas'}</span>
+      <span class="ttag ttag-cat">${t.cat}</span>
+      ${t.urgent&&t.status!=='done'?'<span class="ttag ttag-urg">Urgente</span>':''}
+      ${t.status==='done'?'<span class="ttag ttag-done">✓</span>':''}
+      ${t.links&&t.links.length?`<span class="ttag" style="background:#f0f4ff;color:var(--navy)">🔗 ${t.links.length}</span>`:''}
+      ${t.comments&&t.comments.length?`<span class="ttag" style="background:var(--warm);color:var(--gray)">💬 ${t.comments.length}</span>`:''}
+    </div>
+  </div>`;
 }
 
-renderKanban();
-renderChecklist();
-renderPrazos();
-</script>
-</body>
-</html>
+function setF(f,btn){filterActive=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderKanban()}
+
+// ────────────────────────────────────────────
+// TASK POPUP
+// ────────────────────────────────────────────
+function openTaskPopup(id){
+  currentTaskId=id;
+  const t=TASKS.find(x=>x.id===id);
+  document.getElementById('popup-title').textContent=t.title;
+
+  // switch to first tab
+  document.querySelectorAll('.ptab').forEach((b,i)=>{b.classList.toggle('on',i===0)});
+  document.querySelectorAll('.ptab-content').forEach((c,i)=>{c.classList.toggle('on',i===0)});
+
+  renderPopupDetalhes(t);
+  renderPopupHistorico(t);
+  renderPopupComentarios(t);
+  renderPopupLinks(t);
+  renderPopupEditar(t);
+
+  document.getElementById('task-overlay').classList.add('on');
+}
+
+function renderPopupDetalhes(t){
+  const moveBtns=t.status==='todo'
+    ?`<button class="move-btn" onclick="moveTask(${t.id},'doing')">Em andamento →</button>`
+    :t.status==='doing'
+    ?`<button class="move-btn" onclick="moveTask(${t.id},'done')">Concluído →</button><button class="move-btn back" onclick="moveTask(${t.id},'todo')">← A fazer</button>`
+    :`<button class="move-btn back" onclick="moveTask(${t.id},'todo')">← Reabrir</button>`;
+
+  // subtasks html
+  const subs=t.subtasks||[];
+  const sDone=subs.filter(s=>s.done).length;
+  const sPct=subs.length?Math.round(sDone/subs.length*100):0;
+  const subsHTML=subs.length?`
+    <div class="sub-progress">
+      <div class="sub-prog-bar"><div class="sub-prog-fill" style="width:${sPct}%"></div></div>
+      <div class="sub-prog-txt">${sDone}/${subs.length} concluídas</div>
+    </div>
+    <div class="sub-list">
+      ${subs.map(s=>`<div class="sub-item ${s.done?'sdone':''}" id="sub-${s.id}">
+        <div class="sub-cb ${s.done?'done':''}" onclick="toggleSub(${t.id},'${s.id}')">${s.done?'✓':''}</div>
+        <div class="sub-txt">${s.text}</div>
+        <button class="sub-del" onclick="delSub(${t.id},'${s.id}')">✕</button>
+      </div>`).join('')}
+    </div>`:
+    '<div style="font-size:11px;color:var(--gray);margin:4px 0 10px">Nenhuma subtarefa ainda.</div>';
+
+  document.getElementById('ptab-detalhes').innerHTML=`
+    <div class="popup-field"><div class="popup-lbl">Descrição</div><div class="popup-txt">${t.desc||'Sem descrição.'}</div></div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0">
+      <div><div class="popup-lbl">Marca</div><span class="badge badge-${t.marca==='schubak'?'blue':t.marca==='sonare'?'green':'amber'}">${t.marca==='schubak'?'Schübak':t.marca==='sonare'?'Sonare':'Ambas'}</span></div>
+      <div><div class="popup-lbl">Prioridade</div><span class="badge badge-${t.priority==='high'?'red':t.priority==='mid'?'amber':'green'}">${t.priority==='high'?'Alta':t.priority==='mid'?'Média':'Baixa'}</span></div>
+      <div><div class="popup-lbl">Prazo</div><span style="font-size:12px;color:${t.dueDate?'var(--dark)':'var(--gray)'}">${t.dueDate||'Sem data'}</span></div>
+    </div>
+    <div class="popup-field"><div class="popup-lbl">Status — mover tarefa</div><div class="move-btns">${moveBtns}</div></div>
+    <div class="popup-field" style="margin-top:14px">
+      <div class="popup-lbl" style="margin-bottom:6px">Subtarefas</div>
+      ${subsHTML}
+      <div class="sub-add-row">
+        <input class="sub-add-input" id="sub-new-${t.id}" placeholder="Nova subtarefa..." onkeydown="if(event.key==='Enter')addSub(${t.id})">
+        <button class="sub-add-btn" onclick="addSub(${t.id})">+ Add</button>
+      </div>
+    </div>
+  `;
+}
+
+function renderPopupHistorico(t){
+  document.getElementById('ptab-historico').innerHTML=`
+    <div class="popup-lbl" style="margin-bottom:10px">Histórico de alterações</div>
+    ${(t.history||[]).map(h=>`<div class="hist-item"><div class="hist-dot"></div><div><div class="hist-txt">${h.action}</div><div class="hist-time">${h.time}</div></div></div>`).join('')||'<div style="font-size:12px;color:var(--gray)">Nenhum histórico registrado.</div>'}
+  `;
+}
+
+function renderPopupComentarios(t){
+  document.getElementById('ptab-comentarios').innerHTML=`
+    <div class="popup-lbl" style="margin-bottom:10px">Comentários e feedbacks</div>
+    <div id="comments-container-${t.id}">
+      ${(t.comments||[]).map(c=>`<div class="comment-item"><div class="comment-meta">${c.time}</div><div class="comment-text">${c.text}</div></div>`).join('')||'<div style="font-size:12px;color:var(--gray);margin-bottom:10px">Nenhum comentário ainda.</div>'}
+    </div>
+    <div class="comment-form">
+      <textarea class="comment-input" id="ci-${t.id}" rows="2" placeholder="Adicionar comentário ou feedback..."></textarea>
+      <button class="comment-submit" onclick="addComment(${t.id})">Enviar</button>
+    </div>
+  `;
+}
+
+function renderPopupLinks(t){
+  document.getElementById('ptab-links').innerHTML=`
+    <div class="popup-lbl" style="margin-bottom:10px">Links e arquivos vinculados</div>
+    <div id="links-container-${t.id}">
+      ${(t.links||[]).length?t.links.map((l,i)=>`<div class="link-item"><a href="${l}" target="_blank">${l}</a><button class="link-del" onclick="removeLink(${t.id},${i})">✕</button></div>`).join(''):'<div style="font-size:12px;color:var(--gray);margin-bottom:10px">Nenhum link adicionado.</div>'}
+    </div>
+    <div class="link-form">
+      <input class="link-input" id="li-${t.id}" placeholder="https://drive.google.com/...">
+      <button class="link-add-btn" onclick="addLink(${t.id})">Adicionar</button>
+    </div>
+  `;
+}
+
+function switchPTab(id,btn){
+  document.querySelectorAll('.ptab').forEach(b=>b.classList.remove('on'));
+  document.querySelectorAll('.ptab-content').forEach(c=>c.classList.remove('on'));
+  btn.classList.add('on');
+  document.getElementById('ptab-'+id).classList.add('on');
+}
+
+function closeTaskPopup(e){if(e.target===document.getElementById('task-overlay'))closeTaskPopupBtn()}
+function closeTaskPopupBtn(){document.getElementById('task-overlay').classList.remove('on')}
+
+function renderPopupEditar(t){
+  document.getElementById('ptab-editar').innerHTML=`
+    <div style="padding:4px 0">
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Título</span><input class="popup-edit-input" id="edit-title-${t.id}" value="${t.title}"></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Descrição</span><input class="popup-edit-input" id="edit-desc-${t.id}" value="${t.desc||''}"></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Prioridade</span>
+        <select class="popup-edit-select" id="edit-pri-${t.id}">
+          <option value="high" ${t.priority==='high'?'selected':''}>Alta</option>
+          <option value="mid" ${t.priority==='mid'?'selected':''}>Média</option>
+          <option value="low" ${t.priority==='low'?'selected':''}>Baixa</option>
+        </select></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Marca</span>
+        <select class="popup-edit-select" id="edit-marca-${t.id}">
+          <option value="schubak" ${t.marca==='schubak'?'selected':''}>Schübak</option>
+          <option value="sonare" ${t.marca==='sonare'?'selected':''}>Sonare</option>
+          <option value="ambas" ${t.marca==='ambas'?'selected':''}>Ambas</option>
+        </select></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Categoria</span>
+        <select class="popup-edit-select" id="edit-cat-${t.id}">
+          ${['Redes Sociais','Anúncios','Site','Impressos','Captação de Imagens','Comercial','Ferramentas & CRM'].map(c=>`<option value="${c}" ${t.cat===c?'selected':''}>${c}</option>`).join('')}
+        </select></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Prazo</span><input class="popup-edit-input" id="edit-due-${t.id}" type="date" value="${t.dueDate||''}"></div>
+      <div class="popup-edit-row"><span class="popup-edit-lbl">Urgente</span>
+        <select class="popup-edit-select" id="edit-urg-${t.id}">
+          <option value="false" ${!t.urgent?'selected':''}>Não</option>
+          <option value="true" ${t.urgent?'selected':''}>Sim</option>
+        </select></div>
+      <button class="save-edit-btn" onclick="saveEdit(${t.id})">Salvar alterações</button>
+    </div>
+  `;
+}
+
+function saveEdit(id){
+  const t=TASKS.find(x=>x.id===id);if(!t)return;
+  const oldPri=t.priority;
+  t.title=document.getElementById('edit-title-'+id).value.trim()||t.title;
+  t.desc=document.getElementById('edit-desc-'+id).value.trim();
+  t.priority=document.getElementById('edit-pri-'+id).value;
+  t.marca=document.getElementById('edit-marca-'+id).value;
+  t.cat=document.getElementById('edit-cat-'+id).value;
+  t.dueDate=document.getElementById('edit-due-'+id).value||null;
+  t.urgent=document.getElementById('edit-urg-'+id).value==='true';
+  if(!t.history)t.history=[];
+  if(oldPri!==t.priority)t.history.push({action:`Prioridade alterada para ${t.priority==='high'?'Alta':t.priority==='mid'?'Média':'Baixa'}`,time:now()});
+  if(t.dueDate)t.history.push({action:`Prazo definido: ${t.dueDate}`,time:now()});
+  t.history.push({action:'Tarefa editada',time:now()});
+  // refresh popup title
+  document.getElementById('popup-title').textContent=t.title;
+  // show confirmation
+  const btn=document.querySelector('.save-edit-btn');
+  if(btn){btn.textContent='✓ Salvo!';btn.style.background='var(--green)';setTimeout(()=>{btn.textContent='Salvar alterações';btn.style.background=''},1500)}
+  renderKanban();renderDash();
+}
+
+// Subtasks
+function toggleSub(taskId,subId){
+  const t=TASKS.find(x=>x.id===taskId);if(!t||!t.subtasks)return;
+  const s=t.subtasks.find(x=>x.id===subId);if(!s)return;
+  s.done=!s.done;
+  if(!t.history)t.history=[];
+  t.history.push({action:`Subtarefa "${s.text}" ${s.done?'concluída':'reaberta'}`,time:now()});
+  const item=document.getElementById('sub-'+subId);
+  const cb=item?.querySelector('.sub-cb');
+  if(item){item.classList.toggle('sdone',s.done)}
+  if(cb){cb.classList.toggle('done',s.done);cb.textContent=s.done?'✓':''}
+  // update progress
+  const subs=t.subtasks;const sDone=subs.filter(x=>x.done).length;
+  const sPct=subs.length?Math.round(sDone/subs.length*100):0;
+  const pf=document.querySelector('.sub-prog-fill');const pt=document.querySelector('.sub-prog-txt');
+  if(pf)pf.style.width=sPct+'%';
+  if(pt)pt.textContent=sDone+'/'+subs.length+' concluídas';
+  renderDash();
+}
+
+function addSub(taskId){
+  const t=TASKS.find(x=>x.id===taskId);if(!t)return;
+  const inp=document.getElementById('sub-new-'+taskId);
+  if(!inp||!inp.value.trim())return;
+  if(!t.subtasks)t.subtasks=[];
+  const sub={id:'s'+Date.now(),text:inp.value.trim(),done:false};
+  t.subtasks.push(sub);
+  if(!t.history)t.history=[];
+  t.history.push({action:`Subtarefa adicionada: "${sub.text}"`,time:now()});
+  inp.value='';
+  renderPopupDetalhes(t);
+  renderDash();
+}
+
+function delSub(taskId,subId){
+  const t=TASKS.find(x=>x.id===taskId);if(!t||!t.subtasks)return;
+  t.subtasks=t.subtasks.filter(s=>s.id!==subId);
+  renderPopupDetalhes(t);
+}
+
+// ── CALENDAR ──
+const PT_MONTHS=['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const PT_DAYS=['Dom','Seg','Ter','Qua','Qui','Sex','Sáb'];
+
+function renderCalendario(){
+  const title=document.getElementById('cal-month-title');
+  if(title)title.textContent=PT_MONTHS[calMonth]+' '+calYear;
+  const grid=document.getElementById('cal-grid');if(!grid)return;
+
+  // Day headers
+  let html=PT_DAYS.map(d=>`<div class="cal-day-header">${d}</div>`).join('');
+
+  const first=new Date(calYear,calMonth,1).getDay();
+  const total=new Date(calYear,calMonth+1,0).getDate();
+  const today=new Date();
+
+  // Prev month padding
+  const prevTotal=new Date(calYear,calMonth,0).getDate();
+  for(let i=first-1;i>=0;i--){
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${prevTotal-i}</div></div>`;
+  }
+
+  // Current month days
+  for(let d=1;d<=total;d++){
+    const dateStr=`${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const isToday=today.getFullYear()===calYear&&today.getMonth()===calMonth&&today.getDate()===d;
+    // Events for this day
+    const dayEvents=CALENDAR_EVENTS.filter(e=>e.date===dateStr);
+    // Tasks due this day
+    const dueTasks=TASKS.filter(t=>t.dueDate===dateStr&&t.status!=='done');
+    const allEvents=[...dayEvents,...dueTasks.map(t=>({title:t.title,type:'task',id:t.id}))];
+    html+=`<div class="cal-day ${isToday?'today':''}" onclick="calDayClick('${dateStr}')">
+      <div class="cal-day-num">${isToday?`<span style="background:var(--navy);color:#fff;width:20px;height:20px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:10px">${d}</span>`:d}</div>
+      ${allEvents.slice(0,3).map(e=>`<div class="cal-event type-${e.type}" title="${e.title}">${e.title}</div>`).join('')}
+      ${allEvents.length>3?`<div style="font-size:9px;color:var(--gray);padding:1px 5px">+${allEvents.length-3} mais</div>`:''}
+    </div>`;
+  }
+
+  // Next month padding
+  const lastDay=new Date(calYear,calMonth,total).getDay();
+  for(let i=1;i<7-lastDay;i++){
+    html+=`<div class="cal-day other-month"><div class="cal-day-num">${i}</div></div>`;
+  }
+  grid.innerHTML=html;
+}
+
+function calNav(dir){calMonth+=dir;if(calMonth>11){calMonth=0;calYear++}else if(calMonth<0){calMonth=11;calYear--}renderCalendario()}
+function calGoToday(){const t=new Date();calYear=t.getFullYear();calMonth=t.getMonth();renderCalendario()}
+function calDayClick(dateStr){
+  document.getElementById('ne-date').value=dateStr;
+  openNewEvent();
+}
+function openNewEvent(){
+  if(!document.getElementById('ne-date').value){const t=new Date();document.getElementById('ne-date').value=t.toISOString().split('T')[0]}
+  document.getElementById('ne-title').value='';
+  document.getElementById('ne-desc').value='';
+  document.getElementById('new-event-ov').classList.add('on');
+}
+function closeNewEvent(){document.getElementById('new-event-ov').classList.remove('on')}
+document.getElementById('new-event-ov').addEventListener('click',function(e){if(e.target===this)closeNewEvent()});
+function saveNewEvent(){
+  const title=document.getElementById('ne-title').value.trim();
+  const date=document.getElementById('ne-date').value;
+  if(!title||!date){alert('Preencha título e data.');return}
+  CALENDAR_EVENTS.push({id:Date.now(),title,date,type:document.getElementById('ne-type').value,desc:document.getElementById('ne-desc').value.trim()});
+  closeNewEvent();
+  if(document.getElementById('view-calendario').classList.contains('on'))renderCalendario();
+}
+
+function moveTask(id,status){
+  const t=TASKS.find(x=>x.id===id);
+  if(!t)return;
+  const labels={todo:'A fazer',doing:'Em andamento',done:'Concluído'};
+  t.status=status;
+  if(!t.history)t.history=[];
+  t.history.push({action:`Movida para ${labels[status]}`,time:now()});
+  closeTaskPopupBtn();
+  renderKanban();
+  renderDash();
+}
+
+function addComment(id){
+  const t=TASKS.find(x=>x.id===id);
+  const inp=document.getElementById('ci-'+id);
+  if(!t||!inp||!inp.value.trim())return;
+  const entry={text:inp.value.trim(),time:now()};
+  if(!t.comments)t.comments=[];
+  t.comments.push(entry);
+  if(!t.history)t.history=[];
+  t.history.push({action:`Comentário adicionado`,time:now()});
+  const container=document.getElementById('comments-container-'+id);
+  if(container)container.innerHTML+=`<div class="comment-item"><div class="comment-meta">${entry.time}</div><div class="comment-text">${entry.text}</div></div>`;
+  inp.value='';
+}
+
+function addLink(id){
+  const t=TASKS.find(x=>x.id===id);
+  const inp=document.getElementById('li-'+id);
+  if(!t||!inp||!inp.value.trim())return;
+  if(!t.links)t.links=[];
+  const url=inp.value.trim();
+  t.links.push(url);
+  if(!t.history)t.history=[];
+  t.history.push({action:`Link adicionado: ${url.substring(0,40)}...`,time:now()});
+  const container=document.getElementById('links-container-'+id);
+  if(container){
+    const emptyMsg=container.querySelector('div');
+    if(emptyMsg&&emptyMsg.textContent.includes('Nenhum link'))container.innerHTML='';
+    container.innerHTML+=`<div class="link-item"><a href="${url}" target="_blank">${url}</a><button class="link-del" onclick="removeLink(${id},${t.links.length-1})">✕</button></div>`;
+  }
+  inp.value='';
+}
+
+function removeLink(id,idx){
+  const t=TASKS.find(x=>x.id===id);
+  if(!t||!t.links)return;
+  t.links.splice(idx,1);
+  renderPopupLinks(t);
+}
+
+// ────────────────────────────────────────────
+// NEW TASK
+// ────────────────────────────────────────────
+let defaultStatus='todo';
+function openNewTask(status){
+  defaultStatus=status||'todo';
+  document.getElementById('nt-title').value='';
+  document.getElementById('nt-desc').value='';
+  document.getElementById('nt-link').value='';
+  document.getElementById('nt-status').value=defaultStatus;
+  const sel=document.getElementById('nt-proj');
+  sel.innerHTML='<option value="">Sem projeto</option>'+PROJECTS.map(p=>`<option value="${p.id}">${p.title}</option>`).join('');
+  document.getElementById('new-task-ov').classList.add('on');
+}
+function closeNewTask(){document.getElementById('new-task-ov').classList.remove('on')}
+document.getElementById('new-task-ov').addEventListener('click',function(e){if(e.target===this)closeNewTask()});
+function saveNewTask(){
+  const title=document.getElementById('nt-title').value.trim();
+  if(!title){alert('Informe um título.');return}
+  const link=document.getElementById('nt-link').value.trim();
+  const t={id:nextId++,title,desc:document.getElementById('nt-desc').value.trim()||'',status:document.getElementById('nt-status').value,marca:document.getElementById('nt-marca').value,priority:document.getElementById('nt-priority').value,urgent:false,cat:document.getElementById('nt-cat').value,proj:document.getElementById('nt-proj').value||null,comments:[],links:link?[link]:[],history:[{action:'Tarefa criada',time:now()}]};
+  TASKS.push(t);
+  if(t.proj){const p=PROJECTS.find(x=>x.id===t.proj);if(p)p.taskIds.push(t.id)}
+  closeNewTask();renderKanban();renderDash();
+}
+// CRIATIVOS
+function renderCriativos(){
+  const v=[
+    {n:'01',bg:'#1a3a6b',tag:'Reels 9:16 · 15–30s',pri:'Prioridade 1',title:'Obra entregue',obj:'Mostrar produto aplicado em obra real.',rot:'<strong>0–3s:</strong> Close no perfil.<br><strong>3–10s:</strong> Ambiente completo.<br><strong>10–20s:</strong> Fachada e movimento.<br><strong>20–30s:</strong> Logo + CTA.',copy:'"Cada detalhe começa na escolha certa. Solicite seu orçamento."',dir:'Sem narração. Trilha elegante. Gimbal.'},
+    {n:'02',bg:'#2d5299',tag:'Reels 9:16 · 20–30s',pri:'Prioridade 2',title:'Bastidores fábrica',obj:'Credibilidade com estrutura e capacidade.',rot:'<strong>0–5s:</strong> Estoque.<br><strong>5–15s:</strong> Processo de corte.<br><strong>15–25s:</strong> Equipe de engenharia.<br><strong>25–30s:</strong> CTA.',copy:'"Estrutura, tecnologia e time especializado em cada obra do RS."',dir:'Cortes ritmados. Texto branco semi-transparente.'},
+    {n:'03',bg:'#2a7a42',tag:'Reels 9:16 · 30–45s',pri:'Prioridade 3',title:'Depoimento',obj:'Prova social de arquiteto ou cliente.',rot:'<strong>0–5s:</strong> Gancho visual.<br><strong>5–35s:</strong> Depoimento espontâneo.<br><strong>35–45s:</strong> B-roll + CTA.',copy:'"Quando a qualidade fala por si mesma."',dir:'Luz natural. Subtitulado. Edição limpa.'},
+  ];
+  document.getElementById('cria-video').innerHTML=v.map(x=>`<div class="cria-card"><div class="cria-side" style="background:${x.bg}"><div><div style="font-size:9px;color:rgba(255,255,255,.3);margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:3px;text-transform:uppercase">Criativo ${x.n}</div><div style="font-size:14px;font-weight:600;color:#fff;margin-bottom:12px">${x.title}</div></div><div style="display:flex;flex-direction:column;gap:4px"><span style="font-size:9px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);padding:2px 8px">${x.tag}</span><span class="badge badge-gray" style="align-self:flex-start">${x.pri}</span></div></div><div class="cria-body"><div class="cria-grid"><div><div class="cc-lbl">Objetivo</div><div class="cc-txt">${x.obj}</div></div><div><div class="cc-lbl">Roteiro</div><div class="cc-txt">${x.rot}</div></div><div><div class="cc-lbl">Copy</div><div class="cc-txt" style="font-style:italic">${x.copy}</div></div><div><div class="cc-lbl">Direção</div><div class="cc-txt">${x.dir}</div></div></div></div></div>`).join('');
+  document.getElementById('cria-foto').innerHTML=`<div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">${[{bg:'#1a3a6b',n:'Foto 01',title:'Produto em destaque',fmt:'Feed 1:1 · Stories',desc:'Janela em ambiente de alto padrão. Luz natural.',copy:'"Cada detalhe importa. Solicite seu orçamento."'},{bg:'#2d5299',n:'Foto 02',title:'Carrossel de obra',fmt:'Carrossel 1:1',desc:'6–8 fotos: fachada, detalhes, logo + CTA.',copy:'"Mais uma obra entregue com excelência. Deslize."'},{bg:'#111',n:'Foto 03',title:'Criativo gráfico',fmt:'Feed 1:1 · A/B',desc:'Fundo escuro, texto grande, foto menor.',copy:'"Sua obra merece o melhor acabamento."'}].map(f=>`<div style="background:#fff;border:1px solid var(--border);overflow:hidden"><div style="background:${f.bg};padding:14px 18px"><div style="font-size:9px;color:rgba(255,255,255,.4);margin-bottom:3px">${f.n}</div><div style="font-size:13px;font-weight:600;color:#fff">${f.title}</div></div><div style="padding:16px"><div class="cc-lbl">Descrição</div><div class="cc-txt" style="margin-bottom:8px">${f.desc}</div><div class="cc-lbl">Copy</div><div class="cc-txt" style="font-style:italic;margin-bottom:8px">${f.copy}</div><span class="badge badge-blue">${f.fmt}</span></div></div>`).join('')}</div>`;
+}
+function switchCTab(id,btn){document.getElementById('cria-video').style.display=id==='video'?'block':'none';document.getElementById('cria-foto').style.display=id==='foto'?'block':'none';document.querySelectorAll('.ctab').forEach(b=>b.classList.remove('on'));btn.classList.add('on')}
+// PÚBLICO
+function renderPublico(){document.getElementById('publico-content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Cidades-alvo</div>${[{title:'Região Metropolitana de POA',cities:['Porto Alegre','Novo Hamburgo','Canoas','São Leopoldo','Guaíba','Eldorado do Sul']},{title:'Litoral Norte RS',cities:['Tramandaí','Capão da Canoa','Xangri-lá','Torres']},{title:'Serra Gaúcha',cities:['Gramado','Canela']}].map(g=>`<div style="background:#fff;border:1px solid var(--border);padding:14px;margin-bottom:6px"><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px">${g.title}</div><div style="display:flex;flex-wrap:wrap;gap:4px">${g.cities.map((c,i)=>`<span style="font-size:10px;padding:3px 8px;${i===0?'background:var(--navy);color:#fff':'background:var(--navy-l);color:var(--navy)'}">${c}</span>`).join('')}</div></div>`).join('')}</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Perfis</div>${[{p:1,t:'Construtoras e Arquitetos',s:'Cargos: Proprietário, Engenheiro, Arquiteto · Interesses: Construção civil, Materiais · Comportamentos: Proprietários de empresas'},{p:2,t:'Pais com filhos de 6–18 anos saindo do apto',s:'Casados, filhos 6–18, renda acima da média · Interesses: Condomínios, Alto padrão, Reforma · Comportamentos: Compradores de imóveis'},{p:2,t:'Viajantes internacionais frequentes',s:'Comportamentos: Viajante frequente ao exterior · Interesses: Arquitetura europeia, Imóveis de luxo · Renda: 10% superiores'}].map(x=>`<div style="background:#fff;border:1px solid var(--border);border-left:3px solid ${x.p===1?'var(--red)':'var(--amber)'};padding:14px;margin-bottom:6px"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><span class="badge badge-${x.p===1?'red':'amber'}">Prioridade ${x.p}</span><div style="font-size:12px;font-weight:500;color:var(--dark)">${x.t}</div></div><div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">${x.s}</div></div>`).join('')}</div></div>`}
+// BANCO
+function renderBanco(){document.getElementById('banco-content').innerHTML=dbSec('contas','🔐 Contas & Acessos',bContasT())+dbSec('links','🔗 Links importantes',bLinksT())+dbSec('info','ℹ️ Informações',bInfoT());document.querySelectorAll('.db-section').forEach(s=>s.classList.add('open'))}
+function dbSec(id,title,content){return`<div class="db-section" id="dbs-${id}" style="margin-bottom:12px"><div class="db-section-head" onclick="tgDb('${id}')"><div class="db-section-title">${title}</div><span class="db-section-arr">▾</span></div><div class="db-section-body">${content}</div></div>`}
+function tgDb(id){document.getElementById('dbs-'+id).classList.toggle('open')}
+function bContasT(){return`<table class="db-table"><tr><th>Nome</th><th>Usuário</th><th>Senha</th><th>Link</th></tr>${BANCO.contas.map((c,i)=>`<tr><td style="font-weight:500">${c.nome}</td><td>${c.usuario||'—'}</td><td>${c.senha?`<span class="db-pw" id="pw-${i}" onclick="rvPw(${i},'${c.senha}')">${c.senha}</span>`:'—'}</td><td>${c.link?`<a href="${c.link}" target="_blank" style="font-size:11px">${c.link.replace('https://','')}</a>`:'—'}</td></tr>`).join('')}</table><div class="db-add-row"><input class="db-input" id="nc-n" placeholder="Nome"><input class="db-input" id="nc-u" placeholder="Usuário"><input class="db-input" id="nc-s" placeholder="Senha"><input class="db-input" id="nc-l" placeholder="Link"><button class="db-add-btn" onclick="addConta()">+</button></div>`}
+function bLinksT(){return`<table class="db-table"><tr><th>Nome</th><th>URL</th><th>Descrição</th></tr>${BANCO.links.map(l=>`<tr><td style="font-weight:500">${l.nome}</td><td>${l.url?`<a href="${l.url}" target="_blank" style="font-size:11px;color:var(--navy)">${l.url}</a>`:'<span style="color:var(--gray)">—</span>'}</td><td style="color:var(--gray)">${l.desc||'—'}</td></tr>`).join('')}</table><div class="db-add-row"><input class="db-input" id="nl-n" placeholder="Nome"><input class="db-input" id="nl-u" placeholder="https://" style="flex:2"><input class="db-input" id="nl-d" placeholder="Descrição"><button class="db-add-btn" onclick="addL2()">+</button></div>`}
+function bInfoT(){return`<table class="db-table"><tr><th>Campo</th><th>Valor</th></tr>${BANCO.info.map((x,i)=>`<tr><td style="font-weight:500">${x.campo}</td><td><input class="db-input" style="border:none;padding:2px;background:transparent;width:100%;font-size:12px" value="${x.valor}" placeholder="Clique para preencher" onchange="BANCO.info[${i}].valor=this.value"></td></tr>`).join('')}</table><div class="db-add-row"><input class="db-input" id="ni-c" placeholder="Campo"><input class="db-input" id="ni-v" placeholder="Valor" style="flex:2"><button class="db-add-btn" onclick="addI()">+</button></div>`}
+function rvPw(i,pw){const e=document.getElementById('pw-'+i);if(e){e.classList.toggle('revealed');e.textContent=e.classList.contains('revealed')?pw:'••••••••'}}
+function addConta(){const n=document.getElementById('nc-n').value.trim();if(!n)return;BANCO.contas.push({id:Date.now(),nome:n,usuario:document.getElementById('nc-u').value.trim(),senha:document.getElementById('nc-s').value.trim(),link:document.getElementById('nc-l').value.trim(),tipo:'Outro'});renderBanco()}
+function addL2(){const n=document.getElementById('nl-n').value.trim();if(!n)return;BANCO.links.push({id:Date.now(),nome:n,url:document.getElementById('nl-u').value.trim(),desc:document.getElementById('nl-d').value.trim()});renderBanco()}
+function addI(){const c=document.getElementById('ni-c').value.trim();if(!c)return;BANCO.info.push({campo:c,valor:document.getElementById('ni-v').value.trim()});renderBanco()}
+// INIT
+renderHome();renderDash();renderCriativos();
+</script></body></html>

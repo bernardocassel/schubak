@@ -3,209 +3,145 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Schübak — Plano de Ação 2026</title>
+<title>Schübak — Plano de Execução</title>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700;800;900&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 :root{
-  --navy:#1a3a6b;--navy2:#0f2347;--navy-light:#e8eef8;
-  --dark:#0f0f0f;--mid:#2a2a2a;--warm:#f7f5f2;
-  --gray:#8a8a8a;--border:#e0ddd9;--light:#fff;
-  --green:#2d7d46;--green-light:#eaf4ee;
+  --navy:#1a3a6b;--navy2:#0f2347;--navy-light:#e8eef8;--navy-mid:#2d5299;
+  --dark:#0f0f0f;--warm:#f7f5f2;--gray:#8a8a8a;--border:#e0ddd9;--light:#fff;
+  --green:#2d7d46;--green-light:#eaf4ee;--amber:#c07c10;--amber-light:#fef3e2;
+  --red:#b90000;--red-light:#fdf0f0;
 }
 body{font-family:'Montserrat',sans-serif;background:var(--warm);color:var(--dark);overflow-x:hidden}
 
-/* PROGRESS */
-#prog{position:fixed;top:0;left:0;height:3px;background:var(--navy);z-index:9999;width:0%;transition:width .1s linear}
+#prog{position:fixed;top:0;left:0;height:3px;background:var(--navy);z-index:9999;width:0%}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.98);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 52px}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;background:rgba(255,255,255,0.97);border-bottom:1px solid var(--border);backdrop-filter:blur(20px);height:56px;display:flex;align-items:center;justify-content:space-between;padding:0 52px}
 .nav-brand{font-family:'Barlow Condensed',sans-serif;font-weight:700;font-size:15px;letter-spacing:1px;color:var(--dark)}
-.nav-brand span{color:var(--navy)}
-.nav-center{display:flex;gap:0}
+.nav-links{display:flex}
 .nl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);padding:0 14px;cursor:pointer;border-right:1px solid var(--border);background:none;border-top:none;border-bottom:none;transition:color .2s}
 .nl:last-child{border-right:none}
-.nl:hover,.nl.active{color:var(--navy);font-weight:700}
-.nav-status{display:flex;align-items:center;gap:8px}
-.status-dot{width:7px;height:7px;border-radius:50%;background:#2d7d46;animation:pulse 2s ease infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.status-txt{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#2d7d46}
+.nl:hover,.nl.on{color:var(--navy);font-weight:700}
+.nav-right{display:flex;align-items:center;gap:8px}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s ease infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.live-txt{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--green)}
 
 /* HERO */
-.hero{min-height:100vh;background:#fff;display:grid;grid-template-columns:1fr 1fr;padding-top:56px;position:relative;overflow:hidden}
-.hero-left{padding:80px 56px;display:flex;flex-direction:column;justify-content:center;border-right:1px solid var(--border);position:relative}
-.hero-left::before{content:'';position:absolute;bottom:0;left:56px;right:56px;height:1px;background:var(--border)}
+.hero{min-height:100vh;padding-top:56px;display:grid;grid-template-columns:1fr 1fr;background:#fff;position:relative;overflow:hidden}
+.hero::after{content:'';position:absolute;right:0;top:0;bottom:0;width:50%;background:var(--navy);z-index:0}
+.hero-left{padding:80px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
+.hero-right{padding:80px 52px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:1}
 .hero-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;display:flex;align-items:center;gap:10px}
 .hero-tag::before{content:'';width:20px;height:1px;background:var(--navy);display:inline-block}
-.hero-title{font-size:clamp(36px,4vw,64px);font-weight:900;color:var(--dark);line-height:1;margin-bottom:20px}
-.hero-title .navy{color:var(--navy)}
-.hero-sub{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;margin-bottom:40px;max-width:480px}
-.hero-cta{display:inline-flex;align-items:center;gap:12px;background:var(--navy);color:#fff;padding:16px 28px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:background .2s}
-.hero-cta:hover{background:var(--navy2)}
-.hero-cta svg{transition:transform .2s}
-.hero-cta:hover svg{transform:translateX(4px)}
-.hero-right{padding:80px 56px;display:flex;flex-direction:column;justify-content:center;gap:2px}
-.hero-kpi{background:var(--warm);padding:24px 28px;border-left:2px solid transparent;transition:border-color .2s;cursor:default}
-.hero-kpi:hover{border-color:var(--navy);background:#fff}
-.hero-kpi-num{font-size:32px;font-weight:900;color:var(--navy);line-height:1;margin-bottom:4px}
-.hero-kpi-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray)}
-.hero-kpi-sub{font-size:11px;color:var(--gray);font-weight:300;margin-top:4px}
+.hero-title{font-size:clamp(36px,4.5vw,68px);font-weight:900;color:var(--dark);line-height:.95;margin-bottom:24px}
+.hero-title span{color:var(--navy)}
+.hero-sub{font-size:14px;font-weight:300;color:var(--gray);line-height:1.8;max-width:440px;margin-bottom:36px}
+.hero-btn{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:14px 24px;font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;cursor:pointer;border:none;transition:background .2s}
+.hero-btn:hover{background:var(--navy2)}
+.hero-stat{margin-bottom:24px;padding-bottom:24px;border-bottom:1px solid rgba(255,255,255,.1)}
+.hero-stat:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.hero-stat-num{font-size:40px;font-weight:900;color:#fff;line-height:1;margin-bottom:4px}
+.hero-stat-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4)}
+.hero-stat-sub{font-size:11px;color:rgba(255,255,255,.35);font-weight:300;margin-top:3px}
 
 /* SECTIONS */
 .sec{padding:80px 52px;border-bottom:1px solid var(--border);opacity:0;transform:translateY(20px);transition:opacity .6s ease,transform .6s ease}
 .sec.vis{opacity:1;transform:none}
-.sec.navy-bg{background:var(--navy);border-color:rgba(255,255,255,.08)}
-.sec.light-bg{background:#fff}
-.sec.warm-bg{background:var(--warm)}
+.sec.white{background:#fff}
 .ey{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:10px}
 .ey::after{content:'';width:20px;height:1px;background:var(--navy);display:inline-block}
-.ey.w{color:rgba(160,184,216,.8)}
-.ey.w::after{background:rgba(160,184,216,.5)}
 .st{font-size:clamp(22px,2.8vw,38px);font-weight:900;color:var(--dark);line-height:1.1;margin-bottom:10px}
-.st.w{color:#fff}
-.sd{font-size:13px;font-weight:300;color:var(--gray);line-height:1.8;max-width:640px;margin-bottom:32px}
-.sd.w{color:rgba(255,255,255,.5)}
+.sd{font-size:13px;font-weight:300;color:var(--gray);line-height:1.8;max-width:600px;margin-bottom:32px}
 
 /* GRIDS */
-.g2{display:grid;grid-template-columns:repeat(2,1fr);gap:2px}
-.g3{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:2px}
+.g2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px}
+.g3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px}
+.g4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px}
 
-/* PHASE CARDS */
-.phase{background:#fff;overflow:hidden;position:relative;cursor:pointer;transition:transform .2s,box-shadow .2s}
-.phase:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(26,58,107,.1)}
-.phase-header{padding:20px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)}
-.phase-num{font-family:'Barlow Condensed',sans-serif;font-size:48px;font-weight:900;color:rgba(26,58,107,.07);line-height:1}
-.phase-tag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px;border:1px solid var(--border);color:var(--gray)}
-.phase-tag.now{background:var(--navy);color:#fff;border-color:var(--navy)}
-.phase-tag.soon{background:var(--navy-light);color:var(--navy);border-color:rgba(26,58,107,.2)}
-.phase-body{padding:24px}
-.phase-title{font-size:15px;font-weight:800;color:var(--dark);margin-bottom:10px;line-height:1.3}
-.phase-items{display:flex;flex-direction:column;gap:6px}
-.phase-item{display:flex;gap:8px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--gray);line-height:1.5}
-.phase-item::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:5px}
-.phase-item strong{color:var(--dark);font-weight:600}
+/* FILTER BAR */
+.filter-bar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:28px}
+.fb{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:7px 16px;border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer;transition:all .15s}
+.fb:hover{border-color:var(--navy);color:var(--navy)}
+.fb.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 
-/* ACTION CARDS */
-.action{background:#fff;padding:28px;border-left:2px solid var(--border);transition:border-color .2s,transform .2s}
-.action:hover{border-color:var(--navy);transform:translateX(3px)}
-.action-icon{font-size:24px;margin-bottom:14px}
-.action-title{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:8px}
-.action-text{font-size:12px;font-weight:300;color:var(--gray);line-height:1.7}
-.action-text strong{color:var(--dark);font-weight:600}
+/* STATS BAR */
+.stats-bar{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:2px;margin-bottom:28px}
+.sbar{background:#fff;padding:18px 20px;border-left:2px solid transparent}
+.sbar.navy{border-left-color:var(--navy)}
+.sbar-val{font-size:26px;font-weight:900;color:var(--dark);line-height:1}
+.sbar-val.c-navy{color:var(--navy)}
+.sbar-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-top:4px}
 
-/* TIMELINE */
-.tl-wrap{position:relative}
-.tl-wrap::before{content:'';position:absolute;left:0;top:0;bottom:0;width:1px;background:var(--border)}
-.tl-item{position:relative;padding-left:28px;margin-bottom:32px}
-.tl-item::before{content:'';position:absolute;left:-4px;top:5px;width:9px;height:9px;border-radius:0;transform:rotate(45deg);background:var(--border);transition:background .2s}
-.tl-item.act::before{background:var(--navy)}
-.tl-item:hover::before{background:var(--navy)}
-.tl-month{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:4px}
-.tl-month.gray{color:var(--gray)}
-.tl-title{font-size:13px;font-weight:700;color:var(--dark);margin-bottom:4px}
-.tl-text{font-size:11px;font-weight:300;color:var(--gray);line-height:1.6}
+/* BOARD */
+.board{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.col-wrap{background:var(--warm);padding:16px;min-height:200px}
+.col-head{display:flex;align-items:center;gap:8px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.col-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--dark);font-weight:700}
+.col-count{font-family:'Barlow Condensed',sans-serif;font-size:10px;padding:2px 8px;border-radius:0;font-weight:700;margin-left:auto}
+.cnt-todo{background:var(--border);color:var(--gray)}
+.cnt-doing{background:var(--amber-light);color:var(--amber)}
+.cnt-done{background:var(--green-light);color:var(--green)}
 
-/* BRAND CARD */
-.brand-card{background:#1c2b42;padding:36px;position:relative;overflow:hidden;cursor:pointer;transition:transform .2s}
-.brand-card:hover{transform:translateY(-3px)}
-.brand-card.recommended{border:1px solid rgba(160,184,216,.3)}
-.brand-rec{position:absolute;top:14px;right:14px;background:var(--navy);color:rgba(255,255,255,.8);font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:3px 10px}
-.brand-name{font-size:24px;font-weight:900;color:#fff;margin-bottom:4px;margin-top:12px;letter-spacing:-.5px}
-.brand-name span{color:#a0b8d8}
-.brand-concept{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#4a6a9a;margin-bottom:14px}
-.brand-desc{font-size:12px;font-weight:300;color:#7a9ac0;line-height:1.7;margin-bottom:16px}
-.brand-slogan{font-size:12px;font-style:italic;color:rgba(255,255,255,.4);border-top:1px solid rgba(255,255,255,.06);padding-top:14px;line-height:1.7}
-.brand-num{font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,255,255,.03);position:absolute;bottom:-10px;right:14px;line-height:1}
+/* TASK CARDS */
+.task{background:#fff;border-left:3px solid var(--border);padding:16px;margin-bottom:8px;cursor:pointer;transition:border-color .15s,transform .15s;position:relative}
+.task:hover{border-color:var(--navy);transform:translateX(2px)}
+.task.expanded .task-body{display:block}
+.task.p-high{border-left-color:var(--red)}
+.task.p-mid{border-left-color:var(--amber)}
+.task.p-low{border-left-color:var(--green)}
+.task-top{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}
+.task-title{font-size:12px;font-weight:700;color:var(--dark);line-height:1.4}
+.task-arrow{font-size:14px;color:var(--gray);flex-shrink:0;transition:transform .2s;margin-top:1px}
+.task.expanded .task-arrow{transform:rotate(180deg)}
+.task-body{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
+.task-detail{font-size:11px;color:var(--gray);font-weight:300;line-height:1.7;margin-bottom:12px}
+.task-footer{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.ttag{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid}
+.ttag-sch{background:var(--navy-light);color:var(--navy);border-color:rgba(26,58,107,.2)}
+.ttag-son{background:var(--green-light);color:var(--green);border-color:rgba(45,125,70,.2)}
+.ttag-both{background:var(--amber-light);color:var(--amber);border-color:rgba(192,124,16,.2)}
+.ttag-urgent{background:var(--red-light);color:var(--red);border-color:rgba(185,0,0,.2)}
+.move-btn{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:5px 12px;border:1px solid var(--navy);color:var(--navy);background:none;cursor:pointer;transition:all .15s;margin-top:6px}
+.move-btn:hover{background:var(--navy);color:#fff}
+.move-back{border-color:var(--border);color:var(--gray)}
+.move-back:hover{background:var(--border);color:var(--dark)}
 
-/* INSIGHT */
-.ins{padding:24px 28px;border-left:3px solid var(--navy);background:#fff;margin-bottom:2px}
-.ins.warm{background:var(--warm)}
-.ins.navy{background:var(--navy);border-color:rgba(255,255,255,.2)}
-.ins-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px}
-.ins-lbl.w{color:rgba(160,184,216,.8)}
-.ins-txt{font-size:12px;color:#5a5a5a;font-weight:300;line-height:1.7}
-.ins-txt.w{color:rgba(255,255,255,.6)}
-.ins-txt strong{color:var(--dark);font-weight:600}
-.ins-txt.w strong{color:#fff}
+/* CHECKLIST SECTION */
+.check-group{margin-bottom:32px}
+.check-group-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.check-group-prog{flex:1;height:3px;background:var(--border);max-width:120px}
+.check-group-fill{height:100%;background:var(--navy);transition:width .4s ease}
+.check-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid var(--warm);cursor:pointer;transition:background .15s}
+.check-item:last-child{border-bottom:none}
+.check-item:hover{background:var(--warm);margin:0 -16px;padding-left:16px;padding-right:16px}
+.check-box{width:18px;height:18px;border:1.5px solid var(--border);flex-shrink:0;margin-top:1px;display:flex;align-items:center;justify-content:center;transition:all .2s}
+.check-box.checked{background:var(--navy);border-color:var(--navy)}
+.check-box.checked::after{content:'✓';color:#fff;font-size:10px;font-weight:700}
+.check-text{flex:1}
+.check-title{font-size:12px;font-weight:600;color:var(--dark);margin-bottom:2px;transition:color .2s}
+.check-item.done .check-title{color:var(--gray);text-decoration:line-through}
+.check-sub{font-size:11px;color:var(--gray);font-weight:300;line-height:1.5}
+.check-tag{font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:1px 7px;border:1px solid}
 
-/* KPI */
-.kpi{background:#fff;padding:24px 20px;border-left:2px solid transparent;transition:border-color .2s}
-.kpi:hover{border-color:var(--navy)}
-.kpi.navy-border{border-left-color:var(--navy)}
-.kpi-lbl{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
-.kpi-val{font-size:28px;font-weight:900;color:var(--dark);line-height:1}
-.kpi-val.blue{color:var(--navy)}
-.kpi-sub{font-size:11px;color:var(--gray);font-weight:300;margin-top:5px;line-height:1.5}
-.badge{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;margin-top:8px;border:1px solid rgba(26,58,107,.2);color:var(--navy);background:var(--navy-light)}
-.badge.green{background:var(--green-light);color:var(--green);border-color:rgba(45,125,70,.2)}
+/* PRAZO TABLE */
+.ptable{background:#fff;overflow:hidden}
+.ptable-head{display:grid;grid-template-columns:100px 1fr 1fr 140px;background:var(--dark);padding:12px 20px;gap:16px}
+.ptable-hcell{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555}
+.ptable-note{padding:8px 20px;background:#f0f4f9;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;font-size:11px;color:var(--gray);font-weight:300}
+.ptable-note strong{color:var(--dark);font-weight:600}
+.ptable-row{display:grid;grid-template-columns:100px 1fr 1fr 140px;padding:13px 20px;border-bottom:1px solid var(--border);gap:16px;transition:background .15s;cursor:default}
+.ptable-row:last-child{border-bottom:none}
+.ptable-row:hover{background:var(--warm)}
+.ptable-cell{font-size:12px;font-weight:300;color:var(--dark)}
+.ptable-prazo{font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:var(--navy)}
 
-/* ENTREGA */
-.entrega{background:#fff;overflow:hidden;border-left:3px solid var(--navy)}
-.entrega-head{background:var(--navy);padding:14px 20px;display:flex;align-items:center;justify-content:space-between}
-.entrega-title{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#fff;font-weight:700}
-.entrega-num{font-family:'Barlow Condensed',sans-serif;font-size:20px;font-weight:900;color:rgba(255,255,255,.2)}
-.entrega-body{padding:20px}
-.ei{display:flex;gap:8px;align-items:flex-start;padding:7px 0;border-bottom:1px solid var(--border);font-size:11px;font-weight:300;color:var(--dark);line-height:1.5}
-.ei:last-child{border-bottom:none}
-.ei::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--navy);flex-shrink:0;margin-top:5px}
-
-/* MAP */
-.map-wrap{background:#fff;padding:32px;position:relative}
-.rs-map{width:100%;max-width:400px;margin:0 auto;display:block;cursor:pointer}
-.map-legend{display:flex;flex-direction:column;gap:12px;padding-top:20px;border-top:1px solid var(--border);margin-top:20px}
-.map-legend-item{display:flex;align-items:center;gap:12px;font-size:12px;font-weight:300;color:var(--gray)}
-.map-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-
-/* REGION CARDS */
-.region{background:#fff;padding:24px;border-top:2px solid var(--border);transition:border-color .2s,transform .2s;cursor:pointer}
-.region:hover{border-color:var(--navy);transform:translateY(-2px)}
-.region-name{font-size:14px;font-weight:800;color:var(--dark);margin-bottom:6px}
-.region-text{font-size:11px;font-weight:300;color:var(--gray);line-height:1.6}
-.region-tag{font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(26,58,107,.2);color:var(--navy);background:var(--navy-light);margin-top:10px;display:inline-block}
-
-/* BUDGET */
-.budget-card{padding:32px 28px;position:relative;overflow:hidden}
-.budget-card.featured{background:var(--navy)}
-.budget-card.plain{background:var(--warm)}
-.budget-slash{text-decoration:line-through;font-size:13px;color:rgba(255,255,255,.3);margin-bottom:4px}
-.budget-amount{font-size:42px;font-weight:900;line-height:1;margin-bottom:6px}
-.budget-period{font-size:11px;font-weight:300;margin-bottom:16px}
-.budget-items{font-size:11px;font-weight:300;line-height:1.8}
-
-/* CALC */
-.calc-box{background:#fff;padding:36px}
-input[type=range]{-webkit-appearance:none;width:100%;height:3px;background:var(--border);outline:none}
-input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:16px;height:16px;background:var(--navy);cursor:pointer;border-radius:0;border:2px solid #fff;box-shadow:0 0 0 1px var(--navy)}
-.calc-val{font-size:36px;font-weight:900;color:var(--navy);margin-bottom:4px}
-.calc-steps{display:flex;justify-content:space-between;margin-top:6px}
-.calc-step{font-family:'Barlow Condensed',sans-serif;font-size:9px;color:var(--gray);cursor:pointer;transition:color .2s;background:none;border:none;padding:4px 0}
-.calc-step:hover,.calc-step.on{color:var(--navy);font-weight:700}
-.calc-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:24px}
-.calc-item{background:var(--warm);padding:18px;text-align:center}
-.calc-item.hl{background:var(--navy)}
-.calc-item-lbl{font-family:'Barlow Condensed',sans-serif;font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px}
-.calc-item.hl .calc-item-lbl{color:rgba(255,255,255,.5)}
-.calc-item-val{font-size:20px;font-weight:900;color:var(--dark)}
-.calc-item.hl .calc-item-val{color:#fff}
-.calc-item-sub{font-size:10px;color:var(--gray);font-weight:300;margin-top:3px}
-.calc-item.hl .calc-item-sub{color:rgba(255,255,255,.4)}
-.calc-note{font-size:11px;color:var(--gray);font-weight:300;margin-top:16px;padding-top:16px;border-top:1px solid var(--border);line-height:1.7}
-.calc-note strong{color:var(--dark)}
-
-/* QUOTE */
-.quote{background:var(--navy);padding:64px 52px;text-align:center}
-.quote-txt{font-size:clamp(22px,3vw,40px);font-weight:900;color:#fff;line-height:1.15;max-width:680px;margin:0 auto 16px}
-.quote-auth{font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.35)}
-
-/* TOGGLE TABS */
-.tabs{display:flex;gap:0;margin-bottom:2px}
-.tab{font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:2px;text-transform:uppercase;padding:12px 24px;border:1px solid var(--border);background:#fff;color:var(--gray);cursor:pointer;transition:all .2s;border-right:none}
-.tab:last-child{border-right:1px solid var(--border)}
-.tab.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.tab-content{display:none}
-.tab-content.on{display:grid}
+/* PRIORITY LEGEND */
+.legend{display:flex;align-items:center;gap:20px;margin-bottom:20px;font-size:11px;color:var(--gray)}
+.leg-item{display:flex;align-items:center;gap:6px}
+.leg-dot{width:8px;height:8px;flex-shrink:0}
 
 /* FOOTER */
 footer{background:#fff;border-top:1px solid var(--border);padding:28px 52px;display:flex;align-items:center;justify-content:space-between}
@@ -214,571 +150,730 @@ footer{background:#fff;border-top:1px solid var(--border);padding:28px 52px;disp
 
 @media(max-width:900px){
   .hero{grid-template-columns:1fr}
-  .hero-right{display:none}
-  .g2,.g3,.g4{grid-template-columns:1fr}
-  .calc-grid{grid-template-columns:repeat(2,1fr)}
+  .hero::after{display:none}
+  .hero-right{background:var(--navy);padding:40px 24px}
+  .g2,.g3,.g4,.board{grid-template-columns:1fr}
   nav{padding:0 20px}
-  .nav-center{display:none}
+  .nav-links{display:none}
   .sec,.hero-left{padding-left:24px;padding-right:24px}
+  .stats-bar{grid-template-columns:repeat(2,1fr)}
+  .ptable-head,.ptable-row{grid-template-columns:80px 1fr 120px}
+  .ptable-hcell:nth-child(3),.ptable-cell:nth-child(3){display:none}
 }
 </style>
 </head>
 <body>
+
 <div id="prog"></div>
 
-<!-- NAV -->
 <nav>
-  <div class="nav-brand">CASA <span>PUBLICIDADE</span></div>
-  <div class="nav-center">
-    <button class="nl" onclick="gs('inicio')">Início</button>
-    <button class="nl" onclick="gs('frentes')">Frentes</button>
-    <button class="nl" onclick="gs('regioes')">Regiões</button>
-    <button class="nl" onclick="gs('marca')">Nova Marca</button>
-    <button class="nl" onclick="gs('calendario')">Calendário</button>
-    <button class="nl" onclick="gs('investimento')">Investimento</button>
+  <div class="nav-brand">CASA PUBLICIDADE × SCHÜBAK</div>
+  <div class="nav-links">
+    <button class="nl" onclick="gs('setup')">Configuração</button>
+    <button class="nl" onclick="gs('kanban')">Kanban</button>
+    <button class="nl" onclick="gs('checklist')">Checklist</button>
+    <button class="nl" onclick="gs('prazos')">Prazos</button>
+    <button class="nl" onclick="gs('criativos')">Criativos</button>
+    <button class="nl" onclick="gs('publico')">Público-alvo</button>
   </div>
-  <div class="nav-status">
-    <div class="status-dot"></div>
-    <div class="status-txt">Cliente aprovado · Em execução</div>
+  <div class="nav-right">
+    <div class="live-dot"></div>
+    <div class="live-txt">Em execução</div>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero" id="inicio">
+<div class="hero">
   <div class="hero-left">
-    <div class="hero-tag">Schübak Esquadrias · Plano de Ação 2026</div>
-    <h1 class="hero-title">
-      Está aprovado.<br>
-      <span class="navy">Vamos começar.</span>
-    </h1>
-    <p class="hero-sub">O plano está definido. Duas frentes de crescimento, execução imediata, foco total em geração de leads qualificados e vendas. Este documento é o nosso mapa de ação.</p>
-    <button class="hero-cta" onclick="gs('frentes')">
-      Ver o plano completo
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    <div class="hero-tag">Plano de execução operacional · 2026</div>
+    <h1 class="hero-title">Conectar.<br>Configurar.<br><span>Vender.</span></h1>
+    <p class="hero-sub">Cada conta, sistema e campanha que precisa ser ligado para as duas máquinas de crescimento funcionarem. Do acesso às contas até os primeiros anúncios no ar.</p>
+    <button class="hero-btn" onclick="gs('setup')">
+      Ver tarefas
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
   </div>
   <div class="hero-right">
-    <div class="hero-kpi">
-      <div class="hero-kpi-num">2</div>
-      <div class="hero-kpi-lbl">Frentes de crescimento</div>
-      <div class="hero-kpi-sub">Schübak + Nova Marca Acústica</div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="h-total">12</div>
+      <div class="hero-stat-lbl">Tarefas no plano</div>
+      <div class="hero-stat-sub">Schübak + Sonare Esquadrias</div>
     </div>
-    <div class="hero-kpi">
-      <div class="hero-kpi-num">R$1k</div>
-      <div class="hero-kpi-lbl">Investimento inicial em mídia</div>
-      <div class="hero-kpi-sub">Meta Ads + Google Ads · primeiro mês</div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="h-urgent">6</div>
+      <div class="hero-stat-lbl">Urgentes — semana 1</div>
+      <div class="hero-stat-sub">Contas · CRM · imagens · anúncios</div>
     </div>
-    <div class="hero-kpi">
-      <div class="hero-kpi-num">~83</div>
-      <div class="hero-kpi-lbl">Leads estimados/mês</div>
-      <div class="hero-kpi-sub">Com R$1.000 em mídia · R$12/lead qualificado</div>
-    </div>
-    <div class="hero-kpi">
-      <div class="hero-kpi-num">4</div>
-      <div class="hero-kpi-lbl">Regiões de atuação</div>
-      <div class="hero-kpi-sub">Vale dos Sinos · Serra · Litoral Norte · SC</div>
+    <div class="hero-stat">
+      <div class="hero-stat-num" id="h-done">0</div>
+      <div class="hero-stat-lbl">Concluídas</div>
+      <div class="hero-stat-sub">Atualize conforme avança</div>
     </div>
   </div>
 </div>
 
-<!-- FRENTES -->
-<div class="sec light-bg" id="frentes">
-  <div class="ey">01 — O Que Vamos Fazer</div>
-  <div class="st">Duas máquinas de crescimento em paralelo</div>
-  <div class="sd">Enquanto a agência atual cuida da produção até fevereiro, a Casa Publicidade entra como head de marketing — gerindo estratégia, anúncios, CRM e lançando a nova marca acústica.</div>
+<!-- CONFIGURAÇÃO INICIAL -->
+<div class="sec white" id="setup">
+  <div class="ey">01 — Configuração inicial</div>
+  <div class="st">O que precisa ser conectado primeiro</div>
+  <div class="sd">Antes de qualquer anúncio ou campanha, estas são as contas, ferramentas e acessos que precisam estar configurados. Prioridade máxima na semana 1.</div>
 
-  <!-- TABS -->
-  <div class="tabs">
-    <button class="tab on" onclick="switchTab('schubak',this)">Schübak Esquadrias</button>
-    <button class="tab" onclick="switchTab('acustica',this)">Nova Marca Acústica</button>
-  </div>
+  <div class="g2" style="gap:24px;align-items:start">
 
-  <div id="tab-schubak" class="tab-content on g3" style="gap:2px">
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Head de Marketing</div><div class="entrega-num">01</div></div>
-      <div class="entrega-body">
-        <div class="ei">Gestão estratégica da produção de conteúdo já existente</div>
-        <div class="ei">Direção criativa dos vídeos e publicações</div>
-        <div class="ei"><strong>5 posts/semana</strong> — feed + reels mínimo 2/semana</div>
-        <div class="ei">2 diárias de gravação por mês</div>
-        <div class="ei">Atualização e redesign dos destaques</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Anúncios Patrocinados</div><div class="entrega-num">02</div></div>
-      <div class="entrega-body">
-        <div class="ei"><strong>Meta Ads</strong> — Instagram e Facebook com segmentação regional</div>
-        <div class="ei"><strong>Google Ads</strong> — melhorar posição atual da Schübak</div>
-        <div class="ei">Campanha de geração de leads qualificados</div>
-        <div class="ei">Remarketing para quem visitou o site</div>
-        <div class="ei">Relatórios quinzenais de desempenho</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">CRM & Atendimento</div><div class="entrega-num">03</div></div>
-      <div class="entrega-body">
-        <div class="ei">Implantação de CRM integrado ao WhatsApp</div>
-        <div class="ei">Número comercial exclusivo para o comercial</div>
-        <div class="ei">Funil de atendimento e follow-up automatizado</div>
-        <div class="ei">Dashboard de leads em tempo real</div>
-        <div class="ei">Treinamento do time comercial</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Novo Site</div><div class="entrega-num">04</div></div>
-      <div class="entrega-body">
-        <div class="ei">Site institucional moderno com foco em conversão</div>
-        <div class="ei">Portfólio de obras com galeria de projetos</div>
-        <div class="ei">Página dedicada para arquitetos</div>
-        <div class="ei">Captação de leads integrada</div>
-        <div class="ei">SEO técnico e integração com Analytics</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Material Impresso</div><div class="entrega-num">05</div></div>
-      <div class="entrega-body">
-        <div class="ei"><strong>Folder</strong> institucional para arquitetos e construtoras</div>
-        <div class="ei">Campanha de vendas com material impresso</div>
-        <div class="ei">Kit de parceria para corretores e imobiliárias</div>
-        <div class="ei">Material técnico para apresentações comerciais</div>
-        <div class="ei">Brindes personalizados para clientes e parceiros</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Rede de Parceiros</div><div class="entrega-num">06</div></div>
-      <div class="entrega-body">
-        <div class="ei">Parceria ativa com <strong>corretores</strong> do Litoral Norte RS</div>
-        <div class="ei">Parceria com <strong>arquitetos</strong> da Serra Gaúcha</div>
-        <div class="ei">Parceria com <strong>construtoras</strong> do Vale dos Sinos</div>
-        <div class="ei">Programa de indicação com comissão para parceiros</div>
-        <div class="ei">Eventos de relacionamento com especificadores</div>
-      </div>
-    </div>
-  </div>
-
-  <div id="tab-acustica" class="tab-content g3" style="gap:2px">
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Identidade da Marca</div><div class="entrega-num">01</div></div>
-      <div class="entrega-body">
-        <div class="ei">Naming finalizado e domínio registrado</div>
-        <div class="ei">Logotipo e identidade visual completa</div>
-        <div class="ei">Manual de marca e guia de aplicação</div>
-        <div class="ei">Posicionamento e tom de voz definidos</div>
-        <div class="ei">Paleta de cores e tipografia premium</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Site & Conversão</div><div class="entrega-num">02</div></div>
-      <div class="entrega-body">
-        <div class="ei">Site focado em conversão de leads finais</div>
-        <div class="ei">Landing pages por segmento — apartamentos, casas, home office</div>
-        <div class="ei">Formulário de orçamento online</div>
-        <div class="ei">Integração com WhatsApp comercial</div>
-        <div class="ei">SEO para palavras-chave de acústica</div>
-      </div>
-    </div>
-    <div class="entrega">
-      <div class="entrega-head"><div class="entrega-title">Performance Digital</div><div class="entrega-num">03</div></div>
-      <div class="entrega-body">
-        <div class="ei"><strong>Google Ads</strong> — pesquisa com intenção alta de compra</div>
-        <div class="ei"><strong>Meta Ads</strong> — segmentação por CEP e localização urbana</div>
-        <div class="ei">Conteúdo educativo sobre isolamento acústico</div>
-        <div class="ei">Vídeos "antes e depois" de instalações</div>
-        <div class="ei">Remarketing e audiências lookalike</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ins warm" style="margin-top:2px">
-    <div class="ins-lbl">Como funcionamos até fevereiro</div>
-    <div class="ins-txt">A Schübak já tem uma agência produzindo conteúdo até fevereiro de 2026. A Casa Publicidade entra agora como <strong>head de marketing</strong> — gerindo a estratégia, direcionando essa produção, rodando os anúncios e implantando o CRM. Em fevereiro, assumimos a produção completa com as duas diárias mensais de gravação e os 5 posts semanais.</div>
-  </div>
-</div>
-
-<!-- REGIÕES -->
-<div class="sec warm-bg" id="regioes">
-  <div class="ey">02 — Onde Vamos Crescer</div>
-  <div class="st">Regiões de atuação no RS e SC</div>
-  <div class="sd">Porto Alegre como base, com foco comercial em quatro regiões estratégicas de alto potencial para esquadrias de PVC de qualidade.</div>
-
-  <div class="g2" style="gap:32px;align-items:start">
     <div>
-      <!-- SVG MAP RS simplificado e dinâmico -->
-      <div class="map-wrap">
-        <svg viewBox="0 0 340 380" class="rs-map" xmlns="http://www.w3.org/2000/svg">
-          <!-- RS outline simplificado -->
-          <path d="M60,20 L120,10 L200,18 L270,30 L310,70 L330,130 L320,190 L300,240 L280,290 L240,340 L200,360 L150,370 L100,360 L60,330 L30,280 L20,220 L30,160 L20,100 L40,60 Z" fill="#f0f4f9" stroke="#c8d4e8" stroke-width="2"/>
-          <!-- SC abaixo -->
-          <path d="M150,370 L200,360 L240,340 L280,290 L300,310 L290,340 L260,360 L230,375 L190,380 L160,378 Z" fill="#e8eef8" stroke="#c8d4e8" stroke-width="1.5"/>
-          <!-- Regiões destacadas -->
-          <!-- Vale dos Sinos -->
-          <ellipse id="vale-sinos" cx="110" cy="260" rx="42" ry="28" fill="rgba(26,58,107,0.15)" stroke="var(--navy)" stroke-width="1.5" cursor="pointer" onclick="showRegion('vale')"/>
-          <!-- Serra Gaúcha -->
-          <ellipse id="serra" cx="195" cy="200" rx="38" ry="30" fill="rgba(26,58,107,0.15)" stroke="var(--navy)" stroke-width="1.5" cursor="pointer" onclick="showRegion('serra')"/>
-          <!-- Litoral Norte -->
-          <ellipse id="litoral" cx="270" cy="215" rx="30" ry="40" fill="rgba(26,58,107,0.15)" stroke="var(--navy)" stroke-width="1.5" cursor="pointer" onclick="showRegion('litoral')"/>
-          <!-- Porto Alegre -->
-          <circle cx="108" cy="295" r="8" fill="var(--navy)" cursor="pointer" onclick="showRegion('poa')"/>
-          <!-- SC -->
-          <ellipse id="sc" cx="215" cy="358" rx="35" ry="16" fill="rgba(26,58,107,0.1)" stroke="var(--navy)" stroke-width="1" stroke-dasharray="4,3" cursor="pointer" onclick="showRegion('sc')"/>
-          <!-- Labels -->
-          <text x="110" y="257" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">VALE DOS</text>
-          <text x="110" y="268" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">SINOS</text>
-          <text x="195" y="197" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">SERRA</text>
-          <text x="195" y="208" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">GAÚCHA</text>
-          <text x="270" y="211" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">LITORAL</text>
-          <text x="270" y="222" text-anchor="middle" font-family="'Barlow Condensed'" font-size="9" fill="var(--navy)" font-weight="700" pointer-events="none">NORTE</text>
-          <text x="108" y="315" text-anchor="middle" font-family="'Barlow Condensed'" font-size="8" fill="#fff" pointer-events="none">POA</text>
-          <text x="215" y="360" text-anchor="middle" font-family="'Barlow Condensed'" font-size="8" fill="var(--navy)" pointer-events="none">SC</text>
-          <!-- RS label -->
-          <text x="80" y="120" font-family="'Barlow Condensed'" font-size="22" fill="rgba(26,58,107,0.08)" font-weight="900">RS</text>
-        </svg>
-        <div id="map-tooltip" style="display:none;padding:14px 18px;background:var(--navy);color:#fff;font-size:11px;line-height:1.6;margin-top:8px;font-weight:300">
-          <strong id="tt-title" style="display:block;font-weight:700;margin-bottom:4px;font-family:'Barlow Condensed';font-size:12px;letter-spacing:1px;text-transform:uppercase"></strong>
-          <span id="tt-text"></span>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Contas & Acessos</div>
+
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Instagram Schübak</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Acessar o perfil e conectar ao Meta Business Suite. Verificar permissões de anúncio e pixel. Confirmar a página do Facebook vinculada.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Semana 1</span>
         </div>
-        <div class="map-legend">
-          <div class="map-legend-item"><div class="map-dot" style="background:var(--navy)"></div>Porto Alegre — Base operacional</div>
-          <div class="map-legend-item"><div class="map-dot" style="background:rgba(26,58,107,.5)"></div>Vale dos Sinos · Serra · Litoral Norte</div>
-          <div class="map-legend-item"><div class="map-dot" style="background:rgba(26,58,107,.25);border:1px dashed var(--navy)"></div>Santa Catarina — expansão</div>
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Facebook — Chadi ou conta nova</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Avaliar se a conta do Chadi tem restrições de anúncio. Se sim, criar nova conta Business no Facebook e vincular ao Gerenciador de Negócios da Casa Publicidade.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Semana 1 · Urgente</span>
+        </div>
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--green)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Instagram Sonare Esquadrias</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Criar perfil @sonareesquadrias (ou variação disponível). Conectar ao Meta Business Suite. Configurar bio provisória, foto de perfil e link do WhatsApp comercial.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--green-light);color:var(--green);border:1px solid rgba(45,125,70,.2)">Sonare · Semana 1</span>
+        </div>
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--navy)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Imagens e vídeos existentes</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Solicitar todo material disponível — obras, produtos, instalações, fábrica. Organizar em pasta compartilhada (Google Drive ou similar). Selecionar os melhores para os primeiros criativos dos anúncios.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Semana 1</span>
         </div>
       </div>
     </div>
-    <div style="display:flex;flex-direction:column;gap:2px">
-      <div class="region" onclick="showRegion('poa')">
-        <div class="region-name">Porto Alegre — Base</div>
-        <div class="region-text">Sede da Schübak e maior mercado individual. Foco em avenidas movimentadas para a nova marca acústica e em arquitetos e construtoras para a Schübak.</div>
-        <span class="region-tag">Base operacional</span>
+
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Ferramentas & Sistemas</div>
+
+      <div style="display:flex;flex-direction:column;gap:2px">
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">HubSpot CRM ou Meta Business Suite</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Avaliar e definir plataforma de CRM. HubSpot para pipeline comercial completo; Meta Business Suite para gestão direta dos leads de formulário. Integrar com WhatsApp e formulários de anúncio.</div>
+          <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Urgente · 15 dias</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Ambas as marcas</span>
+          </div>
+        </div>
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">SMBot — automação de mensagens</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Assinar plano SMBot para automação de respostas no Instagram e WhatsApp. Configurar fluxos automáticos para leads que interagirem com os anúncios das duas marcas.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Semana 2</span>
+        </div>
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--navy)">
+          <div style="font-size:13px;font-weight:700;color:var(--dark);margin-bottom:6px">Agendar captação de imagens</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.6">Levantar obras e cases disponíveis para filmagem. Identificar 2–3 obras com resultado visual forte. Definir data da captação com o time Schübak para produzir material original de alta qualidade.</div>
+          <span style="margin-top:10px;display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Mês 1</span>
+        </div>
       </div>
-      <div class="region" onclick="showRegion('vale')">
-        <div class="region-name">Vale dos Sinos</div>
-        <div class="region-text">Novo Hamburgo, São Leopoldo, Canoas — polo industrial com forte demanda por obras residenciais e comerciais. Parceria ativa com construtoras locais.</div>
-        <span class="region-tag">Construtoras & Obras</span>
+    </div>
+
+  </div>
+</div>
+
+<!-- KANBAN -->
+<div class="sec" id="kanban">
+  <div class="ey">02 — Kanban de tarefas</div>
+  <div class="st">Gestão visual do plano de execução</div>
+  <div class="sd">Clique em qualquer tarefa para ver o detalhe e mover entre colunas. Filtre por marca ou prioridade.</div>
+
+  <div class="filter-bar">
+    <button class="fb on" onclick="setFilter('all',this)">Todas</button>
+    <button class="fb" onclick="setFilter('schubak',this)">Schübak</button>
+    <button class="fb" onclick="setFilter('sonare',this)">Sonare</button>
+    <button class="fb" onclick="setFilter('ambas',this)">Ambas</button>
+    <button class="fb" onclick="setFilter('urgent',this)">Urgentes</button>
+  </div>
+
+  <div class="legend">
+    <div class="leg-item"><div class="leg-dot" style="background:var(--red)"></div>Alta prioridade</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--amber)"></div>Média prioridade</div>
+    <div class="leg-item"><div class="leg-dot" style="background:var(--green)"></div>Baixa prioridade</div>
+  </div>
+
+  <div class="stats-bar" id="statsbar">
+    <div class="sbar navy"><div class="sbar-val c-navy" id="sv-total">0</div><div class="sbar-lbl">Total</div></div>
+    <div class="sbar"><div class="sbar-val" id="sv-todo">0</div><div class="sbar-lbl">A fazer</div></div>
+    <div class="sbar"><div class="sbar-val" id="sv-doing">0</div><div class="sbar-lbl">Em andamento</div></div>
+    <div class="sbar"><div class="sbar-val" id="sv-done">0</div><div class="sbar-lbl">Concluídas</div></div>
+  </div>
+
+  <div class="board">
+    <div class="col-wrap">
+      <div class="col-head">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+        <span class="col-title">A fazer</span>
+        <span class="col-count cnt-todo" id="cnt-todo">0</span>
       </div>
-      <div class="region" onclick="showRegion('serra')">
-        <div class="region-name">Serra Gaúcha</div>
-        <div class="region-text">Caxias do Sul, Bento Gonçalves, Gramado, Canela — alto padrão, turismo e residências premium. Arquitetos e incorporadoras como porta de entrada.</div>
-        <span class="region-tag">Alto Padrão & Arquitetos</span>
+      <div id="col-todo"></div>
+    </div>
+    <div class="col-wrap">
+      <div class="col-head">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--amber)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        <span class="col-title">Em andamento</span>
+        <span class="col-count cnt-doing" id="cnt-doing">0</span>
       </div>
-      <div class="region" onclick="showRegion('litoral')">
-        <div class="region-name">Litoral Norte RS</div>
-        <div class="region-text">Torres, Capão da Canoa, Tramandaí — segunda residência e condomínios de alto padrão. Corretores de imóveis como principal canal de parceria.</div>
-        <span class="region-tag">Corretores & Condomínios</span>
+      <div id="col-doing"></div>
+    </div>
+    <div class="col-wrap">
+      <div class="col-head">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <span class="col-title">Concluído</span>
+        <span class="col-count cnt-done" id="cnt-done">0</span>
       </div>
-      <div class="region" onclick="showRegion('sc')">
-        <div class="region-name">Santa Catarina</div>
-        <div class="region-text">Florianópolis, Blumenau, Joinville — expansão estratégica. Mercado com forte apelo ao produto de origem europeia e alto poder aquisitivo.</div>
-        <span class="region-tag">Expansão · 2026</span>
-      </div>
+      <div id="col-done"></div>
     </div>
   </div>
 </div>
 
-<!-- NOVA MARCA -->
-<div class="sec light-bg" id="marca">
-  <div class="ey">03 — Nova Marca Acústica</div>
-  <div class="st">A segunda frente de crescimento</div>
-  <div class="sd">Marca independente especializada em retrofit acústico residencial. Comunica benefício emocional — silêncio, conforto, qualidade de vida — para quem mora em locais barulhentos.</div>
+<!-- CHECKLIST -->
+<div class="sec white" id="checklist">
+  <div class="ey">03 — Checklist de execução</div>
+  <div class="st">Marque conforme avança</div>
+  <div class="sd">Visão linear de todas as tarefas organizadas por categoria. Clique para marcar como concluída.</div>
 
-  <div style="margin-bottom:24px">
-    <div class="brand-card recommended" style="max-width:520px">
-      <div class="brand-rec">✓ Nome aprovado</div>
-      <div class="brand-name">SONARE <span>ESQUADRIAS</span></div>
-      <div class="brand-concept">Som · Conforto · Identidade sonora</div>
-      <div class="brand-desc">"Sonare" vem do latim — significa soar, ressoar. Um nome que remete diretamente ao universo acústico, com sonoridade elegante e internacional, fácil de pronunciar e memorizar.</div>
-      <div class="brand-slogan">"Onde o silêncio tem nome."<br>"Conforto acústico para viver melhor."</div>
-      <div class="brand-num">SE</div>
-    </div>
-  </div>
-
-  <div class="g3" style="gap:2px">
-    <div class="action">
-      <div class="action-icon">😤</div>
-      <div class="action-title">Dificuldade para dormir</div>
-      <div class="action-text">Trânsito, bares, vizinhos. O descanso virou problema. <strong>Solução: janela acústica PVC.</strong></div>
-    </div>
-    <div class="action">
-      <div class="action-icon">💻</div>
-      <div class="action-title">Home office prejudicado</div>
-      <div class="action-text">Reuniões interrompidas, concentração impossível. <strong>O barulho custa dinheiro.</strong></div>
-    </div>
-    <div class="action">
-      <div class="action-icon">📉</div>
-      <div class="action-title">Imóvel desvalorizado</div>
-      <div class="action-text">Apartamento em avenida movimentada perde valor. <strong>Retrofit acústico = investimento.</strong></div>
-    </div>
-  </div>
-
-  <div class="ins" style="margin-top:2px">
-    <div class="ins-lbl">Público-alvo da nova marca</div>
-    <div class="ins-txt">Moradores de avenidas movimentadas · Apartamentos em centros urbanos · Próximos a bares e restaurantes · Casas próximas a rodovias · Home office com interferência · Síndicos e condomínios urbanos para retrofit coletivo. <strong>Segmentação Google:</strong> "janela acústica para apartamento", "isolamento acústico janela", "redução de ruído residencial Porto Alegre".</div>
-  </div>
+  <div id="checklist-body"></div>
 </div>
 
-<!-- QUOTE -->
-<div class="quote">
-  <div class="quote-txt">"Seu lar deveria ser o lugar mais silencioso do mundo."</div>
-  <div class="quote-auth">Conceito da nova marca · Sonare Esquadrias · 2026</div>
-</div>
+<!-- PRAZOS -->
+<div class="sec" id="prazos">
+  <div class="ey">04 — Prazos e entregas</div>
+  <div class="st">Cronograma operacional</div>
+  <div class="sd">Datas previstas para cada entrega. Sujeitas a ajustes conforme alinhamento entre as partes.</div>
 
-<!-- CALENDÁRIO -->
-<div class="sec light-bg" id="calendario">
-  <div class="ey">04 — Calendário de Execução</div>
-  <div class="st">Prazos e entregas semana a semana</div>
-  <div class="sd">Cada tarefa tem data. Cada prazo é compromisso. Do dia 1 até a escala completa das duas marcas.</div>
-
-  <!-- SEMANAS 1 e 2 destaque -->
-  <div class="g2" style="gap:2px;margin-bottom:2px">
-    <div style="background:var(--navy);padding:28px 32px;position:relative;overflow:hidden">
-      <div style="position:absolute;top:-10px;right:-10px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(255,255,255,.04);line-height:1">S1</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(160,184,216,.7);margin-bottom:14px">Semana 1 · Dias 1–7 · Implementação</div>
-      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:14px">Configuração e acesso</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.5"><span style="color:rgba(160,184,216,.7);flex-shrink:0;font-weight:700">Dia 1–2</span>Reunião de kickoff · acesso às contas de redes sociais, Meta Ads e Google Ads</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.5"><span style="color:rgba(160,184,216,.7);flex-shrink:0;font-weight:700">Dia 2–3</span>Briefing completo do novo site · levantamento de portfólio de obras existentes</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.5"><span style="color:rgba(160,184,216,.7);flex-shrink:0;font-weight:700">Dia 3–4</span>Configuração do pixel Meta e tag Google · integração com Analytics</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.5"><span style="color:rgba(160,184,216,.7);flex-shrink:0;font-weight:700">Dia 5–7</span>Estruturação das campanhas de anúncio · segmentações e criativos iniciais</div>
-      </div>
+  <div class="ptable">
+    <div class="ptable-head">
+      <div class="ptable-hcell">Prazo</div>
+      <div class="ptable-hcell">Entrega</div>
+      <div class="ptable-hcell">Detalhe</div>
+      <div class="ptable-hcell">Marca</div>
     </div>
-    <div style="background:var(--navy-light);padding:28px 32px;border-left:2px solid var(--navy);position:relative;overflow:hidden">
-      <div style="position:absolute;top:-10px;right:-10px;font-family:'Barlow Condensed',sans-serif;font-size:100px;font-weight:900;color:rgba(26,58,107,.06);line-height:1">S2</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:14px">Semana 2 · Dias 8–14 · Execução</div>
-      <div style="font-size:16px;font-weight:800;color:var(--dark);margin-bottom:14px">Anúncios no ar + tarefas iniciadas</div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--gray);line-height:1.5"><span style="color:var(--navy);flex-shrink:0;font-weight:700">Dia 8</span>Meta Ads e Google Ads ativos — primeiros leads chegando</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--gray);line-height:1.5"><span style="color:var(--navy);flex-shrink:0;font-weight:700">Dia 8–10</span>Calendário editorial de conteúdo do mês aprovado</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--gray);line-height:1.5"><span style="color:var(--navy);flex-shrink:0;font-weight:700">Dia 10–12</span>Gestão estratégica da produção de conteúdo já existente em andamento</div>
-        <div style="display:flex;gap:10px;align-items:flex-start;font-size:11px;font-weight:300;color:var(--gray);line-height:1.5"><span style="color:var(--navy);flex-shrink:0;font-weight:700">Dia 12–14</span>Naming da nova marca em avaliação — apresentação das 3 opções finais</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PRAZOS DETALHADOS -->
-  <div style="background:#fff;padding:0;margin-bottom:2px">
-    <div style="background:var(--dark);padding:14px 24px;display:grid;grid-template-columns:120px 1fr 1fr 160px;gap:16px">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555">Prazo</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555">Entrega</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555">Detalhe</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#555">Marca</div>
-    </div>
-    <div style="padding:10px 24px;background:#f7f9fb;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px">
+    <div class="ptable-note">
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--navy)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
-      <span style="font-size:11px;font-weight:300;color:var(--gray)">Datas <strong style="color:var(--dark);font-weight:600">prévias</strong> — sujeitas a ajustes conforme alinhamento entre as partes.</span>
+      Datas <strong>prévias</strong> — sujeitas a ajustes conforme alinhamento entre as partes.
     </div>
-    <div id="deadlines-table"></div>
-  </div>
-
-  <div class="g2" style="gap:32px;align-items:start;margin-top:32px">
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">Schübak — Meses 2 e 3</div>
-      <div class="tl-wrap">
-        <div class="tl-item act">
-          <div class="tl-month">Mês 2 · Semanas 5–8</div>
-          <div class="tl-title">Site no ar + Material impresso</div>
-          <div class="tl-text">Novo site Schübak publicado com portfólio e captação de leads. Folder e material comercial prontos para a equipe de vendas. Primeira diária de gravação realizada.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-month gray">Mês 2 · Semana 6</div>
-          <div class="tl-title">Rede de parceiros ativa</div>
-          <div class="tl-text">Primeiras reuniões com corretores do Litoral Norte, arquitetos da Serra Gaúcha e construtoras do Vale dos Sinos. Material de apresentação em mãos.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-month gray">Mês 3+</div>
-          <div class="tl-title">Escala e lookalike</div>
-          <div class="tl-text">Com dados dos primeiros meses, ampliar verba de mídia progressivamente. Audiências semelhantes criadas a partir dos leads qualificados gerados.</div>
-        </div>
-      </div>
-    </div>
-    <div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid var(--border)">Nova Marca — Meses 2 e 3</div>
-      <div class="tl-wrap">
-        <div class="tl-item act">
-          <div class="tl-month">Mês 2 · Semana 5</div>
-          <div class="tl-title">Site da nova marca publicado</div>
-          <div class="tl-text">Site com landing pages segmentadas por perfil — apartamentos, casas próximas a rodovias e home office. Formulário de orçamento e WhatsApp integrados.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-month gray">Mês 2 · Semana 6</div>
-          <div class="tl-title">Google Ads no ar</div>
-          <div class="tl-text">Campanhas de pesquisa com palavras-chave de alta intenção. Primeiros leads do público consumidor final chegando diretamente.</div>
-        </div>
-        <div class="tl-item">
-          <div class="tl-month gray">Mês 3–4</div>
-          <div class="tl-title">Cases + Prova social</div>
-          <div class="tl-text">Primeiros "antes e depois" publicados. Depoimentos em vídeo de clientes. Parcerias com síndicos e administradoras de condomínio. Escala das campanhas.</div>
-        </div>
-      </div>
-    </div>
+    <div id="prazos-body"></div>
   </div>
 </div>
 
-<!-- INVESTIMENTO -->
-<div class="sec warm-bg" id="investimento">
-  <div class="ey">05 — Investimento</div>
-  <div class="st">Orçamento mensal e simulação de resultados</div>
-  <div class="sd">Investimento inicial de R$ 1.000/mês em mídia patrocinada com escala progressiva conforme resultados.</div>
+<!-- CRIATIVOS -->
+<div class="sec white" id="criativos">
+  <div class="ey">05 — Roteiro de Criativos</div>
+  <div class="st">Descrição dos anúncios em foto e vídeo</div>
+  <div class="sd">Roteiro e direcionamento criativo para os primeiros anúncios patrocinados da Schübak no Meta Ads. Cada criativo tem objetivo, formato, roteiro e copy sugerida.</div>
 
-  <!-- CALC -->
-  <div class="calc-box" style="margin-bottom:2px">
-    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:8px">Investimento em mídia — arraste para simular</div>
-    <div class="calc-val" id="cv">R$ 1.000</div>
-    <input type="range" id="cs" min="500" max="2000" step="500" value="1000" oninput="uc(this.value)">
-    <div class="calc-steps">
-      <button class="calc-step" onclick="sc(500)">R$ 500</button>
-      <button class="calc-step on" onclick="sc(1000)">R$ 1.000 ← início</button>
-      <button class="calc-step" onclick="sc(1500)">R$ 1.500</button>
-      <button class="calc-step" onclick="sc(2000)">R$ 2.000</button>
-    </div>
-    <div class="calc-grid" id="cg"></div>
-    <div class="calc-note" id="cn"></div>
+  <!-- TABS CRIATIVOS -->
+  <div style="display:flex;gap:0;margin-bottom:24px">
+    <button class="fb on" id="ctab-video" onclick="switchCTab('video',this)" style="border-right:none">Vídeo</button>
+    <button class="fb" id="ctab-foto" onclick="switchCTab('foto',this)">Foto / Estático</button>
   </div>
 
+  <!-- VIDEO CRIATIVOS -->
+  <div id="criativos-video">
+    <div style="display:flex;flex-direction:column;gap:2px">
 
+      <div style="background:#fff;border-left:3px solid var(--navy);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
+        <div style="background:var(--navy);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 01</div>
+            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Institucional — Obra entregue</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">15–30 segundos</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
+          </div>
+        </div>
+        <div style="padding:28px 32px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Mostrar o produto aplicado em obra real. Gerar desejo e prova social. Público: arquitetos e proprietários que estão construindo ou reformando.</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
+                <strong style="color:var(--dark);font-weight:600">0–3s:</strong> Close no perfil da esquadria instalada — detalhe do vidro, da borracha, do acabamento. Sem texto.<br><br>
+                <strong style="color:var(--dark);font-weight:600">3–10s:</strong> Câmera abre revelando o ambiente completo — sala com luz entrando pela janela, porta de correr aberta para o jardim.<br><br>
+                <strong style="color:var(--dark);font-weight:600">10–20s:</strong> Plano externo da fachada. Mão abrindo e fechando a janela com leveza. Detalhe do trilho deslizando.<br><br>
+                <strong style="color:var(--dark);font-weight:600">20–30s:</strong> Texto na tela: "Schübak Esquadrias — qualidade que você vê e sente." CTA: botão WhatsApp.
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Cada detalhe de uma obra de qualidade começa na escolha certa. Veja como as esquadrias Schübak transformam um projeto em obra-prima. 👉 Solicite seu orçamento."</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Sem narração. Trilha instrumental elegante (piano ou ambient). Luz natural. Gimbal — movimento suave. Cortes lentos. Nunca câmera tremida. Texto discreto em Montserrat branca sobre imagem escurecida nos últimos 5s.</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
+      <div style="background:#fff;border-left:3px solid var(--navy-mid);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
+        <div style="background:var(--navy-mid);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 02</div>
+            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Bastidores — Fábrica e processo</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">20–30 segundos</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
+          </div>
+        </div>
+        <div style="padding:28px 32px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Gerar credibilidade mostrando a estrutura da empresa. Público: arquitetos e construtoras que precisam de fornecedor confiável com capacidade de entrega.</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
+                <strong style="color:var(--dark);font-weight:600">0–5s:</strong> Plano do estoque — perfis alinhados, escala da operação. Texto: "Estoque disponível. Entrega garantida."<br><br>
+                <strong style="color:var(--dark);font-weight:600">5–15s:</strong> Processo de corte e montagem dos perfis. Detalhe das máquinas e da precisão do acabamento.<br><br>
+                <strong style="color:var(--dark);font-weight:600">15–25s:</strong> Time de engenharia — equipe em reunião ou revisando projeto. Transmite suporte técnico.<br><br>
+                <strong style="color:var(--dark);font-weight:600">25–30s:</strong> Logo Schübak + "Há mais de 15 anos construindo qualidade." CTA: WhatsApp ou site.
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Por trás de cada janela Schübak, tem estrutura, tecnologia e um time que entende do que você precisa. Conheça a fábrica que equipa as melhores obras do RS."</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Luz de fábrica — pode ser mais crua que o criativo 01. Edição mais ritmada, cortes mais rápidos (a cada 3–4s). Texto branco com fundo semi-transparente. Pode ter narração breve ou apenas música.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border-left:3px solid var(--green);display:grid;grid-template-columns:200px 1fr;overflow:hidden">
+        <div style="background:var(--green);padding:28px 24px;display:flex;flex-direction:column;justify-content:space-between">
+          <div>
+            <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:10px">Criativo 03</div>
+            <div style="font-size:16px;font-weight:800;color:#fff;line-height:1.2;margin-bottom:8px">Depoimento — Cliente ou parceiro</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:6px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">Reels 9:16</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:rgba(255,255,255,.1);color:rgba(255,255,255,.7)">30–45 segundos</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--green-light);color:var(--green);border:1px solid rgba(45,125,70,.2)">Prioridade 3</span>
+          </div>
+        </div>
+        <div style="padding:28px 32px">
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Objetivo</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Prova social com arquiteto, construtor ou proprietário falando sobre a experiência. Gera confiança para quem ainda está avaliando fornecedores.</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Roteiro</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">
+                <strong style="color:var(--dark);font-weight:600">0–5s:</strong> Gancho visual — imagem da obra + texto: "O que esse arquiteto/construtor achou da Schübak?"<br><br>
+                <strong style="color:var(--dark);font-weight:600">5–35s:</strong> Depoimento espontâneo em frente à obra. Perguntas-guia: Qual foi o diferencial? Como foi o atendimento? Recomendaria?<br><br>
+                <strong style="color:var(--dark);font-weight:600">35–45s:</strong> B-roll da obra + nome/cargo da pessoa na tela. CTA final: "Faça seu orçamento."
+              </div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Copy do anúncio</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Quando a qualidade fala por si mesma. Ouça quem já usou Schübak nas suas obras e entende por que faz diferença escolher o fornecedor certo."</div>
+            </div>
+            <div>
+              <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Direção visual</div>
+              <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Entrevista em ambiente da obra ou escritório do arquiteto. Luz natural ou softbox suave. Nome e cargo em legenda no início. Subtitulado (a maioria assiste sem som). Edição limpa.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FOTO CRIATIVOS -->
+  <div id="criativos-foto" style="display:none">
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px">
+
+      <div style="background:#fff;padding:0;overflow:hidden">
+        <div style="background:var(--navy);padding:16px 20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 01</div>
+          <div style="font-size:14px;font-weight:800;color:#fff">Produto em destaque</div>
+        </div>
+        <div style="padding:20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Foto de uma janela ou porta de correr instalada em ambiente de alto padrão — sala ampla, luz natural abundante. Foco no produto, não na mobília.</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Quando o projeto é de alto padrão, cada detalhe importa. Esquadrias Schübak para quem não abre mão do melhor. Solicite seu orçamento."</div>
+          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Feed 1:1</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Stories 9:16</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;padding:0;overflow:hidden">
+        <div style="background:var(--navy-mid);padding:16px 20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 02</div>
+          <div style="font-size:14px;font-weight:800;color:#fff">Carrossel de obra</div>
+        </div>
+        <div style="padding:20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Carrossel de 6–8 fotos de uma obra entregue. Slide 1: fachada. Slides 2–6: detalhes das esquadrias — perfil, vidro, fechamento, trilho. Slide final: logo + CTA.</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Mais uma obra entregue com excelência. Deslize para ver os detalhes que fazem a diferença em cada projeto. 👉 [Cidade, RS]"</div>
+          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Carrossel 1:1</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Alta conversão</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;padding:0;overflow:hidden">
+        <div style="background:var(--dark);padding:16px 20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:4px">Foto 03</div>
+          <div style="font-size:14px;font-weight:800;color:#fff">Criativo gráfico — direto ao ponto</div>
+        </div>
+        <div style="padding:20px">
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Descrição</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:12px">Fundo escuro ou navy com texto grande em destaque e foto menor do produto no canto. Design minimalista. Ideal para teste A/B contra os criativos com foto de obra.</div>
+          <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--navy);margin-bottom:8px">Copy sugerida</div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;font-style:italic">"Sua obra merece o melhor acabamento. Esquadrias de PVC e alumínio para projetos residenciais e comerciais em todo o RS."</div>
+          <div style="margin-top:14px;display:flex;gap:6px;flex-wrap:wrap">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Feed 1:1</span>
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Teste A/B</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
-<!-- PRÓXIMO PASSO -->
-<div class="sec light-bg">
-  <div class="ey">06 — Próximos Passos</div>
-  <div class="st">O que acontece agora</div>
-  <div class="sd">Plano aprovado. Execução começa imediatamente com os três primeiros movimentos simultâneos.</div>
+<!-- PÚBLICO ALVO -->
+<div class="sec" id="publico">
+  <div class="ey">06 — Público-Alvo</div>
+  <div class="st">Segmentação de anúncios Schübak</div>
+  <div class="sd">Regiões, perfis e interesses para configurar as campanhas no Meta Ads. Segmentação construída para alcançar quem realmente toma a decisão de compra de esquadrias de qualidade.</div>
 
-  <div class="g3" style="gap:2px">
-    <div style="background:var(--navy);padding:32px;position:relative">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:14px">Esta semana</div>
-      <div style="font-size:32px;font-weight:900;color:rgba(255,255,255,.12);position:absolute;top:20px;right:20px;font-family:'Barlow Condensed',sans-serif">01</div>
-      <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px">Kickoff e configuração</div>
-      <div style="font-size:12px;font-weight:300;color:rgba(255,255,255,.55);line-height:1.7">Reunião de alinhamento, acesso às contas de mídia, configuração do Meta Ads e Google Ads, e início do briefing do novo site.</div>
+  <div class="g2" style="gap:24px;align-items:start;margin-bottom:28px">
+
+    <!-- REGIÕES -->
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Localização — Cidades-alvo</div>
+      <div style="background:#fff;padding:24px;margin-bottom:2px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Região Metropolitana de POA</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy);color:#fff">Porto Alegre</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Novo Hamburgo</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Canoas</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">São Leopoldo</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Guaíba</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Eldorado do Sul</span>
+        </div>
+      </div>
+      <div style="background:#fff;padding:24px;margin-bottom:2px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Litoral Norte RS</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Tramandaí</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Capão da Canoa</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Xangri-lá</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Torres</span>
+        </div>
+      </div>
+      <div style="background:#fff;padding:24px">
+        <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:12px">Serra Gaúcha</div>
+        <div style="display:flex;flex-wrap:wrap;gap:6px">
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Gramado</span>
+          <span style="font-family:'Barlow Condensed',sans-serif;font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:5px 12px;background:var(--navy-light);color:var(--navy);border:1px solid rgba(26,58,107,.2)">Canela</span>
+        </div>
+      </div>
+      <div style="background:var(--warm);padding:16px 20px;border-left:3px solid var(--navy);margin-top:2px">
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.6">No Meta Ads, adicione cada cidade individualmente em "Localização" → "Adicionar localização" → buscar pelo nome. Selecionar <strong style="color:var(--dark)">"Pessoas que vivem aqui"</strong> — não turistas. Ative raio de +15km em Tramandaí, Capão e Torres para pegar cidades próximas.</div>
+      </div>
     </div>
-    <div style="background:var(--warm);padding:32px;border-left:2px solid var(--navy);position:relative">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:14px">Semanas 1–2</div>
-      <div style="font-size:32px;font-weight:900;color:rgba(26,58,107,.06);position:absolute;top:20px;right:20px;font-family:'Barlow Condensed',sans-serif">02</div>
-      <div style="font-size:16px;font-weight:800;color:var(--dark);margin-bottom:10px">Anúncios + CRM</div>
-      <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Primeiros anúncios no ar gerando leads. CRM implantado com número comercial exclusivo. Primeiros leads chegando ao time comercial.</div>
-    </div>
-    <div style="background:var(--warm);padding:32px;border-left:2px solid var(--border);position:relative">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--gray);margin-bottom:14px">Mês 1</div>
-      <div style="font-size:32px;font-weight:900;color:rgba(26,58,107,.06);position:absolute;top:20px;right:20px;font-family:'Barlow Condensed',sans-serif">03</div>
-      <div style="font-size:16px;font-weight:800;color:var(--dark);margin-bottom:10px">Nova marca em criação</div>
-      <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7">Naming aprovado, identidade visual em desenvolvimento e primeiros conteúdos sobre acústica sendo produzidos para o lançamento.</div>
+
+    <!-- PERFIS -->
+    <div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px;padding-bottom:8px;border-bottom:1px solid var(--border)">Perfis de público</div>
+
+      <div style="display:flex;flex-direction:column;gap:2px">
+
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
+            <div style="font-size:13px;font-weight:700;color:var(--dark)">Construtoras e Construtores</div>
+          </div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Donos e sócios de construtoras, mestres de obras e engenheiros civis autônomos. Tomam decisão de compra de esquadrias em bloco para múltiplos projetos.</div>
+          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Cargos:</strong> Proprietário, Sócio, Engenheiro Civil, Mestre de Obras, Gerente de Obras<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Construção civil, Materiais de construção, Engenharia civil, Obras residenciais<br><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Proprietário de pequena empresa, Empregadores: Construção civil</div>
+        </div>
+
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--red)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--red-light);color:var(--red);border:1px solid rgba(185,0,0,.2)">Prioridade 1</span>
+            <div style="font-size:13px;font-weight:700;color:var(--dark)">Arquitetos e Designers de Interiores</div>
+          </div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Especificam o produto nos projetos. Uma parceria com arquitetos é multiplicador — cada um pode indicar a Schübak para dezenas de obras por ano.</div>
+          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Cargos:</strong> Arquiteto, Designer de interiores, Arquiteto e Urbanista<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Arquitetura, Design de interiores, Projeto residencial, Decoração<br><strong style="color:var(--dark);font-weight:600">Campo de estudo:</strong> Arquitetura e Urbanismo</div>
+        </div>
+
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
+            <div style="font-size:13px;font-weight:700;color:var(--dark)">Pais com filhos de 6 a 18 anos — saindo do apto</div>
+          </div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Família em crescimento, apartamento ficou pequeno, está buscando casa em condomínio horizontal de alto padrão no Litoral Norte ou Serra. Alta disposição de investimento em qualidade de vida.</div>
+          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Dados demográficos:</strong> Casados, filhos de 6 a 18 anos, renda acima da média<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Condomínios fechados, Casas, Imóveis de alto padrão, Reforma residencial<br><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Compradores recentes de imóveis, Prestes a se mudar</div>
+        </div>
+
+        <div style="background:#fff;padding:20px 24px;border-left:3px solid var(--amber)">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px">
+            <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;background:var(--amber-light);color:var(--amber);border:1px solid rgba(192,124,16,.2)">Prioridade 2</span>
+            <div style="font-size:13px;font-weight:700;color:var(--dark)">Viajantes internacionais frequentes</div>
+          </div>
+          <div style="font-size:12px;font-weight:300;color:var(--gray);line-height:1.7;margin-bottom:10px">Quem viaja para Europa e EUA tem referência de qualidade construtiva superior. Ao voltar, quer o mesmo padrão de janela e porta que viu lá fora. Público de altíssimo ticket.</div>
+          <div style="font-size:11px;color:var(--gray);font-weight:300;line-height:1.6"><strong style="color:var(--dark);font-weight:600">Comportamentos:</strong> Viajante frequente ao exterior, Viajantes internacionais, Usuário de linha aérea internacional<br><strong style="color:var(--dark);font-weight:600">Interesses:</strong> Viagens internacionais, Arquitetura europeia, Imóveis de luxo<br><strong style="color:var(--dark);font-weight:600">Renda:</strong> 10% superiores (Meta Ads)</div>
+        </div>
+
+      </div>
     </div>
   </div>
+
+  <!-- SEGMENTAÇÃO TÉCNICA -->
+  <div style="background:#fff;padding:28px 32px;border-left:3px solid var(--navy);margin-top:2px">
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:16px">Configuração técnica no Meta Ads</div>
+    <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px">
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Idade e gênero</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">28 a 65 anos. Todos os gêneros. Não excluir mulheres — arquitetas e donas de construtora são público relevante.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Advantage+ e Otimização</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">Desativar Advantage+ de localização. Ativar otimização por conversa (WhatsApp) ou lead. Orçamento: R$ 1.000/mês no conjunto principal.</div>
+      </div>
+      <div>
+        <div style="font-size:11px;font-weight:700;color:var(--dark);margin-bottom:8px">Lookalike — mailing</div>
+        <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">Importar lista de e-mails de construtoras RS como audiência personalizada. Criar lookalike 1% e 2% a partir dela. Testar em conjunto separado com mesmo orçamento.</div>
+      </div>
+    </div>
+  </div>
+
 </div>
 
 <footer>
-  <div class="foot-l">Casa Publicidade × Schübak Esquadrias · Plano de Ação 2026 · Documento de trabalho</div>
-  <div class="foot-r">Casa Publicidade</div>
+  <div class="foot-l">Casa Publicidade × Schübak Esquadrias · Plano de Execução 2026</div>
+  <div class="foot-r">Documento de trabalho</div>
 </footer>
 
 <script>
-// Progress
 window.addEventListener('scroll',()=>{
   const h=document.documentElement;
   document.getElementById('prog').style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight))*100+'%';
 });
-
-// Scroll reveal
-new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
-},{threshold:0.06}).observe && document.querySelectorAll('.sec').forEach(el=>{
-  new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('vis')});
-  },{threshold:0.06}).observe(el);
-});
+new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.05}).observe&&
+document.querySelectorAll('.sec').forEach(el=>new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis')})},{threshold:.05}).observe(el));
+function switchCTab(id,btn){
+  document.getElementById('criativos-video').style.display=id==='video'?'block':'none';
+  document.getElementById('criativos-foto').style.display=id==='foto'?'block':'none';
+  document.querySelectorAll('#ctab-video,#ctab-foto').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+}
 
 function gs(id){document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'})}
 
-// Tabs
-function switchTab(id,el){
-  document.querySelectorAll('.tab-content').forEach(t=>{t.classList.remove('on');t.style.display='none'});
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  const tc=document.getElementById('tab-'+id);
-  tc.classList.add('on');
-  tc.style.display='grid';
-  el.classList.add('on');
-}
-
-// Map tooltip
-const regionData={
-  poa:{title:'Porto Alegre',text:'Base operacional. Foco em arquitetos, construtoras e nova marca acústica em avenidas movimentadas.'},
-  vale:{title:'Vale dos Sinos',text:'Novo Hamburgo, São Leopoldo, Canoas. Polo industrial com forte demanda por obras residenciais. Foco: construtoras e parceiros comerciais.'},
-  serra:{title:'Serra Gaúcha',text:'Caxias do Sul, Bento Gonçalves, Gramado, Canela. Alto padrão e turismo. Foco: arquitetos, incorporadoras e projetos premium.'},
-  litoral:{title:'Litoral Norte RS',text:'Torres, Capão da Canoa, Tramandaí. Segunda residência e condomínios. Foco: corretores de imóveis como canal principal de parceria.'},
-  sc:{title:'Santa Catarina',text:'Florianópolis, Blumenau, Joinville. Expansão estratégica 2026. Alto poder aquisitivo e abertura cultural ao produto europeu.'}
-};
-function showRegion(id){
-  const d=regionData[id];
-  const tt=document.getElementById('map-tooltip');
-  document.getElementById('tt-title').textContent=d.title;
-  document.getElementById('tt-text').textContent=d.text;
-  tt.style.display='block';
-  document.querySelectorAll('.region').forEach(r=>{r.style.borderColor='var(--border)'});
-}
-
-// Calculator
-function calcR(v){
-  const leads=Math.round(v/12);
-  const meet=Math.round(leads*.20);
-  const prop=Math.round(meet*.60);
-  const close=Math.round(prop*.15);
-  const receita=close*8000;
-  const roi=v>0?Math.round(receita/v):0;
-  return{leads,meet,prop,close,receita,roi};
-}
-function fBRL(v){return'R$ '+v.toLocaleString('pt-BR')}
-function uc(v){
-  v=parseInt(v);
-  document.getElementById('cv').textContent=fBRL(v);
-  const r=calcR(v);
-  document.getElementById('cg').innerHTML=`
-    <div class="calc-item"><div class="calc-item-lbl">Leads/mês</div><div class="calc-item-val" style="color:var(--navy)">${r.leads}</div><div class="calc-item-sub">R$ 12/lead qualificado</div></div>
-    <div class="calc-item hl"><div class="calc-item-lbl">Reuniões</div><div class="calc-item-val">${r.meet}</div><div class="calc-item-sub">20% de conversão</div></div>
-    <div class="calc-item"><div class="calc-item-lbl">Propostas</div><div class="calc-item-val">${r.prop}</div><div class="calc-item-sub">60% das reuniões</div></div>
-    <div class="calc-item"><div class="calc-item-lbl">Clientes fechados</div><div class="calc-item-val" style="color:var(--navy)">${r.close}</div><div class="calc-item-sub">15% de fechamento</div></div>
-  `;
-  document.getElementById('cn').innerHTML=`Com <strong>${fBRL(v)}/mês</strong> em mídia: <strong>${r.leads} leads</strong>, <strong>${r.meet} reuniões</strong>, <strong>${r.close} clientes</strong>. Receita estimada: <strong>${fBRL(r.receita)}</strong>. ROI sobre mídia: <strong>${r.roi}x</strong>. Ticket médio R$ 8.000 · estimativas conservadoras.`;
-  document.querySelectorAll('.calc-step').forEach(s=>{s.classList.toggle('on',[500,1000,1500,2000].indexOf(v)>=0&&[500,1000,1500,2000][document.querySelectorAll('.calc-step').length>0?Array.from(document.querySelectorAll('.calc-step')).indexOf(s):-1]===v)});
-}
-function sc(v){document.getElementById('cs').value=v;uc(v);}
-
-// Deadlines table
-const deadlines = [
-  {prazo:'Semana 1',entrega:'Kickoff e acessos',detalhe:'Acesso a todas as contas · briefing do site · configuração de pixels',marca:'Schübak',status:'now'},
-  {prazo:'Semana 1',entrega:'Campanhas configuradas',detalhe:'Meta Ads e Google Ads estruturados e prontos para aprovação',marca:'Schübak',status:'now'},
-  {prazo:'Semana 2',entrega:'Anúncios no ar',detalhe:'Primeiros leads chegando · R$ 1.000/mês em mídia ativado',marca:'Schübak',status:'now'},
-  {prazo:'Semana 2',entrega:'Calendário editorial',detalhe:'5 posts/semana planejados · 2 Reels mínimos · temas do mês definidos',marca:'Schübak',status:'now'},
-  {prazo:'15 dias',entrega:'CRM escolhido',detalhe:'Avaliação de plataformas (RD Station, HubSpot, Kommo) · número comercial definido',marca:'Schübak',status:'soon'},
-  {prazo:'15 dias',entrega:'Naming aprovado',detalhe:'Naming aprovado: Sonare Esquadrias · registro de domínio e marca',marca:'Nova Marca',status:'soon'},
-  {prazo:'20 dias',entrega:'CRM implantado',detalhe:'Plataforma configurada · fluxo de atendimento · time treinado',marca:'Schübak',status:'soon'},
-  {prazo:'20 dias',entrega:'Identidade visual criada',detalhe:'Logo · paleta · tipografia · manual de marca da nova marca',marca:'Nova Marca',status:'soon'},
-  {prazo:'30 dias',entrega:'Novo site Schübak',detalhe:'Portfólio · página arquitetos · captação de leads · SEO on-page',marca:'Schübak',status:''},
-  {prazo:'45 dias',entrega:'Material impresso',detalhe:'Folder · material comercial · kit de parceria para arquitetos e corretores',marca:'Schübak',status:''},
-  {prazo:'45 dias',entrega:'Site nova marca',detalhe:'Landing pages por segmento · formulário de orçamento · WhatsApp integrado',marca:'Nova Marca',status:''},
-  {prazo:'60 dias',entrega:'Rede de parceiros',detalhe:'Reuniões com corretores Litoral Norte · arquitetos Serra · construtoras Vale Sinos',marca:'Schübak',status:''},
-  {prazo:'60 dias',entrega:'Google Ads nova marca',detalhe:'Campanhas de pesquisa com palavras-chave de intenção de compra',marca:'Nova Marca',status:''},
+// DATA
+const tasks=[
+  {id:1,title:'Conectar Instagram Schübak',detail:'Acessar o perfil e conectar ao Meta Business Suite. Verificar permissões de anúncio e pixel. Confirmar a página do Facebook vinculada.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Contas & Acessos'},
+  {id:2,title:'Facebook — Chadi ou criar conta nova',detail:'Avaliar se a conta do Chadi tem restrições. Se sim, criar nova conta Business no Facebook e vincular ao Gerenciador de Negócios da Casa Publicidade.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Contas & Acessos'},
+  {id:3,title:'Criar perfil Instagram Sonare Esquadrias',detail:'Criar @sonareesquadrias (ou variação disponível). Conectar ao Meta Business Suite. Configurar bio provisória, foto de perfil e link do WhatsApp.',status:'todo',marca:'sonare',priority:'high',urgent:true,cat:'Contas & Acessos'},
+  {id:4,title:'Acessar e organizar imagens existentes',detail:'Solicitar todo material de imagem e vídeo disponível — obras, produtos, instalações, fábrica. Organizar em pasta compartilhada para uso nos criativos dos anúncios.',status:'todo',marca:'schubak',priority:'high',urgent:true,cat:'Conteúdo & Captação'},
+  {id:5,title:'Agendar captação de imagens — obras',detail:'Levantar obras e cases disponíveis para filmagem. Identificar 2–3 obras com resultado visual forte. Definir data de captação com o time Schübak.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Conteúdo & Captação'},
+  {id:6,title:'Assinar SMBot',detail:'Contratar plano SMBot para automação de respostas no Instagram e WhatsApp. Configurar fluxos automáticos para leads que interagirem com os anúncios.',status:'todo',marca:'ambas',priority:'mid',urgent:false,cat:'Ferramentas & CRM'},
+  {id:7,title:'Definir e integrar CRM — HubSpot ou Meta',detail:'Avaliar HubSpot vs Meta Business Suite. HubSpot para pipeline completo; Meta para gestão direta dos leads. Configurar integração com WhatsApp e formulários de anúncio.',status:'todo',marca:'ambas',priority:'high',urgent:true,cat:'Ferramentas & CRM'},
+  {id:8,title:'Campanha lookalike — mailing construtoras RS',detail:'Importar mailing de construtoras RS como audiência personalizada no Meta Ads. Criar lookalike a partir dessa base. Campanha de topo de funil com criativos institucionais.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
+  {id:9,title:'Campanha público frio — segmentação cargo e interesse',detail:'Meta Ads para público frio: cargo de arquiteto, engenheiro, proprietário de construtora. Interesses: construção civil, materiais, arquitetura. Geo: Vale dos Sinos, Serra, Litoral Norte RS e SC.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
+  {id:10,title:'Disparo de e-mail — base Schübak',detail:'Criar sequência de e-mail marketing para a base de contatos existente. Conteúdo: novo posicionamento, portfólio de obras e CTA para orçamento.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Campanhas & Anúncios'},
+  {id:11,title:'Agendar visitas construtoras — Litoral Norte e Serra',detail:'Montar lista de construtoras-alvo no Litoral Norte RS e Serra Gaúcha. Preparar material de apresentação e agendar visitas comerciais.',status:'todo',marca:'schubak',priority:'mid',urgent:false,cat:'Visitas & Parcerias'},
+  {id:12,title:'Agendar visitas corretores — Litoral Norte',detail:'Mapear imobiliárias e corretores do Litoral Norte RS. Criar roteiro de visitas com kit de parceria: folder, tabela de indicação e contato comercial.',status:'todo',marca:'schubak',priority:'low',urgent:false,cat:'Visitas & Parcerias'},
 ];
-const dt = document.getElementById('deadlines-table');
-if(dt){
-  dt.innerHTML = deadlines.map((d,i)=>`
-    <div style="display:grid;grid-template-columns:120px 1fr 1fr 160px;gap:16px;padding:13px 24px;border-bottom:1px solid var(--border);background:${i%2===0?'#fff':'#fafafa'};transition:background .15s" onmouseover="this.style.background='#f0f4f9'" onmouseout="this.style.background='${i%2===0?'#fff':'#fafafa'}'">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:10px;font-weight:700;color:var(--navy)">${d.prazo}</div>
-      <div style="font-size:12px;font-weight:600;color:var(--dark)">${d.entrega}</div>
-      <div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.5">${d.detalhe}</div>
-      <div style="display:flex;align-items:center;gap:6px">
-        <span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1px;text-transform:uppercase;padding:2px 8px;background:${d.marca==='Nova Marca'?'rgba(26,58,107,0.06)':'rgba(26,58,107,0.12)'};color:var(--navy);border:1px solid rgba(26,58,107,0.15)">${d.marca}</span>
-        ${d.status==='now'?'<span style="width:6px;height:6px;border-radius:50%;background:#2d7d46;display:inline-block"></span>':''}
-        ${d.status==='soon'?'<span style="width:6px;height:6px;border-radius:50%;background:var(--navy);display:inline-block"></span>':''}
+
+const prazos=[
+  {prazo:'Semana 1',entrega:'Conectar contas Instagram e Facebook',detalhe:'Schübak + Sonare Esquadrias no Meta Business Suite',marca:'Ambas',urgent:true},
+  {prazo:'Semana 1',entrega:'Acessar imagens existentes',detalhe:'Organizar material em pasta compartilhada para criativos',marca:'Schübak',urgent:true},
+  {prazo:'Semana 2',entrega:'Campanhas de anúncio ativas',detalhe:'Meta Ads + Google Ads · R$ 1.000/mês em mídia ativado',marca:'Schübak',urgent:true},
+  {prazo:'Semana 2',entrega:'Assinar SMBot',detalhe:'Automação de mensagens Instagram e WhatsApp configurada',marca:'Ambas',urgent:false},
+  {prazo:'15 dias',entrega:'CRM definido e integrado',detalhe:'HubSpot ou Meta Business Suite · fluxo de atendimento ativo',marca:'Ambas',urgent:true},
+  {prazo:'15 dias',entrega:'Naming Sonare aprovado',detalhe:'Registro de domínio e início da identidade visual',marca:'Sonare',urgent:false},
+  {prazo:'20 dias',entrega:'Identidade visual Sonare criada',detalhe:'Logo · paleta · tipografia · manual de marca',marca:'Sonare',urgent:false},
+  {prazo:'30 dias',entrega:'Novo site Schübak',detalhe:'Portfólio · página arquitetos · captação de leads · SEO',marca:'Schübak',urgent:false},
+  {prazo:'30 dias',entrega:'Campanha lookalike no ar',detalhe:'Mailing construtoras RS importado + audiência lookalike criada',marca:'Schübak',urgent:false},
+  {prazo:'45 dias',entrega:'Material impresso pronto',detalhe:'Folder · material comercial · kit de parceria',marca:'Schübak',urgent:false},
+  {prazo:'45 dias',entrega:'Site Sonare Esquadrias',detalhe:'Landing pages por segmento · formulário e WhatsApp integrados',marca:'Sonare',urgent:false},
+  {prazo:'45 dias',entrega:'Disparo de e-mail realizado',detalhe:'Sequência para base de contatos existente da Schübak',marca:'Schübak',urgent:false},
+  {prazo:'60 dias',entrega:'Visitas construtoras e corretores',detalhe:'Litoral Norte RS + Serra Gaúcha · materiais em mãos',marca:'Schübak',urgent:false},
+  {prazo:'60 dias',entrega:'Google Ads Sonare no ar',detalhe:'Palavras-chave de intenção alta: janela acústica, isolamento PVC',marca:'Sonare',urgent:false},
+];
+
+// States
+let states={};
+tasks.forEach(t=>states[t.id]=t.status);
+let checkStates={};
+tasks.forEach(t=>checkStates[t.id]=false);
+let filter='all';
+
+function setFilter(f,btn){
+  filter=f;
+  document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));
+  btn.classList.add('on');
+  renderKanban();
+}
+
+function toggleTask(id){
+  const el=document.getElementById('task-'+id);
+  if(el)el.classList.toggle('expanded');
+}
+
+function moveTask(id,status){
+  states[id]=status;
+  renderKanban();
+  updateHero();
+}
+
+function getPriorityClass(p){return p==='high'?'p-high':p==='mid'?'p-mid':'p-low'}
+
+function getTagHTML(marca){
+  if(marca==='schubak')return'<span class="ttag ttag-sch">Schübak</span>';
+  if(marca==='sonare')return'<span class="ttag ttag-son">Sonare</span>';
+  return'<span class="ttag ttag-both">Ambas</span>';
+}
+
+function renderKanban(){
+  const cols={todo:[],doing:[],done:[]};
+  tasks.forEach(t=>{
+    if(filter==='urgent'&&!t.urgent)return;
+    if(filter!=='all'&&filter!=='urgent'&&filter!==t.marca)return;
+    cols[states[t.id]].push(t);
+  });
+
+  ['todo','doing','done'].forEach(s=>{
+    const el=document.getElementById('col-'+s);
+    const cnt=document.getElementById('cnt-'+s);
+    cnt.textContent=cols[s].length;
+    el.innerHTML=cols[s].map(t=>{
+      const nextBtn=states[t.id]==='todo'
+        ?`<button class="move-btn" onclick="event.stopPropagation();moveTask(${t.id},'doing')">Iniciar →</button>`
+        :states[t.id]==='doing'
+        ?`<button class="move-btn" onclick="event.stopPropagation();moveTask(${t.id},'done')">Concluir →</button><button class="move-btn move-back" onclick="event.stopPropagation();moveTask(${t.id},'todo')">← Voltar</button>`
+        :`<button class="move-btn move-back" onclick="event.stopPropagation();moveTask(${t.id},'todo')">← Reabrir</button>`;
+      return`<div class="task ${getPriorityClass(t.priority)}" id="task-${t.id}" onclick="toggleTask(${t.id})">
+        <div class="task-top">
+          <div class="task-title">${t.title}</div>
+          <span class="task-arrow">▾</span>
+        </div>
+        <div class="task-footer">${getTagHTML(t.marca)}${t.urgent?'<span class="ttag ttag-urgent">Urgente</span>':''}</div>
+        <div class="task-body">
+          <div class="task-detail">${t.detail}</div>
+          <div style="display:flex;gap:6px;flex-wrap:wrap">${nextBtn}</div>
+        </div>
+      </div>`;
+    }).join('');
+  });
+
+  const vis=tasks.filter(t=>{
+    if(filter==='urgent')return t.urgent;
+    if(filter!=='all')return t.marca===filter;
+    return true;
+  });
+  document.getElementById('sv-total').textContent=vis.length;
+  document.getElementById('sv-todo').textContent=vis.filter(t=>states[t.id]==='todo').length;
+  document.getElementById('sv-doing').textContent=vis.filter(t=>states[t.id]==='doing').length;
+  document.getElementById('sv-done').textContent=vis.filter(t=>states[t.id]==='done').length;
+}
+
+function toggleCheck(id){
+  checkStates[id]=!checkStates[id];
+  const item=document.getElementById('ci-'+id);
+  const box=document.getElementById('cb-'+id);
+  if(checkStates[id]){item.classList.add('done');box.classList.add('checked')}
+  else{item.classList.remove('done');box.classList.remove('checked')}
+  updateGroupProgress();
+  updateHero();
+}
+
+function updateGroupProgress(){
+  const groups={};
+  tasks.forEach(t=>{
+    if(!groups[t.cat])groups[t.cat]=[];
+    groups[t.cat].push(t.id);
+  });
+  Object.keys(groups).forEach(cat=>{
+    const ids=groups[cat];
+    const done=ids.filter(id=>checkStates[id]).length;
+    const pct=Math.round((done/ids.length)*100);
+    const fillEl=document.getElementById('gfill-'+cat.replace(/\W/g,''));
+    if(fillEl)fillEl.style.width=pct+'%';
+    const progTxt=document.getElementById('gprog-'+cat.replace(/\W/g,''));
+    if(progTxt)progTxt.textContent=pct+'%';
+  });
+}
+
+function renderChecklist(){
+  const groups={};
+  const order=['Contas & Acessos','Ferramentas & CRM','Conteúdo & Captação','Campanhas & Anúncios','Visitas & Parcerias'];
+  tasks.forEach(t=>{if(!groups[t.cat])groups[t.cat]=[];groups[t.cat].push(t)});
+  const body=document.getElementById('checklist-body');
+  body.innerHTML=order.map(cat=>{
+    const items=groups[cat]||[];
+    const key=cat.replace(/\W/g,'');
+    return`<div class="check-group">
+      <div class="check-group-title">
+        ${cat}
+        <div class="check-group-prog"><div class="check-group-fill" id="gfill-${key}" style="width:0%"></div></div>
+        <span style="font-size:10px;color:var(--gray);font-weight:300" id="gprog-${key}">0%</span>
       </div>
+      ${items.map(t=>`<div class="check-item" id="ci-${t.id}" onclick="toggleCheck(${t.id})">
+        <div class="check-box" id="cb-${t.id}"></div>
+        <div class="check-text">
+          <div class="check-title">${t.title}</div>
+          <div class="check-sub">${t.detail}</div>
+        </div>
+        <div style="flex-shrink:0;margin-top:2px">${getTagHTML(t.marca)}</div>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+}
+
+function renderPrazos(){
+  const marcaTag=(m,u)=>{
+    const bg=m==='Sonare'?'var(--green-light)':m==='Ambas'?'var(--amber-light)':'var(--navy-light)';
+    const co=m==='Sonare'?'var(--green)':m==='Ambas'?'var(--amber)':'var(--navy)';
+    const bo=m==='Sonare'?'rgba(45,125,70,.2)':m==='Ambas'?'rgba(192,124,16,.2)':'rgba(26,58,107,.2)';
+    return`<span style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid ${bo};background:${bg};color:${co}">${m}</span>
+    ${u?'<span style="font-family:\'Barlow Condensed\',sans-serif;font-size:9px;letter-spacing:1.5px;text-transform:uppercase;padding:2px 8px;border:1px solid rgba(185,0,0,.2);background:var(--red-light);color:var(--red)">Urgente</span>':''}`;
+  };
+  document.getElementById('prazos-body').innerHTML=prazos.map((p,i)=>`
+    <div class="ptable-row" style="background:${i%2===0?'#fff':'#fafafa'}">
+      <div class="ptable-prazo">${p.prazo}</div>
+      <div class="ptable-cell" style="font-weight:600">${p.entrega}</div>
+      <div class="ptable-cell">${p.detalhe}</div>
+      <div class="ptable-cell" style="display:flex;align-items:center;gap:6px;flex-wrap:wrap">${marcaTag(p.marca,p.urgent)}</div>
     </div>
   `).join('');
 }
-document.querySelectorAll('.calc-step').forEach((s,i)=>{
-  s.addEventListener('click',()=>{
-    document.querySelectorAll('.calc-step').forEach(x=>x.classList.remove('on'));
-    s.classList.add('on');
-  });
-});
+
+function updateHero(){
+  const done=tasks.filter(t=>states[t.id]==='done'||checkStates[t.id]).length;
+  document.getElementById('h-done').textContent=done;
+}
+
+renderKanban();
+renderChecklist();
+renderPrazos();
 </script>
 </body>
 </html>

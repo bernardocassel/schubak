@@ -573,12 +573,14 @@ input,textarea,select{font-family:'Inter',sans-serif}
       <button class="ptab" onclick="switchPTab('comentarios',this)">Comentários</button>
       <button class="ptab" onclick="switchPTab('links',this)">Links / Arquivos</button>
       <button class="ptab" onclick="switchPTab('editar',this)">Editar</button>
+      <button class="ptab" onclick="switchPTab('excluir',this)" style="color:var(--red)">Excluir</button>
     </div>
     <div class="ptab-content on" id="ptab-detalhes"></div>
     <div class="ptab-content" id="ptab-historico"></div>
     <div class="ptab-content" id="ptab-comentarios"></div>
     <div class="ptab-content" id="ptab-links"></div>
     <div class="ptab-content" id="ptab-editar"></div>
+    <div class="ptab-content" id="ptab-excluir"></div>
   </div>
 </div>
 
@@ -915,17 +917,22 @@ function renderKanban(){
 
 function taskCard(t){
   const pc=t.priority==='high'?'ph':t.priority==='mid'?'pm':'pl';
-  return`<div class="tc ${pc}${t.status==='done'?' pdone':''}" onclick="openTaskPopup(${t.id})">
-    <div class="tc-title">${t.title}</div>
-    <div class="tc-tags">
-      <span class="ttag ttag-${t.marca}">${t.marca==='schubak'?'Schübak':t.marca==='sonare'?'Sonare':'Ambas'}</span>
-      <span class="ttag ttag-cat">${t.cat}</span>
-      ${t.urgent&&t.status!=='done'?'<span class="ttag ttag-urg">Urgente</span>':''}
-      ${t.status==='done'?'<span class="ttag ttag-done">✓</span>':''}
-      ${t.links&&t.links.length?`<span class="ttag" style="background:#f0f4ff;color:var(--navy)">🔗 ${t.links.length}</span>`:''}
-      ${t.comments&&t.comments.length?`<span class="ttag" style="background:var(--warm);color:var(--gray)">💬 ${t.comments.length}</span>`:''}
-    </div>
-  </div>`;
+  const today=new Date().toISOString().split('T')[0];
+  const overdue=t.dueDate&&t.dueDate<today&&t.status!=='done';
+  const marcaLabel=t.marca==='schubak'?'Schübak':t.marca==='sonare'?'Sonare':'Ambas';
+  const marcaTag='<span class="ttag ttag-'+t.marca+'">'+marcaLabel+'</span>';
+  const urgTag=t.urgent&&t.status!=='done'?'<span class="ttag ttag-urg">Urgente</span>':'';
+  const doneTag=t.status==='done'?'<span class="ttag ttag-done">✓</span>':'';
+  const linkTag=t.links&&t.links.length?'<span class="ttag" style="background:#f0f4ff;color:var(--navy)">🔗 '+t.links.length+'</span>':'';
+  const cmtTag=t.comments&&t.comments.length?'<span class="ttag" style="background:var(--warm);color:var(--gray)">💬 '+t.comments.length+'</span>':'';
+  const dueHtml=t.dueDate
+    ?'<div style="margin-top:7px;font-size:10px;display:flex;align-items:center;gap:4px;color:'+(overdue?'var(--red)':'var(--gray)')+';font-weight:'+(overdue?'600':'400')+'">📅 '+(overdue?'⚠ ':'')+t.dueDate+'</div>'
+    :'<div style="margin-top:7px;font-size:10px;color:#ccc">Sem prazo</div>';
+  return '<div class="tc '+pc+(t.status==='done'?' pdone':'')+'" onclick="openTaskPopup('+t.id+')">'
+    +'<div class="tc-title">'+t.title+'</div>'
+    +'<div class="tc-tags">'+marcaTag+'<span class="ttag ttag-cat">'+t.cat+'</span>'+urgTag+doneTag+linkTag+cmtTag+'</div>'
+    +dueHtml
+    +'</div>';
 }
 
 function setF(f,btn){filterActive=f;document.querySelectorAll('.fb').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderKanban()}
@@ -947,6 +954,7 @@ function openTaskPopup(id){
   renderPopupComentarios(t);
   renderPopupLinks(t);
   renderPopupEditar(t);
+  renderPopupExcluir(t);
 
   document.getElementById('task-overlay').classList.add('on');
 }
@@ -1291,6 +1299,25 @@ function switchCTab(id,btn){document.getElementById('cria-video').style.display=
 // PÚBLICO
 function renderPublico(){document.getElementById('publico-content').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px"><div><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Cidades-alvo</div>${[{title:'Região Metropolitana de POA',cities:['Porto Alegre','Novo Hamburgo','Canoas','São Leopoldo','Guaíba','Eldorado do Sul']},{title:'Litoral Norte RS',cities:['Tramandaí','Capão da Canoa','Xangri-lá','Torres']},{title:'Serra Gaúcha',cities:['Gramado','Canela']}].map(g=>`<div style="background:#fff;border:1px solid var(--border);padding:14px;margin-bottom:6px"><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--gray);margin-bottom:8px">${g.title}</div><div style="display:flex;flex-wrap:wrap;gap:4px">${g.cities.map((c,i)=>`<span style="font-size:10px;padding:3px 8px;${i===0?'background:var(--navy);color:#fff':'background:var(--navy-l);color:var(--navy)'}">${c}</span>`).join('')}</div></div>`).join('')}</div><div><div style="font-family:'Barlow Condensed',sans-serif;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--navy);margin-bottom:10px">Perfis</div>${[{p:1,t:'Construtoras e Arquitetos',s:'Cargos: Proprietário, Engenheiro, Arquiteto · Interesses: Construção civil, Materiais · Comportamentos: Proprietários de empresas'},{p:2,t:'Pais com filhos de 6–18 anos saindo do apto',s:'Casados, filhos 6–18, renda acima da média · Interesses: Condomínios, Alto padrão, Reforma · Comportamentos: Compradores de imóveis'},{p:2,t:'Viajantes internacionais frequentes',s:'Comportamentos: Viajante frequente ao exterior · Interesses: Arquitetura europeia, Imóveis de luxo · Renda: 10% superiores'}].map(x=>`<div style="background:#fff;border:1px solid var(--border);border-left:3px solid ${x.p===1?'var(--red)':'var(--amber)'};padding:14px;margin-bottom:6px"><div style="display:flex;gap:8px;align-items:center;margin-bottom:6px"><span class="badge badge-${x.p===1?'red':'amber'}">Prioridade ${x.p}</span><div style="font-size:12px;font-weight:500;color:var(--dark)">${x.t}</div></div><div style="font-size:11px;font-weight:300;color:var(--gray);line-height:1.7">${x.s}</div></div>`).join('')}</div></div>`}
 // BANCO
+function renderPopupExcluir(t){
+  document.getElementById('ptab-excluir').innerHTML=
+    '<div style="padding:8px 0 4px">'
+    +'<div style="background:#fdf0f0;border-left:3px solid var(--red,#b90000);padding:16px;margin-bottom:16px">'
+    +'<div style="font-size:13px;font-weight:600;color:var(--red,#b90000);margin-bottom:5px">⚠ Atenção — ação irreversível</div>'
+    +'<div style="font-size:12px;color:var(--red,#b90000);font-weight:300;line-height:1.6">A tarefa <strong style="font-weight:700">"'+t.title+'"</strong> e todo o seu histórico, subtarefas, comentários e links serão removidos permanentemente.</div>'
+    +'</div>'
+    +'<button onclick="deleteTask('+t.id+')" style="width:100%;background:#b90000;color:#fff;border:none;padding:12px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.3px" onmouseover="this.style.background=\'#8a0000\'" onmouseout="this.style.background=\'#b90000\'">Excluir tarefa permanentemente</button>'
+    +'</div>';
+}
+function deleteTask(id){
+  if(!confirm('Tem certeza? Esta ação não pode ser desfeita.'))return;
+  TASKS=TASKS.filter(x=>x.id!==id);
+  PROJECTS.forEach(p=>{if(p.taskIds)p.taskIds=p.taskIds.filter(x=>x!==id)});
+  closeTaskPopupBtn();
+  renderKanban();
+  renderDashboard();
+}
+
 function renderBanco(){document.getElementById('banco-content').innerHTML=dbSec('contas','🔐 Contas & Acessos',bContasT())+dbSec('links','🔗 Links importantes',bLinksT())+dbSec('info','ℹ️ Informações',bInfoT());document.querySelectorAll('.db-section').forEach(s=>s.classList.add('open'))}
 function dbSec(id,title,content){return`<div class="db-section" id="dbs-${id}" style="margin-bottom:12px"><div class="db-section-head" onclick="tgDb('${id}')"><div class="db-section-title">${title}</div><span class="db-section-arr">▾</span></div><div class="db-section-body">${content}</div></div>`}
 function tgDb(id){document.getElementById('dbs-'+id).classList.toggle('open')}
